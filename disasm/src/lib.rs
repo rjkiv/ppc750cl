@@ -215,7 +215,7 @@ impl Display for Bit {
 // Unsigned opaque argument.
 field_arg!(OpaqueU, u32);
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Eq, PartialEq)]
 pub enum Argument {
     GPR(GPR),
     FPR(FPR),
@@ -443,7 +443,7 @@ impl Display for SimplifiedIns {
 }
 
 impl SimplifiedIns {
-    pub(crate) fn basic_form(ins: Ins) -> Self {
+    pub fn basic_form(ins: Ins) -> Self {
         Self {
             mnemonic: ins.op.mnemonic(),
             suffix: ins.suffix(),
