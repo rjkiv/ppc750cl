@@ -34,7 +34,7 @@ fn test_ins_addi() {
     assert_asm!(0x38010010, "addi r0, r1, 0x10");
     assert_asm!(0x38010018, "addi r0, r1, 0x18");
     assert_asm!(0x38010140, "addi r0, r1, 0x140");
-    assert_asm!(0x38049000, "addi r0, r4, -0x7000");
+    assert_asm!(0x38049000, "subi r0, r4, 0x7000");
     assert_asm!(0x38a00000, "li r5, 0x0");
 }
 
@@ -45,12 +45,12 @@ fn test_ins_adde() {
 
 #[test]
 fn test_ins_addic() {
-    assert_asm!(0x3060ffff, "addic r3, r0, -0x1");
+    assert_asm!(0x3060ffff, "subic r3, r0, 0x1");
     assert_asm!(0x30840800, "addic r4, r4, 0x800");
     assert_asm!(0x30a50008, "addic r5, r5, 0x8");
     assert_asm!(0x37DF001C, "addic. r30, r31, 0x1c");
     assert_asm!(0x37E06278, "addic. r31, r0, 0x6278");
-    assert_asm!(0x37E3FFFF, "addic. r31, r3, -0x1");
+    assert_asm!(0x37E3FFFF, "subic. r31, r3, 0x1");
 }
 
 #[test]
@@ -126,8 +126,8 @@ fn test_ins_bc() {
     assert_asm!(0x4200F560, "bdnz -0xaa0");
     assert_asm!(0x40010014, "bdnzf gt, 0x14");
     assert_asm!(0x40410035, "bdzfl gt, 0x34");
-    assert_asm!(0x41430023, "bdztla so, 0x20");
-    assert_asm!(0x4108FFE3, "bdnztla 4*cr2+lt, -0x20");
+    assert_asm!(0x41430023, "bdztla un, 0x20");
+    assert_asm!(0x4108FFE3, "bdnztla cr2lt, -0x20");
     assert_asm!(0x40A20008, "bne+ 0x8");
 }
 
@@ -155,7 +155,7 @@ fn test_ins_bclr() {
     assert_asm!(0x4E800020, "blr");
     assert_asm!(0x4E800021, "blrl");
     assert_asm!(0x4D000020, "bdnztlr lt");
-    assert_asm!(0x4C1F0021, "bdnzflrl 4*cr7+so");
+    assert_asm!(0x4C1F0021, "bdnzflrl cr7un");
 }
 
 #[test]
@@ -187,44 +187,44 @@ fn test_ins_cntlzw() {
 
 #[test]
 fn test_ins_crand() {
-    assert_asm!(0x4C853202, "crand 4*cr1+lt, 4*cr1+gt, 4*cr1+eq");
+    assert_asm!(0x4C853202, "crand cr1lt, cr1gt, cr1eq");
 }
 
 #[test]
 fn test_ins_crandc() {
-    assert_asm!(0x4C642902, "crandc so, 4*cr1+lt, 4*cr1+gt");
+    assert_asm!(0x4C642902, "crandc un, cr1lt, cr1gt");
 }
 
 #[test]
 fn test_ins_creqv() {
-    assert_asm!(0x4CE00A42, "creqv 4*cr1+so, lt, gt");
+    assert_asm!(0x4CE00A42, "creqv cr1un, lt, gt");
 }
 
 #[test]
 fn test_ins_crnand() {
-    assert_asm!(0x4C2219C2, "crnand gt, eq, so");
+    assert_asm!(0x4C2219C2, "crnand gt, eq, un");
 }
 
 #[test]
 fn test_ins_cror() {
     assert_asm!(0x4C411382, "cror eq, gt, eq");
-    assert_asm!(0x4CA63B82, "cror 4*cr1+gt, 4*cr1+eq, 4*cr1+so");
+    assert_asm!(0x4CA63B82, "cror cr1gt, cr1eq, cr1un");
 }
 
 #[test]
 fn test_ins_crorc() {
-    assert_asm!(0x4C432342, "crorc eq, so, 4*cr1+lt");
+    assert_asm!(0x4C432342, "crorc eq, un, cr1lt");
 }
 
 #[test]
 fn test_ins_crnor() {
     assert_asm!(0x4C011042, "crnor lt, gt, eq");
-    assert_asm!(0x4CA63042, "crnot 4*cr1+gt, 4*cr1+eq");
+    assert_asm!(0x4CA63042, "crnot cr1gt, cr1eq");
 }
 
 #[test]
 fn test_ins_crxor() {
-    assert_asm!(0x4CC70182, "crxor 4*cr1+eq, 4*cr1+so, lt");
+    assert_asm!(0x4CC70182, "crxor cr1eq, cr1un, lt");
 }
 
 #[test]
@@ -585,12 +585,12 @@ fn test_ins_mtcrf() {
 
 #[test]
 fn test_ins_mtfsb0() {
-    assert_asm!(0xFFA0008C, "mtfsb0 4*cr7+gt")
+    assert_asm!(0xFFA0008C, "mtfsb0 cr7gt")
 }
 
 #[test]
 fn test_ins_mtfsb1() {
-    assert_asm!(0xFFA0004C, "mtfsb1 4*cr7+gt");
+    assert_asm!(0xFFA0004C, "mtfsb1 cr7gt");
 }
 
 #[test]

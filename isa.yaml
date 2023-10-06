@@ -1973,10 +1973,26 @@ mnemonics:
     opcode: addis
     args: [ rD, uimm ]
     condition: rA == 0
+  - name: subis
+    opcode: addis
+    args: [ rD, rA, simm=-simm ]
+    condition: simm < 0 && simm != -0x8000
   - name: li
     opcode: addi
     args: [ rD, simm ]
     condition: rA == 0
+  - name: subi
+    opcode: addi
+    args: [ rD, rA, simm=-simm ]
+    condition: simm < 0 && simm != -0x8000
+  - name: subic
+    opcode: addic
+    args: [ rD, rA, simm=-simm ]
+    condition: simm < 0 && simm != -0x8000
+  - name: subic.
+    opcode: addic.
+    args: [ rD, rA, simm=-simm ]
+    condition: simm < 0 && simm != -0x8000
   - name: mr
     opcode: or
     args: [ rA, rS ]

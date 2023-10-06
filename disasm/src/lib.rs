@@ -189,9 +189,9 @@ impl Display for CRBit {
         let cr = self.0 >> 2;
         let cc = self.0 & 3;
         if cr != 0 {
-            write!(f, "4*{}+", CRField(cr))?;
+            write!(f, "{}", CRField(cr))?;
         }
-        const CR_NAMES: [&str; 4] = ["lt", "gt", "eq", "so"];
+        const CR_NAMES: [&str; 4] = ["lt", "gt", "eq", "un"];
         f.write_str(CR_NAMES[cc as usize])
     }
 }

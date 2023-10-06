@@ -4860,6 +4860,61 @@ impl Ins {
                         ins: self,
                     };
                 }
+                if ((((self.code & 0xffff) ^ 0x8000).wrapping_sub(0x8000)) as i32) < 0
+                    && ((((self.code & 0xffff) ^ 0x8000).wrapping_sub(0x8000)) as i32) != -0x8000
+                {
+                    return SimplifiedIns {
+                        mnemonic: "subi",
+                        suffix: String::new(),
+                        args: vec![
+                            Argument::GPR(GPR(((self.code >> 21u8) & 0x1f) as _)),
+                            Argument::GPR(GPR(((self.code >> 16u8) & 0x1f) as _)),
+                            Argument::Simm(Simm(
+                                (-((((self.code & 0xffff) ^ 0x8000).wrapping_sub(0x8000)) as i32))
+                                    as _,
+                            )),
+                        ],
+                        ins: self,
+                    };
+                }
+            }
+            Opcode::Addic => {
+                if ((((self.code & 0xffff) ^ 0x8000).wrapping_sub(0x8000)) as i32) < 0
+                    && ((((self.code & 0xffff) ^ 0x8000).wrapping_sub(0x8000)) as i32) != -0x8000
+                {
+                    return SimplifiedIns {
+                        mnemonic: "subic",
+                        suffix: String::new(),
+                        args: vec![
+                            Argument::GPR(GPR(((self.code >> 21u8) & 0x1f) as _)),
+                            Argument::GPR(GPR(((self.code >> 16u8) & 0x1f) as _)),
+                            Argument::Simm(Simm(
+                                (-((((self.code & 0xffff) ^ 0x8000).wrapping_sub(0x8000)) as i32))
+                                    as _,
+                            )),
+                        ],
+                        ins: self,
+                    };
+                }
+            }
+            Opcode::Addic_ => {
+                if ((((self.code & 0xffff) ^ 0x8000).wrapping_sub(0x8000)) as i32) < 0
+                    && ((((self.code & 0xffff) ^ 0x8000).wrapping_sub(0x8000)) as i32) != -0x8000
+                {
+                    return SimplifiedIns {
+                        mnemonic: "subic.",
+                        suffix: String::new(),
+                        args: vec![
+                            Argument::GPR(GPR(((self.code >> 21u8) & 0x1f) as _)),
+                            Argument::GPR(GPR(((self.code >> 16u8) & 0x1f) as _)),
+                            Argument::Simm(Simm(
+                                (-((((self.code & 0xffff) ^ 0x8000).wrapping_sub(0x8000)) as i32))
+                                    as _,
+                            )),
+                        ],
+                        ins: self,
+                    };
+                }
             }
             Opcode::Addis => {
                 if ((self.code >> 16u8) & 0x1f) == 0 {
@@ -4869,6 +4924,23 @@ impl Ins {
                         args: vec![
                             Argument::GPR(GPR(((self.code >> 21u8) & 0x1f) as _)),
                             Argument::Uimm(Uimm((self.code & 0xffff) as _)),
+                        ],
+                        ins: self,
+                    };
+                }
+                if ((((self.code & 0xffff) ^ 0x8000).wrapping_sub(0x8000)) as i32) < 0
+                    && ((((self.code & 0xffff) ^ 0x8000).wrapping_sub(0x8000)) as i32) != -0x8000
+                {
+                    return SimplifiedIns {
+                        mnemonic: "subis",
+                        suffix: String::new(),
+                        args: vec![
+                            Argument::GPR(GPR(((self.code >> 21u8) & 0x1f) as _)),
+                            Argument::GPR(GPR(((self.code >> 16u8) & 0x1f) as _)),
+                            Argument::Simm(Simm(
+                                (-((((self.code & 0xffff) ^ 0x8000).wrapping_sub(0x8000)) as i32))
+                                    as _,
+                            )),
                         ],
                         ins: self,
                     };
