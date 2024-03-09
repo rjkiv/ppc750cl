@@ -105,10 +105,6 @@ impl Ins {
         self.0.field_rB() as i64
     }
     #[getter]
-    fn rC(&self) -> i64 {
-        self.0.field_rC() as i64
-    }
-    #[getter]
     fn sr(&self) -> i64 {
         self.0.field_sr() as i64
     }

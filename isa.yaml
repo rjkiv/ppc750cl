@@ -22,9 +22,6 @@ fields:
   - name: BI
     arg: CRBit
     bits: 11..16
-  - name: BH
-    arg: OpaqueU
-    bits: 19..21
   - name: BD
     arg: BranchDest
     bits: 16..30
@@ -64,9 +61,6 @@ fields:
   - name: rB
     arg: GPR
     bits: 16..21
-  - name: rC
-    arg: GPR
-    bits: 21..26
   - name: sr
     arg: SR
     bits: 12..16
@@ -161,17 +155,19 @@ fields:
   - name: ctr
   - name: lr
 
-# TODO Add defs/uses for modifiers.
 modifiers:
   - name: OE
     suffix: o
     bit: 21
+    side_effects: [ xer ]
   - name: Rc
     suffix: .
     bit: 31
+    side_effects: [ cr0 ]
   - name: LK
     suffix: l
     bit: 31
+    side_effects: [ lr ]
   - name: AA
     suffix: a
     bit: 30
@@ -191,7 +187,7 @@ modifiers:
 opcodes:
   - name: add
     desc: Add
-    bitmask: 0xfc0007fe
+    bitmask: 0xfc0003fe
     pattern: 0x7c000214
     modifiers: [ OE, Rc ]
     args: [ rD, rA, rB ]
@@ -200,7 +196,7 @@ opcodes:
 
   - name: addc
     desc: Add Carrying
-    bitmask: 0xfc0007fe
+    bitmask: 0xfc0003fe
     pattern: 0x7c000014
     modifiers: [ OE, Rc ]
     args: [ rD, rA, rB ]
@@ -209,7 +205,7 @@ opcodes:
 
   - name: adde
     desc: Add Extended
-    bitmask: 0xfc0007fe
+    bitmask: 0xfc0003fe
     pattern: 0x7c000114
     modifiers: [ OE, Rc ]
     args: [ rD, rA, rB ]
@@ -229,6 +225,7 @@ opcodes:
     bitmask: 0xfc000000
     pattern: 0x30000000
     args: [ rD, rA, simm ]
+    side_effects: [ xer ]
     defs: [ rD ]
     uses: [ rA ]
 
@@ -237,7 +234,7 @@ opcodes:
     bitmask: 0xfc000000
     pattern: 0x34000000
     args: [ rD, rA, simm ]
-    side_effects: [ Rc ]
+    side_effects: [ xer, cr0 ]
     defs: [ rD ]
     uses: [ rA ]
 
@@ -319,18 +316,18 @@ opcodes:
 
   - name: bcctr
     desc: Branch Conditional to Count Register
-    bitmask: 0xfc007ffe
+    bitmask: 0xfc00fffe
     pattern: 0x4c000420
     modifiers: [ LK, BP_ND ]
-    args: [ BO, BI, BH ]
+    args: [ BO, BI ]
     uses: [ ctr ]
 
   - name: bclr
     desc: Branch Conditional to Link Register
-    bitmask: 0xfc007ffe
+    bitmask: 0xfc00fffe
     pattern: 0x4c000020
     modifiers: [ LK, BP_ND ]
-    args: [ BO, BI, BH ]
+    args: [ BO, BI ]
     uses: [ lr ]
 
   - name: cmp
@@ -527,7 +524,7 @@ opcodes:
 
   - name: eqv
     desc: Equivalent
-    bitmask: 0xfc0003fe
+    bitmask: 0xfc0007fe
     pattern: 0x7c000238
     modifiers: [ Rc ]
     args: [ rA, rS, rB ]
@@ -804,7 +801,7 @@ opcodes:
 
   - name: icbi
     desc: Instruction Cache Block Invalidate
-    bitmask: 0xffe007ff
+    bitmask: 0xffe007fe
     pattern: 0x7c0007ac
     modifiers: [ Rc ]
     args: [ rA, rB ]
@@ -1090,6 +1087,7 @@ opcodes:
     desc: Move from FPSCR
     bitmask: 0xfc1ffffe
     pattern: 0xfc00048e
+    modifiers: [ Rc ]
     args: [ frD ]
     defs: [ frD ]
 
@@ -1242,7 +1240,7 @@ opcodes:
 
   - name: neg
     desc: Negate
-    bitmask: 0xfc00fffe
+    bitmask: 0xfc00fbfe
     pattern: 0x7c0000d0
     modifiers: [ OE, Rc ]
     args: [ rD, rA ]
@@ -1358,6 +1356,7 @@ opcodes:
     desc: Paired Single Absolute Value
     bitmask: 0xfc1f07fe
     pattern: 0x10000210
+    modifiers: [ Rc ]
     args: [ frD, frB ]
     defs: [ frD ]
     uses: [ frB ]
@@ -1366,6 +1365,7 @@ opcodes:
     desc: Paired Single Add
     bitmask: 0xfc0007fe
     pattern: 0x1000002a
+    modifiers: [ Rc ]
     args: [ frD, frA, frB ]
     defs: [ frD ]
     uses: [ frA, frB ]
@@ -1406,6 +1406,7 @@ opcodes:
     desc: Paired Single Divide
     bitmask: 0xfc0007fe
     pattern: 0x10000024
+    modifiers: [ Rc ]
     args: [ frD, frA, frB ]
     defs: [ frD ]
     uses: [ frA, frB ]
@@ -1414,6 +1415,7 @@ opcodes:
     desc: Paired Single Multiply-Add
     bitmask: 0xfc00003e
     pattern: 0x1000003a
+    modifiers: [ Rc ]
     args: [ frD, frA, frC, frB ]
     defs: [ frD ]
     uses: [ frA, frC, frB ]
@@ -1422,6 +1424,7 @@ opcodes:
     desc: Paired Single Multiply-Add Scalar high
     bitmask: 0xfc00003e
     pattern: 0x1000001c
+    modifiers: [ Rc ]
     args: [ frD, frA, frC, frB ]
     defs: [ frD ]
     uses: [ frA, frC, frB ]
@@ -1430,6 +1433,7 @@ opcodes:
     desc: Paired Single Multiply-Add Scalar low
     bitmask: 0xfc00003e
     pattern: 0x1000001e
+    modifiers: [ Rc ]
     args: [ frD, frA, frC, frB ]
     defs: [ frD ]
     uses: [ frA, frC, frB ]
@@ -1438,6 +1442,7 @@ opcodes:
     desc: Paired Single MERGE high
     bitmask: 0xfc0007fe
     pattern: 0x10000420
+    modifiers: [ Rc ]
     args: [ frD, frA, frB ]
     defs: [ frD ]
     uses: [ frA, frB ]
@@ -1446,6 +1451,7 @@ opcodes:
     desc: Paired Single MERGE direct
     bitmask: 0xfc0007fe
     pattern: 0x10000460
+    modifiers: [ Rc ]
     args: [ frD, frA, frB ]
     defs: [ frD ]
     uses: [ frA, frB ]
@@ -1454,6 +1460,7 @@ opcodes:
     desc: Paired Single MERGE swapped
     bitmask: 0xfc0007fe
     pattern: 0x100004a0
+    modifiers: [ Rc ]
     args: [ frD, frA, frB ]
     defs: [ frD ]
     uses: [ frA, frB ]
@@ -1462,6 +1469,7 @@ opcodes:
     desc: Paired Single MERGE low
     bitmask: 0xfc0007fe
     pattern: 0x100004e0
+    modifiers: [ Rc ]
     args: [ frD, frA, frB ]
     defs: [ frD ]
     uses: [ frA, frB ]
@@ -1470,6 +1478,7 @@ opcodes:
     desc: Paired Single Move Register
     bitmask: 0xfc1f07fe
     pattern: 0x10000090
+    modifiers: [ Rc ]
     args: [ frD, frB ]
     defs: [ frD ]
     uses: [ frB ]
@@ -1478,6 +1487,7 @@ opcodes:
     desc: Paired Single Multiply-Subtract
     bitmask: 0xfc00003e
     pattern: 0x10000038
+    modifiers: [ Rc ]
     args: [ frD, frA, frC, frB ]
     defs: [ frD ]
     uses: [ frA, frC, frB ]
@@ -1486,6 +1496,7 @@ opcodes:
     desc: Paired Single Multiply
     bitmask: 0xfc00f83e
     pattern: 0x10000032
+    modifiers: [ Rc ]
     args: [ frD, frA, frC ]
     defs: [ frD ]
     uses: [ frA, frC ]
@@ -1494,6 +1505,7 @@ opcodes:
     desc: Paired Single Multiply Scalar high
     bitmask: 0xfc00f83e
     pattern: 0x10000018
+    modifiers: [ Rc ]
     args: [ frD, frA, frC ]
     defs: [ frD ]
     uses: [ frA, frC ]
@@ -1502,6 +1514,7 @@ opcodes:
     desc: Paired Single Multiply Scalar low
     bitmask: 0xfc00f83e
     pattern: 0x1000001a
+    modifiers: [ Rc ]
     args: [ frD, frA, frC ]
     defs: [ frD ]
     uses: [ frA, frC ]
@@ -1510,6 +1523,7 @@ opcodes:
     desc: Paired Single Negative Absolute Value
     bitmask: 0xfc1f07fe
     pattern: 0x10000110
+    modifiers: [ Rc ]
     args: [ frD, frB ]
     defs: [ frD ]
     uses: [ frB ]
@@ -1518,6 +1532,7 @@ opcodes:
     desc: Paired Single Negate
     bitmask: 0xfc1f07fe
     pattern: 0x10000050
+    modifiers: [ Rc ]
     args: [ frD, frB ]
     defs: [ frD ]
     uses: [ frB ]
@@ -1526,6 +1541,7 @@ opcodes:
     desc: Paired Single Negative Multiply-Add
     bitmask: 0xfc00003e
     pattern: 0x1000003e
+    modifiers: [ Rc ]
     args: [ frD, frA, frC, frB ]
     defs: [ frD ]
     uses: [ frA, frC, frB ]
@@ -1534,6 +1550,7 @@ opcodes:
     desc: Paired Single Negative Multiply-Subtract
     bitmask: 0xfc00003e
     pattern: 0x1000003c
+    modifiers: [ Rc ]
     args: [ frD, frA, frC, frB ]
     defs: [ frD ]
     uses: [ frA, frC, frB ]
@@ -1542,6 +1559,7 @@ opcodes:
     desc: Paired Single Reciprocal Estimate
     bitmask: 0xfc1f07fe
     pattern: 0x10000030
+    modifiers: [ Rc ]
     args: [ frD, frB ]
     defs: [ frD ]
     uses: [ frB ]
@@ -1550,6 +1568,7 @@ opcodes:
     desc: Paired Single Reciprocal Square Root Estimate
     bitmask: 0xfc1f07fe
     pattern: 0x10000034
+    modifiers: [ Rc ]
     args: [ frD, frB ]
     defs: [ frD ]
     uses: [ frB ]
@@ -1558,6 +1577,7 @@ opcodes:
     desc: Paired Single Select
     bitmask: 0xfc00003e
     pattern: 0x1000002e
+    modifiers: [ Rc ]
     args: [ frD, frA, frC, frB ]
     defs: [ frD ]
     uses: [ frA, frC, frB ]
@@ -1566,6 +1586,7 @@ opcodes:
     desc: Paired Single Subtract
     bitmask: 0xfc0007fe
     pattern: 0x10000028
+    modifiers: [ Rc ]
     args: [ frD, frA, frB ]
     defs: [ frD ]
     uses: [ frA, frB ]
@@ -1574,6 +1595,7 @@ opcodes:
     desc: Paired Single vector SUM high
     bitmask: 0xfc00003e
     pattern: 0x10000014
+    modifiers: [ Rc ]
     args: [ frD, frA, frC, frB ]
     defs: [ frD ]
     uses: [ frA, frC, frB ]
@@ -1582,14 +1604,15 @@ opcodes:
     desc: Paired Single vector SUM low
     bitmask: 0xfc00003e
     pattern: 0x10000016
+    modifiers: [ Rc ]
     args: [ frD, frA, frC, frB ]
     defs: [ frD ]
     uses: [ frA, frC, frB ]
 
   - name: rfi
     desc: Return from Interrupt
-    bitmask: 0xfffff801
-    pattern: 0x4c000000
+    bitmask: 0xffffffff
+    pattern: 0x4c000064
 
   - name: rlwimi
     desc: Rotate Left Word Immediate then Mask Insert
@@ -1996,7 +2019,7 @@ mnemonics:
   - name: mr
     opcode: or
     args: [ rA, rS ]
-    condition: rS == rB
+    condition: rB == rS
   - name: nop
     opcode: ori
     condition: rA == 0 && rS == 0 && uimm == 0
@@ -2029,11 +2052,11 @@ mnemonics:
   - name: slwi
     opcode: rlwinm
     args: [ rA, rS, SH ]
-    condition: MB == 0 && 31 - SH == ME
+    condition: MB == 0 && ME == 31 - SH
   - name: srwi
     opcode: rlwinm
     args: [ rA, rS, MB ]
-    condition: ME == 31 && 32 - MB == SH
+    condition: ME == 31 && SH == 32 - MB
   - name: clrlslwi
     opcode: rlwinm
     args: [ rA, rS, MB=MB+SH, SH ]
@@ -2119,19 +2142,19 @@ mnemonics:
   - name: crset
     opcode: creqv
     args: [ crbD ]
-    condition: crbD == crbA && crbD == crbB
+    condition: crbA == crbD && crbB == crbD
   - name: crclr
     opcode: crxor
     args: [ crbD ]
-    condition: crbD == crbA && crbD == crbB
+    condition: crbA == crbD && crbB == crbD
   - name: crmove
     opcode: cror
     args: [ crbD, crbA ]
-    condition: crbA == crbB
+    condition: crbB == crbA
   - name: crnot
     opcode: crnor
     args: [ crbD, crbA ]
-    condition: crbA == crbB
+    condition: crbB == crbA
 
   # Misc
   - name: tweq

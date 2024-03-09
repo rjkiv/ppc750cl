@@ -455,13 +455,13 @@ impl Opcode {
         }
     }
     pub(crate) fn _detect(code: u32) -> Self {
-        if code & 0xfc0007fe == 0x7c000214 {
+        if code & 0xfc0003fe == 0x7c000214 {
             return Opcode::Add;
         }
-        if code & 0xfc0007fe == 0x7c000014 {
+        if code & 0xfc0003fe == 0x7c000014 {
             return Opcode::Addc;
         }
-        if code & 0xfc0007fe == 0x7c000114 {
+        if code & 0xfc0003fe == 0x7c000114 {
             return Opcode::Adde;
         }
         if code & 0xfc000000 == 0x38000000 {
@@ -500,10 +500,10 @@ impl Opcode {
         if code & 0xfc000000 == 0x40000000 {
             return Opcode::Bc;
         }
-        if code & 0xfc007ffe == 0x4c000420 {
+        if code & 0xfc00fffe == 0x4c000420 {
             return Opcode::Bcctr;
         }
-        if code & 0xfc007ffe == 0x4c000020 {
+        if code & 0xfc00fffe == 0x4c000020 {
             return Opcode::Bclr;
         }
         if code & 0xfc4007ff == 0x7c000000 {
@@ -581,7 +581,7 @@ impl Opcode {
         if code & 0xffffffff == 0x7c0006ac {
             return Opcode::Eieio;
         }
-        if code & 0xfc0003fe == 0x7c000238 {
+        if code & 0xfc0007fe == 0x7c000238 {
             return Opcode::Eqv;
         }
         if code & 0xfc00fffe == 0x7c000774 {
@@ -674,7 +674,7 @@ impl Opcode {
         if code & 0xfc0007fe == 0xec000028 {
             return Opcode::Fsubs;
         }
-        if code & 0xffe007ff == 0x7c0007ac {
+        if code & 0xffe007fe == 0x7c0007ac {
             return Opcode::Icbi;
         }
         if code & 0xffffffff == 0x4c00012c {
@@ -842,7 +842,7 @@ impl Opcode {
         if code & 0xfc0007fe == 0x7c0003b8 {
             return Opcode::Nand;
         }
-        if code & 0xfc00fffe == 0x7c0000d0 {
+        if code & 0xfc00fbfe == 0x7c0000d0 {
             return Opcode::Neg;
         }
         if code & 0xfc0007fe == 0x7c0000f8 {
@@ -971,7 +971,7 @@ impl Opcode {
         if code & 0xfc00003e == 0x10000016 {
             return Opcode::PsSum1;
         }
-        if code & 0xfffff801 == 0x4c000000 {
+        if code & 0xffffffff == 0x4c000064 {
             return Opcode::Rfi;
         }
         if code & 0xfc000000 == 0x50000000 {
@@ -1133,7 +1133,6 @@ pub enum Field {
     ps_offset(Offset),
     BO(OpaqueU),
     BI(CRBit),
-    BH(OpaqueU),
     BD(BranchDest),
     LI(BranchDest),
     SH(OpaqueU),
@@ -1143,7 +1142,6 @@ pub enum Field {
     rD(GPR),
     rA(GPR),
     rB(GPR),
-    rC(GPR),
     sr(SR),
     spr(SPR),
     frS(FPR),
@@ -1182,7 +1180,6 @@ impl Field {
             Field::ps_offset(x) => Some(Argument::Offset(*x)),
             Field::BO(x) => Some(Argument::OpaqueU(*x)),
             Field::BI(x) => Some(Argument::CRBit(*x)),
-            Field::BH(x) => Some(Argument::OpaqueU(*x)),
             Field::BD(x) => Some(Argument::BranchDest(*x)),
             Field::LI(x) => Some(Argument::BranchDest(*x)),
             Field::SH(x) => Some(Argument::OpaqueU(*x)),
@@ -1192,7 +1189,6 @@ impl Field {
             Field::rD(x) => Some(Argument::GPR(*x)),
             Field::rA(x) => Some(Argument::GPR(*x)),
             Field::rB(x) => Some(Argument::GPR(*x)),
-            Field::rC(x) => Some(Argument::GPR(*x)),
             Field::sr(x) => Some(Argument::SR(*x)),
             Field::spr(x) => Some(Argument::SPR(*x)),
             Field::frS(x) => Some(Argument::FPR(*x)),
@@ -1229,7 +1225,6 @@ impl Field {
             Field::ps_offset(_) => "ps_offset",
             Field::BO(_) => "BO",
             Field::BI(_) => "BI",
-            Field::BH(_) => "BH",
             Field::BD(_) => "BD",
             Field::LI(_) => "LI",
             Field::SH(_) => "SH",
@@ -1239,7 +1234,6 @@ impl Field {
             Field::rD(_) => "rD",
             Field::rA(_) => "rA",
             Field::rB(_) => "rB",
-            Field::rC(_) => "rC",
             Field::sr(_) => "sr",
             Field::spr(_) => "spr",
             Field::frS(_) => "frS",
@@ -1360,12 +1354,10 @@ impl Ins {
             Opcode::Bcctr => vec![
                 Field::BO(OpaqueU(((self.code >> 21u8) & 0x1f) as _)),
                 Field::BI(CRBit(((self.code >> 16u8) & 0x1f) as _)),
-                Field::BH(OpaqueU(((self.code >> 11u8) & 0x3) as _)),
             ],
             Opcode::Bclr => vec![
                 Field::BO(OpaqueU(((self.code >> 21u8) & 0x1f) as _)),
                 Field::BI(CRBit(((self.code >> 16u8) & 0x1f) as _)),
-                Field::BH(OpaqueU(((self.code >> 11u8) & 0x3) as _)),
             ],
             Opcode::Cmp => vec![
                 Field::crfD(CRField(((self.code >> 23u8) & 0x7) as _)),
@@ -4557,7 +4549,13 @@ impl Ins {
             Opcode::Mcrfs => String::new(),
             Opcode::Mcrxr => String::new(),
             Opcode::Mfcr => String::new(),
-            Opcode::Mffs => String::new(),
+            Opcode::Mffs => {
+                let mut s = String::with_capacity(4);
+                if self.bit(31usize) {
+                    s.push('.');
+                }
+                s
+            }
             Opcode::Mfmsr => String::new(),
             Opcode::Mfspr => String::new(),
             Opcode::Mfsr => String::new(),
@@ -4669,35 +4667,185 @@ impl Ins {
             Opcode::PsqStu => String::new(),
             Opcode::PsqStux => String::new(),
             Opcode::PsqStx => String::new(),
-            Opcode::PsAbs => String::new(),
-            Opcode::PsAdd => String::new(),
+            Opcode::PsAbs => {
+                let mut s = String::with_capacity(4);
+                if self.bit(31usize) {
+                    s.push('.');
+                }
+                s
+            }
+            Opcode::PsAdd => {
+                let mut s = String::with_capacity(4);
+                if self.bit(31usize) {
+                    s.push('.');
+                }
+                s
+            }
             Opcode::PsCmpo0 => String::new(),
             Opcode::PsCmpo1 => String::new(),
             Opcode::PsCmpu0 => String::new(),
             Opcode::PsCmpu1 => String::new(),
-            Opcode::PsDiv => String::new(),
-            Opcode::PsMadd => String::new(),
-            Opcode::PsMadds0 => String::new(),
-            Opcode::PsMadds1 => String::new(),
-            Opcode::PsMerge00 => String::new(),
-            Opcode::PsMerge01 => String::new(),
-            Opcode::PsMerge10 => String::new(),
-            Opcode::PsMerge11 => String::new(),
-            Opcode::PsMr => String::new(),
-            Opcode::PsMsub => String::new(),
-            Opcode::PsMul => String::new(),
-            Opcode::PsMuls0 => String::new(),
-            Opcode::PsMuls1 => String::new(),
-            Opcode::PsNabs => String::new(),
-            Opcode::PsNeg => String::new(),
-            Opcode::PsNmadd => String::new(),
-            Opcode::PsNmsub => String::new(),
-            Opcode::PsRes => String::new(),
-            Opcode::PsRsqrte => String::new(),
-            Opcode::PsSel => String::new(),
-            Opcode::PsSub => String::new(),
-            Opcode::PsSum0 => String::new(),
-            Opcode::PsSum1 => String::new(),
+            Opcode::PsDiv => {
+                let mut s = String::with_capacity(4);
+                if self.bit(31usize) {
+                    s.push('.');
+                }
+                s
+            }
+            Opcode::PsMadd => {
+                let mut s = String::with_capacity(4);
+                if self.bit(31usize) {
+                    s.push('.');
+                }
+                s
+            }
+            Opcode::PsMadds0 => {
+                let mut s = String::with_capacity(4);
+                if self.bit(31usize) {
+                    s.push('.');
+                }
+                s
+            }
+            Opcode::PsMadds1 => {
+                let mut s = String::with_capacity(4);
+                if self.bit(31usize) {
+                    s.push('.');
+                }
+                s
+            }
+            Opcode::PsMerge00 => {
+                let mut s = String::with_capacity(4);
+                if self.bit(31usize) {
+                    s.push('.');
+                }
+                s
+            }
+            Opcode::PsMerge01 => {
+                let mut s = String::with_capacity(4);
+                if self.bit(31usize) {
+                    s.push('.');
+                }
+                s
+            }
+            Opcode::PsMerge10 => {
+                let mut s = String::with_capacity(4);
+                if self.bit(31usize) {
+                    s.push('.');
+                }
+                s
+            }
+            Opcode::PsMerge11 => {
+                let mut s = String::with_capacity(4);
+                if self.bit(31usize) {
+                    s.push('.');
+                }
+                s
+            }
+            Opcode::PsMr => {
+                let mut s = String::with_capacity(4);
+                if self.bit(31usize) {
+                    s.push('.');
+                }
+                s
+            }
+            Opcode::PsMsub => {
+                let mut s = String::with_capacity(4);
+                if self.bit(31usize) {
+                    s.push('.');
+                }
+                s
+            }
+            Opcode::PsMul => {
+                let mut s = String::with_capacity(4);
+                if self.bit(31usize) {
+                    s.push('.');
+                }
+                s
+            }
+            Opcode::PsMuls0 => {
+                let mut s = String::with_capacity(4);
+                if self.bit(31usize) {
+                    s.push('.');
+                }
+                s
+            }
+            Opcode::PsMuls1 => {
+                let mut s = String::with_capacity(4);
+                if self.bit(31usize) {
+                    s.push('.');
+                }
+                s
+            }
+            Opcode::PsNabs => {
+                let mut s = String::with_capacity(4);
+                if self.bit(31usize) {
+                    s.push('.');
+                }
+                s
+            }
+            Opcode::PsNeg => {
+                let mut s = String::with_capacity(4);
+                if self.bit(31usize) {
+                    s.push('.');
+                }
+                s
+            }
+            Opcode::PsNmadd => {
+                let mut s = String::with_capacity(4);
+                if self.bit(31usize) {
+                    s.push('.');
+                }
+                s
+            }
+            Opcode::PsNmsub => {
+                let mut s = String::with_capacity(4);
+                if self.bit(31usize) {
+                    s.push('.');
+                }
+                s
+            }
+            Opcode::PsRes => {
+                let mut s = String::with_capacity(4);
+                if self.bit(31usize) {
+                    s.push('.');
+                }
+                s
+            }
+            Opcode::PsRsqrte => {
+                let mut s = String::with_capacity(4);
+                if self.bit(31usize) {
+                    s.push('.');
+                }
+                s
+            }
+            Opcode::PsSel => {
+                let mut s = String::with_capacity(4);
+                if self.bit(31usize) {
+                    s.push('.');
+                }
+                s
+            }
+            Opcode::PsSub => {
+                let mut s = String::with_capacity(4);
+                if self.bit(31usize) {
+                    s.push('.');
+                }
+                s
+            }
+            Opcode::PsSum0 => {
+                let mut s = String::with_capacity(4);
+                if self.bit(31usize) {
+                    s.push('.');
+                }
+                s
+            }
+            Opcode::PsSum1 => {
+                let mut s = String::with_capacity(4);
+                if self.bit(31usize) {
+                    s.push('.');
+                }
+                s
+            }
             Opcode::Rfi => String::new(),
             Opcode::Rlwimi => {
                 let mut s = String::with_capacity(4);
@@ -6925,8 +7073,8 @@ impl Ins {
                 }
             }
             Opcode::Creqv => {
-                if ((self.code >> 21u8) & 0x1f) == ((self.code >> 16u8) & 0x1f)
-                    && ((self.code >> 21u8) & 0x1f) == ((self.code >> 11u8) & 0x1f)
+                if ((self.code >> 16u8) & 0x1f) == ((self.code >> 21u8) & 0x1f)
+                    && ((self.code >> 11u8) & 0x1f) == ((self.code >> 21u8) & 0x1f)
                 {
                     return SimplifiedIns {
                         mnemonic: "crset",
@@ -6937,7 +7085,7 @@ impl Ins {
                 }
             }
             Opcode::Crnor => {
-                if ((self.code >> 16u8) & 0x1f) == ((self.code >> 11u8) & 0x1f) {
+                if ((self.code >> 11u8) & 0x1f) == ((self.code >> 16u8) & 0x1f) {
                     return SimplifiedIns {
                         mnemonic: "crnot",
                         suffix: String::new(),
@@ -6950,7 +7098,7 @@ impl Ins {
                 }
             }
             Opcode::Cror => {
-                if ((self.code >> 16u8) & 0x1f) == ((self.code >> 11u8) & 0x1f) {
+                if ((self.code >> 11u8) & 0x1f) == ((self.code >> 16u8) & 0x1f) {
                     return SimplifiedIns {
                         mnemonic: "crmove",
                         suffix: String::new(),
@@ -6963,8 +7111,8 @@ impl Ins {
                 }
             }
             Opcode::Crxor => {
-                if ((self.code >> 21u8) & 0x1f) == ((self.code >> 16u8) & 0x1f)
-                    && ((self.code >> 21u8) & 0x1f) == ((self.code >> 11u8) & 0x1f)
+                if ((self.code >> 16u8) & 0x1f) == ((self.code >> 21u8) & 0x1f)
+                    && ((self.code >> 11u8) & 0x1f) == ((self.code >> 21u8) & 0x1f)
                 {
                     return SimplifiedIns {
                         mnemonic: "crclr",
@@ -7403,7 +7551,7 @@ impl Ins {
                 }
             }
             Opcode::Or => {
-                if ((self.code >> 21u8) & 0x1f) == ((self.code >> 11u8) & 0x1f) {
+                if ((self.code >> 11u8) & 0x1f) == ((self.code >> 21u8) & 0x1f) {
                     return SimplifiedIns {
                         mnemonic: "mr",
                         suffix: {
@@ -7527,7 +7675,7 @@ impl Ins {
                     };
                 }
                 if ((self.code >> 6u8) & 0x1f) == 0
-                    && 31 - ((self.code >> 11u8) & 0x1f) == ((self.code >> 1u8) & 0x1f)
+                    && ((self.code >> 1u8) & 0x1f) == 31 - ((self.code >> 11u8) & 0x1f)
                 {
                     return SimplifiedIns {
                         mnemonic: "slwi",
@@ -7549,7 +7697,7 @@ impl Ins {
                     };
                 }
                 if ((self.code >> 1u8) & 0x1f) == 31
-                    && 32 - ((self.code >> 6u8) & 0x1f) == ((self.code >> 11u8) & 0x1f)
+                    && ((self.code >> 11u8) & 0x1f) == 32 - ((self.code >> 6u8) & 0x1f)
                 {
                     return SimplifiedIns {
                         mnemonic: "srwi",
@@ -7776,10 +7924,6 @@ impl Ins {
         ((self.code >> 16u8) & 0x1f) as _
     }
     #[inline(always)]
-    pub fn field_BH(&self) -> usize {
-        ((self.code >> 11u8) & 0x3) as _
-    }
-    #[inline(always)]
     pub fn field_BD(&self) -> isize {
         ((((((self.code >> 2u8) & 0x3fff) ^ 0x2000).wrapping_sub(0x2000)) as i32) << 2u8) as _
     }
@@ -7814,10 +7958,6 @@ impl Ins {
     #[inline(always)]
     pub fn field_rB(&self) -> usize {
         ((self.code >> 11u8) & 0x1f) as _
-    }
-    #[inline(always)]
-    pub fn field_rC(&self) -> usize {
-        ((self.code >> 6u8) & 0x1f) as _
     }
     #[inline(always)]
     pub fn field_sr(&self) -> usize {

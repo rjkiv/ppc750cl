@@ -11,11 +11,23 @@ macro_rules! assert_asm {
 }
 
 #[test]
+fn test_ins_add() {
+    assert_asm!(0x7C432214, "add r2, r3, r4");
+    assert_asm!(0x7CE62A15, "add. r7, r6, r5");
+    assert_asm!(0x7FFFFE14, "addo r31, r31, r31");
+    assert_asm!(0x7F9DF615, "addo. r28, r29, r30");
+}
+
+#[test]
 fn test_ins_addc() {
     let ins = Ins::new(0x7c002014, 0x8000_0000u32);
     assert_eq!(ins.op, Addc);
     assert_eq!(ins.fields(), vec![rD(GPR(0)), rA(GPR(0)), rB(GPR(4))]);
     assert_asm!(ins, "addc r0, r0, r4");
+    assert_asm!(0x7C432014, "addc r2, r3, r4");
+    assert_asm!(0x7CE62815, "addc. r7, r6, r5");
+    assert_asm!(0x7FFFFC14, "addco r31, r31, r31");
+    assert_asm!(0x7F9DF415, "addco. r28, r29, r30");
 }
 
 #[test]
@@ -41,6 +53,10 @@ fn test_ins_addi() {
 #[test]
 fn test_ins_adde() {
     assert_asm!(0x7c006114, "adde r0, r0, r12");
+    assert_asm!(0x7C432114, "adde r2, r3, r4");
+    assert_asm!(0x7CE62915, "adde. r7, r6, r5");
+    assert_asm!(0x7FFFFD14, "addeo r31, r31, r31");
+    assert_asm!(0x7F9DF515, "addeo. r28, r29, r30");
 }
 
 #[test]
@@ -652,6 +668,9 @@ fn test_ins_nand() {
 #[test]
 fn test_ins_neg() {
     assert_asm!(0x7C0600D0, "neg r0, r6");
+    assert_asm!(0x7C4A00D1, "neg. r2, r10");
+    assert_asm!(0x7CC104D0, "nego r6, r1");
+    assert_asm!(0x7DF004D1, "nego. r15, r16");
 }
 
 #[test]
