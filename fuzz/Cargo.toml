@@ -1,13 +1,14 @@
 [package]
 name = "ppc750cl-fuzz"
-version = "0.2.0"
+version = "0.3.0"
 edition = "2021"
 authors = ["Richard Patel <me@terorie.dev>"]
 license = "GPL-3.0-or-later"
 description = "Complete fuzzer for ppc750cl"
 repository = "https://github.com/terorie/ppc750cl"
+publish = false
 
 [dependencies]
 clap = "3"
 num_cpus = "1.13"
-ppc750cl = { path = "../disasm", version = "0.2.0" }
+ppc750cl = { path = "../disasm" }

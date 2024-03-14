@@ -2,108 +2,134 @@ fields:
   # Immediates
   - name: simm
     arg: Simm
+    desc: Signed Immediate
     bits: 16..32
     signed: true
   - name: uimm
     arg: Uimm
+    desc: Unsigned Immediate
     bits: 16..32
   - name: offset
     arg: Offset
+    desc: Branch Offset
     bits: 16..32
     signed: true
   - name: ps_offset
     arg: Offset
+    desc: Paired Single Offset
     bits: 20..32
     signed: true
   # Branch fields
   - name: BO
     arg: OpaqueU
+    desc: Branch Options
     bits: 6..11
   - name: BI
     arg: CRBit
+    desc: Branch Condition Register Bit
     bits: 11..16
   - name: BD
     arg: BranchDest
+    desc: Branch Destination (14-bit)
     bits: 16..30
     shift_left: 2
     signed: true
   - name: LI
     arg: BranchDest
+    desc: Branch Destination (24-bit)
     bits: 6..30
     signed: true
     shift_left: 2
   # Shift/rotate type fields
   - name: SH
     arg: OpaqueU
-    desc: Shift
+    desc: Shift Amount
     bits: 16..21
   - name: MB
     arg: OpaqueU
-    desc: Mask start
+    desc: Mask Begin
     bits: 21..26
   - name: ME
     arg: OpaqueU
-    desc: Mask stop
+    desc: Mask End
     bits: 26..31
   # Registers
   - name: rS
     arg: GPR
+    desc: Source Register
     bits: 6..11
   - name: rD
     arg: GPR
+    desc: Destination Register
     bits: 6..11
   - name: rA
     arg: GPR
+    desc: Register A
     bits: 11..16
   - name: rA.nz
     arg: GPR
+    desc: Register A (non-zero)
     bits: 11..16
   - name: rB
     arg: GPR
+    desc: Register B
     bits: 16..21
   - name: sr
     arg: SR
+    desc: Segment Register
     bits: 12..16
   - name: spr
     arg: SPR
+    desc: Special Purpose Register
     bits: 11..21
     split: true
   # Floating-point registers
   - name: frS
     arg: FPR
+    desc: Source Floating-Point Register
     bits: 6..11
   - name: frD
     arg: FPR
+    desc: Destination Floating-Point Register
     bits: 6..11
   - name: frA
     arg: FPR
+    desc: Floating-Point Register A
     bits: 11..16
   - name: frB
     arg: FPR
+    desc: Floating-Point Register B
     bits: 16..21
   - name: frC
     arg: FPR
+    desc: Floating-Point Register C
     bits: 21..26
   # Condition register bits
   - name: crbD
     arg: CRBit
+    desc: Condition Register Bit Destination
     bits: 6..11
   - name: crbA
     arg: CRBit
+    desc: Condition Register Bit A
     bits: 11..16
   - name: crbB
     arg: CRBit
+    desc: Condition Register Bit B
     bits: 16..21
   # Condition register fields
   - name: crfD
     arg: CRField
+    desc: Condition Register Field Destination
     bits: 6..9
   - name: crfS
     arg: CRField
+    desc: Condition Register Field Source
     bits: 11..14
   # Condition register misc
   - name: crm
     arg: OpaqueU
+    desc: Condition Register Mask
     bits: 12..20
   # Paired single fields
   - name: ps_I
@@ -152,37 +178,46 @@ fields:
     desc: Bitset for cmp, cmpi, cmpl, cmpli
     bits: 10..11
   - name: xer
+    desc: Fixed-Point Exception Register
   - name: ctr
+    desc: Count Register
   - name: lr
+    desc: Link Register
 
 modifiers:
   - name: OE
+    desc: Field used by XO-form instructions to enable setting OV and SO in the XER.
     suffix: o
     bit: 21
     side_effects: [ xer ]
   - name: Rc
+    desc: Record Bit
     suffix: .
     bit: 31
     side_effects: [ cr0 ]
   - name: LK
+    desc: Link Bit
     suffix: l
     bit: 31
     side_effects: [ lr ]
   - name: AA
+    desc: Absolute Address Bit
     suffix: a
     bit: 30
-  # Predict branch to be taken
   - name: BP
+    desc: Predict branch to be taken
     suffix: +
-    condition: BO & 1 == 1 && BD >= 0
-  # Predict branch not to be taken (fall through)
+    bit: 10
+    condition: BD >= 0
   - name: BNP
+    desc: Predict branch not to be taken (fall through)
     suffix: '-'
-    condition: BO & 1 == 1 && BD < 0
-  # Predict branch to be taken (implicit dest for LR/CTR)
+    bit: 10
+    condition: BD < 0
   - name: BP_ND
+    desc: Predict branch to be taken (implicit dest for LR/CTR)
     suffix: +
-    condition: BO & 1 == 1
+    bit: 10
 
 opcodes:
   - name: add
@@ -1998,24 +2033,40 @@ mnemonics:
     condition: rA == 0
   - name: subis
     opcode: addis
-    args: [ rD, rA, simm=-simm ]
+    args: [ rD, rA, simm ]
     condition: simm < 0 && simm != -0x8000
+    replace:
+      simm: -simm
+    replace_assemble:
+      simm: -simm
   - name: li
     opcode: addi
     args: [ rD, simm ]
     condition: rA == 0
   - name: subi
     opcode: addi
-    args: [ rD, rA, simm=-simm ]
+    args: [ rD, rA, simm ]
     condition: simm < 0 && simm != -0x8000
+    replace:
+      simm: -simm
+    replace_assemble:
+      simm: -simm
   - name: subic
     opcode: addic
-    args: [ rD, rA, simm=-simm ]
+    args: [ rD, rA, simm ]
     condition: simm < 0 && simm != -0x8000
+    replace:
+      simm: -simm
+    replace_assemble:
+      simm: -simm
   - name: subic.
     opcode: addic.
-    args: [ rD, rA, simm=-simm ]
+    args: [ rD, rA, simm ]
     condition: simm < 0 && simm != -0x8000
+    replace:
+      simm: -simm
+    replace_assemble:
+      simm: -simm
   - name: mr
     opcode: or
     args: [ rA, rS ]
@@ -2035,8 +2086,12 @@ mnemonics:
   # Rotates/Shifts Immediate
   - name: clrrwi
     opcode: rlwinm
-    args: [ rA, rS, ME=31-ME ]
-    condition: SH == 0 && MB == 0 && ME < 32
+    args: [ rA, rS, ME ]
+    condition: SH == 0 && MB == 0
+    replace:
+      ME: 31 - ME
+    replace_assemble:
+      ME: 31 - ME
   - name: clrlwi
     opcode: rlwinm
     args: [ rA, rS, MB ]
@@ -2047,8 +2102,12 @@ mnemonics:
     condition: MB == 0 && ME == 31 && SH <= 16
   - name: rotrwi
     opcode: rlwinm
-    args: [ rA, rS, SH=32-SH ]
+    args: [ rA, rS, SH ]
     condition: MB == 0 && ME == 31 && SH > 16
+    replace:
+      SH: 32 - SH
+    replace_assemble:
+      SH: 32 - SH
   - name: slwi
     opcode: rlwinm
     args: [ rA, rS, SH ]
@@ -2059,16 +2118,30 @@ mnemonics:
     condition: ME == 31 && SH == 32 - MB
   - name: clrlslwi
     opcode: rlwinm
-    args: [ rA, rS, MB=MB+SH, SH ]
+    args: [ rA, rS, MB, SH ]
     condition: SH < 32 && ME == 31 - SH
+    replace:
+      MB: MB + SH
+    replace_assemble:
+      MB: MB - SH
   - name: extlwi
     opcode: rlwinm
-    args: [ rA, rS, ME=ME+1, SH ]
+    args: [ rA, rS, ME, SH ]
     condition: MB == 0
+    replace:
+      ME: ME + 1
+    replace_assemble:
+      ME: ME - 1
   - name: extrwi
     opcode: rlwinm
-    args: [ rA, rS, MB=32-MB, SH=SH-(32-MB) ]
+    args: [ rA, rS, MB, SH ]
     condition: ME == 31 && SH >= 32 - MB
+    replace:
+      MB: 32 - MB
+      SH: SH - (32 - MB)
+    replace_assemble:
+      MB: 32 - MB
+      SH: SH + MB
 
   # Compares Word
   - name: cmpwi

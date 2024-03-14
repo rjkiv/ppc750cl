@@ -5,7 +5,6 @@ use std::sync::atomic::{AtomicU32, Ordering};
 use std::sync::Arc;
 use std::time::{Duration, Instant};
 
-use ppc750cl::formatter::FormattedIns;
 use ppc750cl::Ins;
 
 fn main() {
@@ -91,10 +90,7 @@ struct Fuzzer {
 
 impl Fuzzer {
     fn new(range: Range<u32>) -> Self {
-        Self {
-            range,
-            counter: Arc::new(AtomicU32::new(0)),
-        }
+        Self { range, counter: Arc::new(AtomicU32::new(0)) }
     }
 
     fn dispatch(&self) -> std::thread::JoinHandle<()> {
@@ -104,8 +100,8 @@ impl Fuzzer {
         let range = self.range.clone();
         std::thread::spawn(move || {
             for x in range.clone() {
-                let ins = Ins::new(x, 0x8000_0000);
-                writeln!(&mut devnull, "{}", FormattedIns(ins)).unwrap();
+                let ins = Ins::new(x);
+                writeln!(&mut devnull, "{}", ins.simplified()).unwrap();
                 if x % (1 << 19) == 0 {
                     counter.store(x, Ordering::Relaxed);
                 }

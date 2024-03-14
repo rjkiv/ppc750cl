@@ -1,12 +1,22 @@
-use ppc750cl::prelude::*;
+use ppc750cl::{Argument, Ins, Opcode, SimplifiedIns, FPR, GPR};
 
 macro_rules! assert_asm {
     ($ins:ident, $disasm:literal) => {{
-        assert_eq!(format!("{}", FormattedIns($ins)), $disasm)
+        assert_eq!(format!("{}", SimplifiedIns::new($ins)), $disasm)
     }};
     ($code:literal, $disasm:literal) => {{
-        let ins = Ins::new($code, 0x8000_0000);
-        assert_eq!(format!("{}", FormattedIns(ins)), $disasm)
+        let ins = Ins::new($code);
+        assert_eq!(format!("{}", SimplifiedIns::new(ins)), $disasm)
+    }};
+}
+
+macro_rules! assert_basic {
+    ($ins:ident, $disasm:literal) => {{
+        assert_eq!(format!("{}", SimplifiedIns::basic_form($ins)), $disasm)
+    }};
+    ($code:literal, $disasm:literal) => {{
+        let ins = Ins::new($code);
+        assert_eq!(format!("{}", SimplifiedIns::basic_form(ins)), $disasm)
     }};
 }
 
@@ -20,9 +30,9 @@ fn test_ins_add() {
 
 #[test]
 fn test_ins_addc() {
-    let ins = Ins::new(0x7c002014, 0x8000_0000u32);
-    assert_eq!(ins.op, Addc);
-    assert_eq!(ins.fields(), vec![rD(GPR(0)), rA(GPR(0)), rB(GPR(4))]);
+    let ins = Ins::new(0x7c002014);
+    assert_eq!(ins.op, Opcode::Addc);
+    // assert_eq!(ins.fields(), vec![rD(GPR(0)), rA(GPR(0)), rB(GPR(4))]);
     assert_asm!(ins, "addc r0, r0, r4");
     assert_asm!(0x7C432014, "addc r2, r3, r4");
     assert_asm!(0x7CE62815, "addc. r7, r6, r5");
@@ -32,14 +42,20 @@ fn test_ins_addc() {
 
 #[test]
 fn test_ins_addi() {
-    let ins = Ins::new(0x38010140, 0x8000_0000u32);
-    assert_eq!(ins.op, Addi);
+    let ins = Ins::new(0x38010140);
+    assert_eq!(ins.op, Opcode::Addi);
+    // assert_eq!(
+    //     ins.fields(),
+    //     vec![rD(GPR(0)), rA(GPR(1)), simm(Simm(0x140))]
+    // );
     assert_eq!(
-        ins.fields(),
-        vec![rD(GPR(0)), rA(GPR(1)), simm(Simm(0x140))]
+        ins.defs(),
+        [Argument::GPR(GPR(0)), Argument::None, Argument::None, Argument::None, Argument::None]
     );
-    assert_eq!(ins.defs(), vec![rD(GPR(0))]);
-    assert_eq!(ins.uses(), vec![rA(GPR(1))]);
+    assert_eq!(
+        ins.uses(),
+        [Argument::GPR(GPR(1)), Argument::None, Argument::None, Argument::None, Argument::None]
+    );
     assert_asm!(ins, "addi r0, r1, 0x140");
 
     assert_asm!(0x38010008, "addi r0, r1, 0x8");
@@ -48,6 +64,7 @@ fn test_ins_addi() {
     assert_asm!(0x38010140, "addi r0, r1, 0x140");
     assert_asm!(0x38049000, "subi r0, r4, 0x7000");
     assert_asm!(0x38a00000, "li r5, 0x0");
+    assert_basic!(0x38a00000, "addi r5, r0, 0x0");
 }
 
 #[test]
@@ -710,20 +727,26 @@ fn test_ins_psq_lu() {
 
 #[test]
 fn test_ins_psq_lx() {
-    let ins = Ins::new(0x1000000C, 0x8000_0000u32);
-    assert_eq!(ins.op, PsqLx);
+    let ins = Ins::new(0x1000000C);
+    assert_eq!(ins.op, Opcode::PsqLx);
+    // assert_eq!(
+    //     ins.fields(),
+    //     vec![
+    //         frD(FPR(0)),
+    //         rA(GPR(0)),
+    //         rB(GPR(0)),
+    //         ps_WX(OpaqueU(0)),
+    //         ps_IX(GQR(0)),
+    //     ]
+    // );
     assert_eq!(
-        ins.fields(),
-        vec![
-            frD(FPR(0)),
-            rA(GPR(0)),
-            rB(GPR(0)),
-            ps_WX(OpaqueU(0)),
-            ps_IX(GQR(0)),
-        ]
+        ins.defs(),
+        [Argument::FPR(FPR(0)), Argument::None, Argument::None, Argument::None, Argument::None]
     );
-    assert_eq!(ins.defs(), vec![frD(FPR(0))]);
-    assert_eq!(ins.uses(), vec![rB(GPR(0))]);
+    assert_eq!(
+        ins.uses(),
+        [Argument::None, Argument::GPR(GPR(0)), Argument::None, Argument::None, Argument::None]
+    );
 
     assert_asm!(0x1000000C, "psq_lx f0, r0, r0, 0, qr0");
 }
@@ -885,6 +908,7 @@ fn test_ins_rlwimi() {
 fn test_ins_rlwinm() {
     assert_asm!(0x54000423, "rlwinm. r0, r0, 0, 16, 17");
     assert_asm!(0x54000432, "rlwinm r0, r0, 0, 16, 25");
+    assert_basic!(0x54096226, "rlwinm r9, r0, 12, 8, 19");
 
     // mnemonics
     assert_asm!(0x57E5103A, "slwi r5, r31, 2");

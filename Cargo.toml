@@ -1,11 +1,11 @@
 [workspace]
+members = ["asm", "disasm", "fuzz", "genisa"]
 resolver = "2"
-members = [
-    "disasm",
-    "disasm-py",
-    "dol",
-    "fuzz",
-    "genisa",
-    "flow-graph",
-    "rand",
-]
+
+[profile.release]
+panic = "abort"
+opt-level = "z"
+
+[profile.release-lto]
+inherits = "release"
+lto = "thin"

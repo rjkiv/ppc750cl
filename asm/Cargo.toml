@@ -1,12 +1,16 @@
 [package]
-name = "ppc750cl"
+name = "ppc750cl-asm"
 version = "0.3.0"
 edition = "2021"
 authors = ["Luke Street <luke@street.dev>"]
 license = "MIT OR Apache-2.0"
-description = "Disassembler for PowerPC 750CL"
+description = "Assembler for PowerPC 750CL"
 keywords = ["powerpc", "wii", "gamecube"]
 repository = "https://github.com/encounter/ppc750cl"
 
+[features]
+default = ["std"]
+std = []
+
 [dependencies]
-# Intentionally left blank.
+phf = "0.11"
