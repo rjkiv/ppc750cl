@@ -5,8 +5,6 @@ use std::sync::atomic::{AtomicU32, Ordering};
 use std::sync::Arc;
 use std::time::{Duration, Instant};
 
-use ppc750cl::Ins;
-
 fn main() {
     let matches = clap::Command::new("ppc750cl-fuzz")
         .version("0.2.0")
@@ -56,9 +54,11 @@ impl MultiFuzzer {
     fn dispatch_progress_monitor(&self) {
         let this = self.clone();
         std::thread::spawn(move || {
+            let start = Instant::now();
             let mut last = 0u32;
             loop {
                 std::thread::sleep(Duration::from_secs(1));
+                let elapsed = start.elapsed();
                 let mut now = 0u32;
                 for thread in &this.threads {
                     now += thread.counter.load(Ordering::Relaxed) - thread.range.start;
@@ -66,7 +66,8 @@ impl MultiFuzzer {
                 let per_second = now - last;
                 last = now;
                 let progress = 100f32 * ((now as f32) / (0x1_0000_0000u64 as f32));
-                println!("{}/s\t{:05.2}%\tn=0x{:08x}", per_second, progress, now);
+                let avg = now as f32 / elapsed.as_secs_f32() / this.threads.len() as f32;
+                println!("{}/s\t{:05.2}%\tn=0x{:08x} (avg {}/s)", per_second, progress, now, avg);
             }
         });
     }
@@ -99,9 +100,10 @@ impl Fuzzer {
         let counter = Arc::clone(&self.counter);
         let range = self.range.clone();
         std::thread::spawn(move || {
+            let mut parsed = ppc750cl::ParsedIns::default();
             for x in range.clone() {
-                let ins = Ins::new(x);
-                writeln!(&mut devnull, "{}", ins.simplified()).unwrap();
+                ppc750cl::Ins::new(x).parse_simplified(&mut parsed);
+                writeln!(&mut devnull, "{}", parsed).unwrap();
                 if x % (1 << 19) == 0 {
                     counter.store(x, Ordering::Relaxed);
                 }

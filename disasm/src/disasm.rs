@@ -4,11 +4,11 @@ use core::{
 };
 
 use crate::generated::{
-    Arguments, Opcode, BASE_MNEMONICS, DEFS_FUNCTIONS, SIMPLIFIED_MNEMONICS, USES_FUNCTIONS,
+    parse_basic, parse_defs, parse_simplified, parse_uses, Arguments, Opcode, EMPTY_ARGS,
 };
 
 /// A PowerPC 750CL instruction.
-#[derive(Default, Clone, Debug, Eq, PartialEq)]
+#[derive(Default, Copy, Clone, Debug, Eq, PartialEq)]
 pub struct Ins {
     pub code: u32,
     pub op: Opcode,
@@ -21,23 +21,59 @@ impl Ins {
     }
 
     /// Parse the instruction into a simplified mnemonic, if any match.
-    pub fn simplified(self) -> SimplifiedIns {
-        SimplifiedIns::new(self)
+    #[inline]
+    pub fn parse_simplified(self, out: &mut ParsedIns) {
+        parse_simplified(out, self)
+    }
+
+    /// Returns the simplified form of the instruction, if any match.
+    #[inline]
+    pub fn simplified(self) -> ParsedIns {
+        let mut out = ParsedIns::new();
+        parse_simplified(&mut out, self);
+        out
     }
 
     /// Parse the instruction into its basic form.
-    pub fn basic_form(self) -> SimplifiedIns {
-        SimplifiedIns::basic_form(self)
+    #[inline]
+    pub fn parse_basic(self, out: &mut ParsedIns) {
+        parse_basic(out, self)
+    }
+
+    /// Returns the basic form of the instruction.
+    #[inline]
+    pub fn basic(self) -> ParsedIns {
+        let mut out = ParsedIns::new();
+        parse_basic(&mut out, self);
+        out
+    }
+
+    /// Emits all registers defined by the instruction into the given argument list.
+    #[inline]
+    pub fn parse_defs(self, out: &mut Arguments) {
+        parse_defs(out, self)
     }
 
     /// Returns all registers defined by the instruction.
-    pub fn defs(&self) -> Arguments {
-        DEFS_FUNCTIONS[self.op as usize](self)
+    #[inline]
+    pub fn defs(self) -> Arguments {
+        let mut out = Arguments::default();
+        parse_defs(&mut out, self);
+        out
+    }
+
+    /// Emits all registers used by the instruction into the given argument list.
+    #[inline]
+    pub fn parse_uses(self, out: &mut Arguments) {
+        parse_uses(out, self)
     }
 
     /// Returns all registers used by the instruction.
-    pub fn uses(&self) -> Arguments {
-        USES_FUNCTIONS[self.op as usize](self)
+    #[inline]
+    pub fn uses(self) -> Arguments {
+        let mut out = Arguments::default();
+        parse_uses(&mut out, self);
+        out
     }
 
     /// Returns the relative branch offset of the instruction, if any.
@@ -258,7 +294,7 @@ impl From<u8> for OpaqueU {
     }
 }
 
-#[derive(Debug, Default, Clone, Eq, PartialEq)]
+#[derive(Debug, Default, Copy, Clone, Eq, PartialEq)]
 pub enum Argument {
     #[default]
     None,
@@ -296,33 +332,38 @@ impl Display for Argument {
     }
 }
 
-/// A simplified PowerPC 750CL instruction.
-pub struct SimplifiedIns {
-    pub ins: Ins,
+/// A parsed PowerPC 750CL instruction.
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct ParsedIns {
     pub mnemonic: &'static str,
     pub args: Arguments,
 }
 
-impl SimplifiedIns {
-    pub fn new(ins: Ins) -> Self {
-        let (mnemonic, args) = SIMPLIFIED_MNEMONICS[ins.op as usize](&ins);
-        Self { ins, mnemonic, args }
-    }
-
-    pub fn basic_form(ins: Ins) -> Self {
-        let (mnemonic, args) = BASE_MNEMONICS[ins.op as usize](&ins);
-        Self { ins, mnemonic, args }
+impl Default for ParsedIns {
+    fn default() -> Self {
+        Self::new()
     }
 }
 
-impl Display for SimplifiedIns {
+impl ParsedIns {
+    /// An empty parsed instruction.
+    pub const fn new() -> Self {
+        Self { mnemonic: "<illegal>", args: EMPTY_ARGS }
+    }
+
+    /// Returns an iterator over the arguments of the instruction,
+    /// stopping at the first [Argument::None].
+    #[inline]
+    pub fn args_iter(&self) -> impl Iterator<Item = &Argument> {
+        self.args.iter().take_while(|x| !matches!(x, Argument::None))
+    }
+}
+
+impl Display for ParsedIns {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         write!(f, "{}", self.mnemonic)?;
         let mut writing_offset = false;
-        for (i, argument) in self.args.iter().enumerate() {
-            if matches!(argument, Argument::None) {
-                break;
-            }
+        for (i, argument) in self.args_iter().enumerate() {
             if i == 0 {
                 write!(f, " ")?;
             } else if !writing_offset {
@@ -332,9 +373,7 @@ impl Display for SimplifiedIns {
             if let Argument::Offset(_) = argument {
                 write!(f, "(")?;
                 writing_offset = true;
-                continue;
-            }
-            if writing_offset {
+            } else if writing_offset {
                 write!(f, ")")?;
                 writing_offset = false;
             }

@@ -5,6 +5,7 @@ use anyhow::{bail, ensure, Result};
 use proc_macro2::{Literal, TokenStream};
 use quote::{format_ident, quote};
 use std::collections::HashMap;
+use std::num::NonZeroU8;
 
 pub fn gen_disasm(isa: &Isa, max_args: usize) -> Result<TokenStream> {
     // The entry table allows us to quickly find the range of possible opcodes
@@ -79,13 +80,11 @@ pub fn gen_disasm(isa: &Isa, max_args: usize) -> Result<TokenStream> {
             continue;
         }
 
-        let mut sign_bit = bits.len() - 1;
         let mut shift_right = bits.shift();
         let mut shift_left = field.shift_left;
         if shift_right == shift_left {
             // Optimization: these cancel each other out
             // Adjust subsequent operations to operate on the full value
-            sign_bit += shift_left;
             shift_right = 0;
             shift_left = 0;
         }
@@ -101,20 +100,20 @@ pub fn gen_disasm(isa: &Isa, max_args: usize) -> Result<TokenStream> {
 
         // Determine the smallest integer type that can hold the value
         let num_bits = bits.len() + field.shift_left;
-        let (out_type, cast) = match (num_bits, field.signed) {
-            (1..=8, false) => (ident!(u8), true),
-            (9..=16, false) => (ident!(u16), true),
-            (17..=32, false) => (ident!(u32), false),
-            (1..=8, true) => (ident!(i8), true),
-            (9..=16, true) => (ident!(i16), true),
-            (17..=32, true) => (ident!(i32), true),
+        let (out_type, cast, sign_shift) = match (num_bits, field.signed) {
+            (1..=8, false) => (ident!(u8), true, None),
+            (9..=16, false) => (ident!(u16), true, None),
+            (17..=32, false) => (ident!(u32), false, None),
+            (1..=8, true) => (ident!(i8), true, NonZeroU8::new(8 - num_bits)),
+            (9..=16, true) => (ident!(i16), true, NonZeroU8::new(16 - num_bits)),
+            (17..=32, true) => (ident!(i32), true, NonZeroU8::new(32 - num_bits)),
             (v, _) => bail!("Unsupported field size {v}"),
         };
 
         // Handle sign extension
-        if field.signed {
-            let sign_value = HexLiteral(1 << sign_bit);
-            inner = quote! { ((#inner) ^ #sign_value).wrapping_sub(#sign_value) as #out_type };
+        if let Some(sign_shift) = sign_shift {
+            let sign_shift = Literal::u8_unsuffixed(sign_shift.get());
+            inner = quote! { (((#inner) << #sign_shift) as #out_type) >> #sign_shift };
         } else if cast {
             inner = quote! { (#inner) as #out_type };
         }
@@ -162,7 +161,7 @@ pub fn gen_disasm(isa: &Isa, max_args: usize) -> Result<TokenStream> {
 
     // Generate simplified mnemonics
     let mut mnemonic_functions = TokenStream::new();
-    let mut base_functions_ref = TokenStream::new();
+    let mut basic_functions_ref = TokenStream::new();
     let mut simplified_functions_ref = TokenStream::new();
     for opcode in &sorted_ops {
         let mnemonics =
@@ -186,47 +185,43 @@ pub fn gen_disasm(isa: &Isa, max_args: usize) -> Result<TokenStream> {
             )?;
             mnemonic_conditions.extend(quote! {
                 if #(#conditions)&&* {
-                    return #inner;
+                    *out = #inner;
+                    return;
                 }
             });
         }
 
-        // Fallback to the base opcode name if no mnemonic matches
+        // Fallback to the basic opcode name if no mnemonic matches
         let inner =
             gen_mnemonic(&opcode.name, &opcode.args, &opcode.modifiers, isa, max_args, None)?;
-        let base_name = format_ident!("base_{}", opcode.ident());
+        let basic_name = format_ident!("basic_{}", opcode.ident());
         if mnemonics.is_empty() {
             mnemonic_functions.extend(quote! {
-                const fn #base_name(ins: &Ins) -> (&'static str, Arguments) {
-                    #inner
+                fn #basic_name(out: &mut ParsedIns, ins: Ins) {
+                    *out = #inner;
                 }
             });
-            base_functions_ref.extend(quote! { #base_name, });
-            simplified_functions_ref.extend(quote! { #base_name, });
+            basic_functions_ref.extend(quote! { #basic_name, });
+            simplified_functions_ref.extend(quote! { #basic_name, });
         } else {
             let simplified_name = format_ident!("simplified_{}", opcode.ident());
             mnemonic_functions.extend(quote! {
-                #[inline(always)]
-                const fn #base_name(ins: &Ins) -> (&'static str, Arguments) {
-                    #inner
+                fn #basic_name(out: &mut ParsedIns, ins: Ins) {
+                    *out = #inner;
                 }
-                const fn #simplified_name(ins: &Ins) -> (&'static str, Arguments) {
+                fn #simplified_name(out: &mut ParsedIns, ins: Ins) {
                     #mnemonic_conditions
-                    #base_name(ins)
+                    #basic_name(out, ins)
                 }
             });
-            base_functions_ref.extend(quote! { #base_name, });
+            basic_functions_ref.extend(quote! { #basic_name, });
             simplified_functions_ref.extend(quote! { #simplified_name, });
         }
     }
-    let mut none_args = TokenStream::new();
-    for _ in 0..max_args {
-        none_args.extend(quote! { Argument::None, });
-    }
     mnemonic_functions.extend(quote! {
-       const fn mnemonic_illegal(_ins: &Ins) -> (&'static str, Arguments) {
-           ("<illegal>", [#none_args])
-       }
+        fn mnemonic_illegal(out: &mut ParsedIns, _ins: Ins) {
+            *out = ParsedIns::new();
+        }
     });
 
     // TODO rework defs/uses to account for modifiers and special registers (CTR, LR, etc)
@@ -245,9 +240,6 @@ pub fn gen_disasm(isa: &Isa, max_args: usize) -> Result<TokenStream> {
             defs.extend(quote! { #arg, });
             defs_count += 1;
         }
-        for _ in defs_count..max_args {
-            defs.extend(quote! { Argument::None, });
-        }
         let mut use_count = 0;
         for use_ in &opcode.uses {
             if let Some(use_) = use_.strip_suffix(".nz") {
@@ -264,44 +256,65 @@ pub fn gen_disasm(isa: &Isa, max_args: usize) -> Result<TokenStream> {
             uses.extend(quote! { #arg, });
             use_count += 1;
         }
-        for _ in use_count..max_args {
-            uses.extend(quote! { Argument::None, });
+
+        if defs_count > 0 {
+            for _ in defs_count..max_args {
+                defs.extend(quote! { Argument::None, });
+            }
+            let defs_name = format_ident!("defs_{}", opcode.ident());
+            defs_uses_functions.extend(quote! {
+                fn #defs_name(out: &mut Arguments, ins: Ins) { *out = [#defs]; }
+            });
+            defs_refs.extend(quote! { #defs_name, });
+        } else {
+            defs_refs.extend(quote! { defs_uses_empty, });
         }
-        let defs_name = format_ident!("defs_{}", opcode.ident());
-        let uses_name = format_ident!("uses_{}", opcode.ident());
-        defs_uses_functions.extend(quote! {
-            const fn #defs_name(ins: &Ins) -> Arguments { [#defs] }
-            const fn #uses_name(ins: &Ins) -> Arguments { [#uses] }
-        });
-        defs_refs.extend(quote! { #defs_name, });
-        uses_refs.extend(quote! { #uses_name, });
+
+        if use_count > 0 {
+            for _ in use_count..max_args {
+                uses.extend(quote! { Argument::None, });
+            }
+            let uses_name = format_ident!("uses_{}", opcode.ident());
+            defs_uses_functions.extend(quote! {
+                fn #uses_name(out: &mut Arguments, ins: Ins) { *out = [#uses]; }
+            });
+            uses_refs.extend(quote! { #uses_name, });
+        } else {
+            uses_refs.extend(quote! { defs_uses_empty, });
+        }
     }
     defs_uses_functions.extend(quote! {
-        const fn defs_uses_illegal(_ins: &Ins) -> Arguments { [#none_args] }
+        fn defs_uses_empty(out: &mut Arguments, _ins: Ins) { *out = EMPTY_ARGS; }
     });
 
     // Filling the tables to 256 entries to avoid bounds checks
     for _ in sorted_ops.len()..256 {
         opcode_patterns.extend(quote! { (0, 0), });
         opcode_names.extend(quote! { "<illegal>", });
-        base_functions_ref.extend(quote! { mnemonic_illegal, });
+        basic_functions_ref.extend(quote! { mnemonic_illegal, });
         simplified_functions_ref.extend(quote! { mnemonic_illegal, });
-        defs_refs.extend(quote! { defs_uses_illegal, });
-        uses_refs.extend(quote! { defs_uses_illegal, });
+        defs_refs.extend(quote! { defs_uses_empty, });
+        uses_refs.extend(quote! { defs_uses_empty, });
+    }
+
+    let mut none_args = TokenStream::new();
+    for _ in 0..max_args {
+        none_args.extend(quote! { Argument::None, });
     }
 
     let max_args = Literal::usize_unsuffixed(max_args);
     Ok(quote! {
         #![allow(unused)]
         #![cfg_attr(rustfmt, rustfmt_skip)]
+        #[comment = " Code generated by ppc750-genisa. DO NOT EDIT."]
         use crate::disasm::*;
         #[doc = " The entry table allows us to quickly find the range of possible opcodes for a"]
         #[doc = " given 6-bit prefix. 2*64 bytes should fit in a cache line (or two)."]
-        const OPCODE_ENTRIES: [(u8, u8); 64] = [#opcode_entries];
+        static OPCODE_ENTRIES: [(u8, u8); 64] = [#opcode_entries];
         #[doc = " The bitmask and pattern for each opcode."]
-        const OPCODE_PATTERNS: [(u32, u32); 256] = [#opcode_patterns];
+        static OPCODE_PATTERNS: [(u32, u32); 256] = [#opcode_patterns];
         #[doc = " The name of each opcode."]
-        const OPCODE_NAMES: [&str; 256] = [#opcode_names];
+        static OPCODE_NAMES: [&str; 256] = [#opcode_names];
 
         #[derive(Copy, Clone, Debug, Default, PartialEq, Eq)]
         #[repr(u8)]
@@ -314,21 +327,19 @@ pub fn gen_disasm(isa: &Isa, max_args: usize) -> Result<TokenStream> {
         }
         impl Opcode {
             #[inline]
-            pub const fn _mnemonic(self) -> &'static str {
+            pub fn _mnemonic(self) -> &'static str {
                 OPCODE_NAMES[self as usize]
             }
 
             #[inline]
-            pub const fn _detect(code: u32) -> Self {
+            pub fn _detect(code: u32) -> Self {
                 let entry = OPCODE_ENTRIES[(code >> 26) as usize];
-                let mut i = entry.0;
-                while i < entry.1 {
+                for i in entry.0..entry.1 {
                     let pattern = OPCODE_PATTERNS[i as usize];
                     if (code & pattern.0) == pattern.1 {
                         #[comment = " Safety: The enum is repr(u8) and marked non_exhaustive"]
                         return unsafe { core::mem::transmute(i) };
                     }
-                    i += 1;
                 }
                 Self::Illegal
             }
@@ -339,14 +350,33 @@ pub fn gen_disasm(isa: &Isa, max_args: usize) -> Result<TokenStream> {
         }
 
         pub type Arguments = [Argument; #max_args];
-        pub type MnemonicFunction = fn(&Ins) -> (&'static str, Arguments);
+        pub const EMPTY_ARGS: Arguments = [#none_args];
+
+        type MnemonicFunction = fn(&mut ParsedIns, Ins);
         #mnemonic_functions
-        pub const BASE_MNEMONICS: [MnemonicFunction; 256] = [#base_functions_ref];
-        pub const SIMPLIFIED_MNEMONICS: [MnemonicFunction; 256] = [#simplified_functions_ref];
+        static BASIC_MNEMONICS: [MnemonicFunction; 256] = [#basic_functions_ref];
+        #[inline]
+        pub fn parse_basic(out: &mut ParsedIns, ins: Ins) {
+            BASIC_MNEMONICS[ins.op as usize](out, ins)
+        }
+        static SIMPLIFIED_MNEMONICS: [MnemonicFunction; 256] = [#simplified_functions_ref];
+        #[inline]
+        pub fn parse_simplified(out: &mut ParsedIns, ins: Ins) {
+            SIMPLIFIED_MNEMONICS[ins.op as usize](out, ins)
+        }
+
+        type DefsUsesFunction = fn(&mut Arguments, Ins);
         #defs_uses_functions
-        pub type DefsUsesFunction = fn(&Ins) -> Arguments;
-        pub const DEFS_FUNCTIONS: [DefsUsesFunction; 256] = [#defs_refs];
-        pub const USES_FUNCTIONS: [DefsUsesFunction; 256] = [#uses_refs];
+        static DEFS_FUNCTIONS: [DefsUsesFunction; 256] = [#defs_refs];
+        #[inline]
+        pub fn parse_defs(out: &mut Arguments, ins: Ins) {
+            DEFS_FUNCTIONS[ins.op as usize](out, ins)
+        }
+        static USES_FUNCTIONS: [DefsUsesFunction; 256] = [#uses_refs];
+        #[inline]
+        pub fn parse_uses(out: &mut Arguments, ins: Ins) {
+            USES_FUNCTIONS[ins.op as usize](out, ins)
+        }
     })
 }
 
@@ -388,17 +418,22 @@ fn gen_mnemonic(
     max_args: usize,
     replace: Option<&HashMap<String, String>>,
 ) -> Result<TokenStream> {
-    let mut arguments = TokenStream::new();
-    for field in args {
-        let arg = gen_argument(field, isa, replace.and_then(|m| m.get(field)))?;
-        arguments.extend(quote! { #arg, });
-    }
-    for _ in args.len()..max_args {
-        arguments.extend(quote! { Argument::None, });
-    }
+    let arguments = if args.is_empty() {
+        quote! { EMPTY_ARGS }
+    } else {
+        let mut inner = TokenStream::new();
+        for field in args {
+            let arg = gen_argument(field, isa, replace.and_then(|m| m.get(field)))?;
+            inner.extend(quote! { #arg, });
+        }
+        for _ in args.len()..max_args {
+            inner.extend(quote! { Argument::None, });
+        }
+        quote! { [#inner] }
+    };
 
     if modifiers.is_empty() {
-        Ok(quote! { (#name, [#arguments]) })
+        Ok(quote! { ParsedIns { mnemonic: #name, args: #arguments } })
     } else {
         let names = modifier_names(name, modifiers, isa);
         let mut bitset = quote! { 0 };
@@ -411,6 +446,6 @@ fn gen_mnemonic(
                 bitset.extend(quote! { | (ins.#modifier() as usize) << #i });
             }
         }
-        Ok(quote! { ([#(#names),*][#bitset], [#arguments]) })
+        Ok(quote! { ParsedIns { mnemonic: [#(#names),*][#bitset], args: #arguments } })
     }
 }

@@ -1,22 +1,22 @@
-use ppc750cl::{Argument, Ins, Opcode, SimplifiedIns, FPR, GPR};
+use ppc750cl::{Argument, Ins, Opcode, FPR, GPR};
 
 macro_rules! assert_asm {
     ($ins:ident, $disasm:literal) => {{
-        assert_eq!(format!("{}", SimplifiedIns::new($ins)), $disasm)
+        assert_eq!(format!("{}", $ins.simplified()), $disasm)
     }};
     ($code:literal, $disasm:literal) => {{
         let ins = Ins::new($code);
-        assert_eq!(format!("{}", SimplifiedIns::new(ins)), $disasm)
+        assert_eq!(format!("{}", ins.simplified()), $disasm)
     }};
 }
 
 macro_rules! assert_basic {
     ($ins:ident, $disasm:literal) => {{
-        assert_eq!(format!("{}", SimplifiedIns::basic_form($ins)), $disasm)
+        assert_eq!(format!("{}", $ins.basic_form()), $disasm)
     }};
     ($code:literal, $disasm:literal) => {{
         let ins = Ins::new($code);
-        assert_eq!(format!("{}", SimplifiedIns::basic_form(ins)), $disasm)
+        assert_eq!(format!("{}", ins.basic()), $disasm)
     }};
 }
 
