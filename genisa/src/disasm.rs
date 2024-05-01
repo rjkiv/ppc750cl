@@ -338,7 +338,7 @@ pub fn gen_disasm(isa: &Isa, max_args: usize) -> Result<TokenStream> {
                     let pattern = OPCODE_PATTERNS[i as usize];
                     if (code & pattern.0) == pattern.1 {
                         #[comment = " Safety: The enum is repr(u8) and marked non_exhaustive"]
-                        return unsafe { core::mem::transmute(i) };
+                        return unsafe { core::mem::transmute::<u8, Opcode>(i) };
                     }
                 }
                 Self::Illegal

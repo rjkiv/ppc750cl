@@ -354,7 +354,7 @@ impl ParsedIns {
     /// Returns an iterator over the arguments of the instruction,
     /// stopping at the first [Argument::None].
     #[inline]
-    pub fn args_iter(&self) -> impl Iterator<Item=&Argument> {
+    pub fn args_iter(&self) -> impl Iterator<Item = &Argument> {
         self.args.iter().take_while(|x| !matches!(x, Argument::None))
     }
 }
