@@ -1,4 +1,4 @@
-use ppc750cl::{Argument, Ins, Opcode, FPR, GPR};
+use ppc750cl::{Argument, Ins, InsIter, Opcode, FPR, GPR};
 
 macro_rules! assert_asm {
     ($ins:ident, $disasm:literal) => {{
@@ -1136,4 +1136,12 @@ fn test_ins_xori() {
 #[test]
 fn test_ins_xoris() {
     assert_asm!(0x6E3D8000, "xoris r29, r17, 0x8000");
+}
+
+#[test]
+fn test_ins_iter() {
+    let mut iter = InsIter::new(&[0x7C, 0x43, 0x22, 0x14, 0x7E, 0x1A, 0x02, 0xA6, 0xFF], 0);
+    assert_eq!(iter.next(), Some((0, Ins::new(0x7C432214))));
+    assert_eq!(iter.next(), Some((4, Ins::new(0x7E1A02A6))));
+    assert_eq!(iter.next(), None);
 }

@@ -354,7 +354,7 @@ impl ParsedIns {
     /// Returns an iterator over the arguments of the instruction,
     /// stopping at the first [Argument::None].
     #[inline]
-    pub fn args_iter(&self) -> impl Iterator<Item = &Argument> {
+    pub fn args_iter(&self) -> impl Iterator<Item=&Argument> {
         self.args.iter().take_while(|x| !matches!(x, Argument::None))
     }
 }
@@ -403,5 +403,42 @@ impl LowerHex for SignedHexLiteral<i32> {
         } else {
             LowerHex::fmt(&self.0, f)
         }
+    }
+}
+
+pub struct InsIter<'a> {
+    address: u32,
+    data: &'a [u8],
+}
+
+impl<'a> InsIter<'a> {
+    pub fn new(data: &'a [u8], address: u32) -> Self {
+        Self { address, data }
+    }
+
+    pub fn address(&self) -> u32 {
+        self.address
+    }
+
+    pub fn data(&self) -> &'a [u8] {
+        self.data
+    }
+}
+
+impl<'a> Iterator for InsIter<'a> {
+    type Item = (u32, Ins);
+
+    fn next(&mut self) -> Option<Self::Item> {
+        if self.data.len() < 4 {
+            return None;
+        }
+
+        // SAFETY: The slice is guaranteed to be at least 4 bytes long.
+        let chunk = unsafe { *(self.data.as_ptr() as *const [u8; 4]) };
+        let ins = Ins::new(u32::from_be_bytes(chunk));
+        let addr = self.address;
+        self.address += 4;
+        self.data = &self.data[4..];
+        Some((addr, ins))
     }
 }
