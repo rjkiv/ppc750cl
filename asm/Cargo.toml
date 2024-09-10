@@ -8,6 +8,7 @@ description = "Assembler for PowerPC 750CL"
 readme = "../README.md"
 keywords.workspace = true
 repository.workspace = true
+documentation = "https://docs.rs/ppc750cl-asm"
 rust-version.workspace = true
 
 [features]

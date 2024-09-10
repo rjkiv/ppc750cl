@@ -1,4 +1,12 @@
-# ppc750cl
+# ppc750cl [![Build Status]][actions] [![Latest Version]][crates.io] [![Api Rustdoc]][rustdoc] ![Rust Version]
+
+[Build Status]: https://github.com/encounter/ppc750cl/actions/workflows/test.yml/badge.svg
+[actions]: https://github.com/encounter/ppc750cl/actions
+[Latest Version]: https://img.shields.io/crates/v/ppc750cl.svg
+[crates.io]: https://crates.io/crates/ppc750cl
+[Api Rustdoc]: https://img.shields.io/badge/api-rustdoc-blue.svg
+[rustdoc]: https://docs.rs/ppc750cl
+[Rust Version]: https://img.shields.io/badge/rust-1.74+-blue.svg?maxAge=3600
 
 Rust tools for working with the PowerPC 750CL family of processors.
 
