@@ -2,7 +2,7 @@
 
 Rust tools for working with the PowerPC 750CL family of processors.
 
-### Rust crates
+### Building
 
 ```shell
 cargo run --package ppc750cl-genisa

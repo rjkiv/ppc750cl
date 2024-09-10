@@ -1,12 +1,13 @@
 [package]
 name = "ppc750cl-asm"
-version = "0.3.0"
-edition = "2021"
-authors = ["Luke Street <luke@street.dev>"]
-license = "MIT OR Apache-2.0"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
 description = "Assembler for PowerPC 750CL"
-keywords = ["powerpc", "wii", "gamecube"]
-repository = "https://github.com/encounter/ppc750cl"
+keywords.workspace = true
+repository.workspace = true
+rust-version.workspace = true
 
 [features]
 default = ["std"]

@@ -8,3 +8,12 @@ panic = "abort"
 [profile.release-lto]
 inherits = "release"
 lto = "thin"
+
+[workspace.package]
+version = "0.3.0"
+edition = "2021"
+authors = ["Luke Street <luke@street.dev>"]
+license = "MIT OR Apache-2.0"
+keywords = ["powerpc", "wii", "gamecube"]
+repository = "https://github.com/encounter/ppc750cl"
+rust-version = "1.74"

@@ -1,6 +1,5 @@
 use std::io::Write;
 use std::ops::Range;
-use std::str::FromStr;
 use std::sync::atomic::{AtomicU32, Ordering};
 use std::sync::Arc;
 use std::time::{Duration, Instant};
@@ -13,13 +12,12 @@ fn main() {
             clap::Arg::new("threads")
                 .short('t')
                 .long("--threads")
-                .takes_value(true)
                 .help("Number of threads to use (default num CPUs)"),
         )
         .get_matches();
 
-    let threads = match matches.value_of("threads") {
-        Some(t) => u32::from_str(t).expect("invalid threads flag"),
+    let threads = match matches.get_one::<String>("threads") {
+        Some(t) => t.parse().expect("invalid threads flag"),
         None => num_cpus::get() as u32,
     };
     let start = Instant::now();
