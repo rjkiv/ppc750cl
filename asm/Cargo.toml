@@ -5,6 +5,7 @@ edition.workspace = true
 authors.workspace = true
 license.workspace = true
 description = "Assembler for PowerPC 750CL"
+readme = "../README.md"
 keywords.workspace = true
 repository.workspace = true
 rust-version.workspace = true
