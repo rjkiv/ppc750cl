@@ -7,10 +7,10 @@ panic = "abort"
 
 [profile.release-lto]
 inherits = "release"
-lto = "thin"
+lto = true
 
 [workspace.package]
-version = "0.3.1"
+version = "0.3.2"
 edition = "2021"
 authors = ["Luke Street <luke@street.dev>"]
 license = "MIT OR Apache-2.0"

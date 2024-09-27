@@ -11,7 +11,7 @@ fn main() {
         .arg(
             clap::Arg::new("threads")
                 .short('t')
-                .long("--threads")
+                .long("threads")
                 .help("Number of threads to use (default num CPUs)"),
         )
         .get_matches();
@@ -22,8 +22,8 @@ fn main() {
     };
     let start = Instant::now();
     let fuzzer = MultiFuzzer::new(threads);
-    fuzzer.run();
-    println!("Finished in {:.2}s", start.elapsed().as_secs_f32());
+    let avg = fuzzer.run();
+    println!("Finished in {:.2}s (avg {}/s)", start.elapsed().as_secs_f32(), avg);
 }
 
 #[derive(Clone)]
@@ -70,14 +70,17 @@ impl MultiFuzzer {
         });
     }
 
-    fn run(&self) {
+    fn run(&self) -> f32 {
         self.dispatch_progress_monitor();
+        let start = Instant::now();
         let handles: Vec<_> = self.threads.iter().map(|t| t.dispatch()).collect();
         for handle in handles {
             // TODO This doesn't panic immediately, since we'll block on thread zero
             //      for most of the time.
             handle.join().expect("thread panicked");
         }
+        let end = start.elapsed();
+        u32::MAX as f32 / end.as_secs_f32() / self.threads.len() as f32
     }
 }
 
@@ -113,11 +116,8 @@ impl Fuzzer {
 
 struct DevNull;
 
-impl std::io::Write for DevNull {
+impl Write for DevNull {
     fn write(&mut self, buf: &[u8]) -> std::io::Result<usize> {
-        buf.iter().for_each(|b| unsafe {
-            std::ptr::read_volatile(b);
-        });
         Ok(buf.len())
     }
     fn flush(&mut self) -> std::io::Result<()> {

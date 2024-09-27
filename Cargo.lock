@@ -253,18 +253,18 @@ checksum = "439ee305def115ba05938db6eb1644ff94165c5ab5e9420d1c1bcedbba909391"
 
 [[package]]
 name = "ppc750cl"
-version = "0.3.1"
+version = "0.3.2"
 
 [[package]]
 name = "ppc750cl-asm"
-version = "0.3.1"
+version = "0.3.2"
 dependencies = [
  "phf",
 ]
 
 [[package]]
 name = "ppc750cl-fuzz"
-version = "0.3.1"
+version = "0.3.2"
 dependencies = [
  "clap",
  "num_cpus",
@@ -273,7 +273,7 @@ dependencies = [
 
 [[package]]
 name = "ppc750cl-genisa"
-version = "0.3.1"
+version = "0.3.2"
 dependencies = [
  "anyhow",
  "log",
