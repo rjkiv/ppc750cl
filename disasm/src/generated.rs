@@ -1438,27 +1438,33 @@ fn basic_psq_stx(out: &mut ParsedIns, ins: Ins) {
     };
 }
 fn basic_ps_abs(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["ps_abs", "ps_abs."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["ps_abs", "ps_abs."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_ps_add(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["ps_add", "ps_add."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_fra() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["ps_add", "ps_add."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_fra() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_ps_cmpo0(out: &mut ParsedIns, ins: Ins) {
@@ -1510,279 +1516,348 @@ fn basic_ps_cmpu1(out: &mut ParsedIns, ins: Ins) {
     };
 }
 fn basic_ps_div(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["ps_div", "ps_div."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_fra() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["ps_div", "ps_div."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_fra() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_ps_madd(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["ps_madd", "ps_madd."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_fra() as _)),
-            Argument::FPR(FPR(ins.field_frc() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["ps_madd", "ps_madd."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_fra() as _)),
+                Argument::FPR(FPR(ins.field_frc() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_ps_madds0(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["ps_madds0", "ps_madds0."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_fra() as _)),
-            Argument::FPR(FPR(ins.field_frc() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["ps_madds0", "ps_madds0."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_fra() as _)),
+                Argument::FPR(FPR(ins.field_frc() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_ps_madds1(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["ps_madds1", "ps_madds1."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_fra() as _)),
-            Argument::FPR(FPR(ins.field_frc() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["ps_madds1", "ps_madds1."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_fra() as _)),
+                Argument::FPR(FPR(ins.field_frc() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_ps_merge00(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["ps_merge00", "ps_merge00."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_fra() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["ps_merge00", "ps_merge00."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_fra() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_ps_merge01(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["ps_merge01", "ps_merge01."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_fra() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["ps_merge01", "ps_merge01."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_fra() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_ps_merge10(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["ps_merge10", "ps_merge10."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_fra() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["ps_merge10", "ps_merge10."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_fra() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_ps_merge11(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["ps_merge11", "ps_merge11."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_fra() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["ps_merge11", "ps_merge11."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_fra() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_ps_mr(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["ps_mr", "ps_mr."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["ps_mr", "ps_mr."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_ps_msub(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["ps_msub", "ps_msub."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_fra() as _)),
-            Argument::FPR(FPR(ins.field_frc() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["ps_msub", "ps_msub."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_fra() as _)),
+                Argument::FPR(FPR(ins.field_frc() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_ps_mul(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["ps_mul", "ps_mul."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_fra() as _)),
-            Argument::FPR(FPR(ins.field_frc() as _)),
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["ps_mul", "ps_mul."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_fra() as _)),
+                Argument::FPR(FPR(ins.field_frc() as _)),
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_ps_muls0(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["ps_muls0", "ps_muls0."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_fra() as _)),
-            Argument::FPR(FPR(ins.field_frc() as _)),
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["ps_muls0", "ps_muls0."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_fra() as _)),
+                Argument::FPR(FPR(ins.field_frc() as _)),
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_ps_muls1(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["ps_muls1", "ps_muls1."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_fra() as _)),
-            Argument::FPR(FPR(ins.field_frc() as _)),
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["ps_muls1", "ps_muls1."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_fra() as _)),
+                Argument::FPR(FPR(ins.field_frc() as _)),
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_ps_nabs(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["ps_nabs", "ps_nabs."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["ps_nabs", "ps_nabs."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_ps_neg(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["ps_neg", "ps_neg."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["ps_neg", "ps_neg."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_ps_nmadd(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["ps_nmadd", "ps_nmadd."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_fra() as _)),
-            Argument::FPR(FPR(ins.field_frc() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["ps_nmadd", "ps_nmadd."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_fra() as _)),
+                Argument::FPR(FPR(ins.field_frc() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_ps_nmsub(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["ps_nmsub", "ps_nmsub."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_fra() as _)),
-            Argument::FPR(FPR(ins.field_frc() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["ps_nmsub", "ps_nmsub."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_fra() as _)),
+                Argument::FPR(FPR(ins.field_frc() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_ps_res(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["ps_res", "ps_res."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["ps_res", "ps_res."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_ps_rsqrte(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["ps_rsqrte", "ps_rsqrte."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["ps_rsqrte", "ps_rsqrte."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_ps_sel(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["ps_sel", "ps_sel."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_fra() as _)),
-            Argument::FPR(FPR(ins.field_frc() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["ps_sel", "ps_sel."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_fra() as _)),
+                Argument::FPR(FPR(ins.field_frc() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_ps_sub(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["ps_sub", "ps_sub."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_fra() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["ps_sub", "ps_sub."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_fra() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_ps_sum0(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["ps_sum0", "ps_sum0."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_fra() as _)),
-            Argument::FPR(FPR(ins.field_frc() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["ps_sum0", "ps_sum0."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_fra() as _)),
+                Argument::FPR(FPR(ins.field_frc() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_ps_sum1(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["ps_sum1", "ps_sum1."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_fra() as _)),
-            Argument::FPR(FPR(ins.field_frc() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["ps_sum1", "ps_sum1."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_fra() as _)),
+                Argument::FPR(FPR(ins.field_frc() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_mulli(out: &mut ParsedIns, ins: Ins) {
@@ -2082,8 +2157,8 @@ fn simplified_addis(out: &mut ParsedIns, ins: Ins) {
     basic_addis(out, ins)
 }
 fn basic_bc(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: [
+    *out = {
+        const MODIFIERS: [&str; 16] = [
             "bc",
             "bcl",
             "bca",
@@ -2100,21 +2175,24 @@ fn basic_bc(out: &mut ParsedIns, ins: Ins) {
             "<illegal>",
             "<illegal>",
             "<illegal>",
-        ][ins.field_lk() as usize | (ins.field_aa() as usize) << 1
-            | (ins.field_bp() as usize) << 2 | (ins.field_bnp() as usize) << 3],
-        args: [
-            Argument::OpaqueU(OpaqueU(ins.field_bo() as _)),
-            Argument::CRBit(CRBit(ins.field_bi() as _)),
-            Argument::BranchDest(BranchDest(ins.field_bd() as _)),
-            Argument::None,
-            Argument::None,
-        ],
+        ];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_lk() as usize | (ins.field_aa() as usize) << 1
+                | (ins.field_bp() as usize) << 2 | (ins.field_bnp() as usize) << 3],
+            args: [
+                Argument::OpaqueU(OpaqueU(ins.field_bo() as _)),
+                Argument::CRBit(CRBit(ins.field_bi() as _)),
+                Argument::BranchDest(BranchDest(ins.field_bd() as _)),
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn simplified_bc(out: &mut ParsedIns, ins: Ins) {
     if (ins.field_bo() & 0x1e) == 0xc && ins.field_bi() == 0x0 {
-        *out = ParsedIns {
-            mnemonic: [
+        *out = {
+            const MODIFIERS: [&str; 16] = [
                 "blt",
                 "bltl",
                 "blta",
@@ -2131,21 +2209,25 @@ fn simplified_bc(out: &mut ParsedIns, ins: Ins) {
                 "<illegal>",
                 "<illegal>",
                 "<illegal>",
-            ][ins.field_lk() as usize | (ins.field_aa() as usize) << 1
-                | (ins.field_bp() as usize) << 2 | (ins.field_bnp() as usize) << 3],
-            args: [
-                Argument::BranchDest(BranchDest(ins.field_bd() as _)),
-                Argument::None,
-                Argument::None,
-                Argument::None,
-                Argument::None,
-            ],
+            ];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_aa() as usize) << 1 | (ins.field_bp() as usize) << 2
+                    | (ins.field_bnp() as usize) << 3],
+                args: [
+                    Argument::BranchDest(BranchDest(ins.field_bd() as _)),
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0xc && (ins.field_bi() & 0x3) == 0x0 {
-        *out = ParsedIns {
-            mnemonic: [
+        *out = {
+            const MODIFIERS: [&str; 16] = [
                 "blt",
                 "bltl",
                 "blta",
@@ -2162,21 +2244,25 @@ fn simplified_bc(out: &mut ParsedIns, ins: Ins) {
                 "<illegal>",
                 "<illegal>",
                 "<illegal>",
-            ][ins.field_lk() as usize | (ins.field_aa() as usize) << 1
-                | (ins.field_bp() as usize) << 2 | (ins.field_bnp() as usize) << 3],
-            args: [
-                Argument::CRField(CRField(ins.field_crfs() as _)),
-                Argument::BranchDest(BranchDest(ins.field_bd() as _)),
-                Argument::None,
-                Argument::None,
-                Argument::None,
-            ],
+            ];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_aa() as usize) << 1 | (ins.field_bp() as usize) << 2
+                    | (ins.field_bnp() as usize) << 3],
+                args: [
+                    Argument::CRField(CRField(ins.field_crfs() as _)),
+                    Argument::BranchDest(BranchDest(ins.field_bd() as _)),
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0x4 && ins.field_bi() == 0x1 {
-        *out = ParsedIns {
-            mnemonic: [
+        *out = {
+            const MODIFIERS: [&str; 16] = [
                 "ble",
                 "blel",
                 "blea",
@@ -2193,21 +2279,25 @@ fn simplified_bc(out: &mut ParsedIns, ins: Ins) {
                 "<illegal>",
                 "<illegal>",
                 "<illegal>",
-            ][ins.field_lk() as usize | (ins.field_aa() as usize) << 1
-                | (ins.field_bp() as usize) << 2 | (ins.field_bnp() as usize) << 3],
-            args: [
-                Argument::BranchDest(BranchDest(ins.field_bd() as _)),
-                Argument::None,
-                Argument::None,
-                Argument::None,
-                Argument::None,
-            ],
+            ];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_aa() as usize) << 1 | (ins.field_bp() as usize) << 2
+                    | (ins.field_bnp() as usize) << 3],
+                args: [
+                    Argument::BranchDest(BranchDest(ins.field_bd() as _)),
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0x4 && (ins.field_bi() & 0x3) == 0x1 {
-        *out = ParsedIns {
-            mnemonic: [
+        *out = {
+            const MODIFIERS: [&str; 16] = [
                 "ble",
                 "blel",
                 "blea",
@@ -2224,21 +2314,25 @@ fn simplified_bc(out: &mut ParsedIns, ins: Ins) {
                 "<illegal>",
                 "<illegal>",
                 "<illegal>",
-            ][ins.field_lk() as usize | (ins.field_aa() as usize) << 1
-                | (ins.field_bp() as usize) << 2 | (ins.field_bnp() as usize) << 3],
-            args: [
-                Argument::CRField(CRField(ins.field_crfs() as _)),
-                Argument::BranchDest(BranchDest(ins.field_bd() as _)),
-                Argument::None,
-                Argument::None,
-                Argument::None,
-            ],
+            ];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_aa() as usize) << 1 | (ins.field_bp() as usize) << 2
+                    | (ins.field_bnp() as usize) << 3],
+                args: [
+                    Argument::CRField(CRField(ins.field_crfs() as _)),
+                    Argument::BranchDest(BranchDest(ins.field_bd() as _)),
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0xc && ins.field_bi() == 0x2 {
-        *out = ParsedIns {
-            mnemonic: [
+        *out = {
+            const MODIFIERS: [&str; 16] = [
                 "beq",
                 "beql",
                 "beqa",
@@ -2255,21 +2349,25 @@ fn simplified_bc(out: &mut ParsedIns, ins: Ins) {
                 "<illegal>",
                 "<illegal>",
                 "<illegal>",
-            ][ins.field_lk() as usize | (ins.field_aa() as usize) << 1
-                | (ins.field_bp() as usize) << 2 | (ins.field_bnp() as usize) << 3],
-            args: [
-                Argument::BranchDest(BranchDest(ins.field_bd() as _)),
-                Argument::None,
-                Argument::None,
-                Argument::None,
-                Argument::None,
-            ],
+            ];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_aa() as usize) << 1 | (ins.field_bp() as usize) << 2
+                    | (ins.field_bnp() as usize) << 3],
+                args: [
+                    Argument::BranchDest(BranchDest(ins.field_bd() as _)),
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0xc && (ins.field_bi() & 0x3) == 0x2 {
-        *out = ParsedIns {
-            mnemonic: [
+        *out = {
+            const MODIFIERS: [&str; 16] = [
                 "beq",
                 "beql",
                 "beqa",
@@ -2286,21 +2384,25 @@ fn simplified_bc(out: &mut ParsedIns, ins: Ins) {
                 "<illegal>",
                 "<illegal>",
                 "<illegal>",
-            ][ins.field_lk() as usize | (ins.field_aa() as usize) << 1
-                | (ins.field_bp() as usize) << 2 | (ins.field_bnp() as usize) << 3],
-            args: [
-                Argument::CRField(CRField(ins.field_crfs() as _)),
-                Argument::BranchDest(BranchDest(ins.field_bd() as _)),
-                Argument::None,
-                Argument::None,
-                Argument::None,
-            ],
+            ];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_aa() as usize) << 1 | (ins.field_bp() as usize) << 2
+                    | (ins.field_bnp() as usize) << 3],
+                args: [
+                    Argument::CRField(CRField(ins.field_crfs() as _)),
+                    Argument::BranchDest(BranchDest(ins.field_bd() as _)),
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0x4 && ins.field_bi() == 0x0 {
-        *out = ParsedIns {
-            mnemonic: [
+        *out = {
+            const MODIFIERS: [&str; 16] = [
                 "bge",
                 "bgel",
                 "bgea",
@@ -2317,21 +2419,25 @@ fn simplified_bc(out: &mut ParsedIns, ins: Ins) {
                 "<illegal>",
                 "<illegal>",
                 "<illegal>",
-            ][ins.field_lk() as usize | (ins.field_aa() as usize) << 1
-                | (ins.field_bp() as usize) << 2 | (ins.field_bnp() as usize) << 3],
-            args: [
-                Argument::BranchDest(BranchDest(ins.field_bd() as _)),
-                Argument::None,
-                Argument::None,
-                Argument::None,
-                Argument::None,
-            ],
+            ];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_aa() as usize) << 1 | (ins.field_bp() as usize) << 2
+                    | (ins.field_bnp() as usize) << 3],
+                args: [
+                    Argument::BranchDest(BranchDest(ins.field_bd() as _)),
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0x4 && (ins.field_bi() & 0x3) == 0x0 {
-        *out = ParsedIns {
-            mnemonic: [
+        *out = {
+            const MODIFIERS: [&str; 16] = [
                 "bge",
                 "bgel",
                 "bgea",
@@ -2348,21 +2454,25 @@ fn simplified_bc(out: &mut ParsedIns, ins: Ins) {
                 "<illegal>",
                 "<illegal>",
                 "<illegal>",
-            ][ins.field_lk() as usize | (ins.field_aa() as usize) << 1
-                | (ins.field_bp() as usize) << 2 | (ins.field_bnp() as usize) << 3],
-            args: [
-                Argument::CRField(CRField(ins.field_crfs() as _)),
-                Argument::BranchDest(BranchDest(ins.field_bd() as _)),
-                Argument::None,
-                Argument::None,
-                Argument::None,
-            ],
+            ];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_aa() as usize) << 1 | (ins.field_bp() as usize) << 2
+                    | (ins.field_bnp() as usize) << 3],
+                args: [
+                    Argument::CRField(CRField(ins.field_crfs() as _)),
+                    Argument::BranchDest(BranchDest(ins.field_bd() as _)),
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0xc && ins.field_bi() == 0x1 {
-        *out = ParsedIns {
-            mnemonic: [
+        *out = {
+            const MODIFIERS: [&str; 16] = [
                 "bgt",
                 "bgtl",
                 "bgta",
@@ -2379,21 +2489,25 @@ fn simplified_bc(out: &mut ParsedIns, ins: Ins) {
                 "<illegal>",
                 "<illegal>",
                 "<illegal>",
-            ][ins.field_lk() as usize | (ins.field_aa() as usize) << 1
-                | (ins.field_bp() as usize) << 2 | (ins.field_bnp() as usize) << 3],
-            args: [
-                Argument::BranchDest(BranchDest(ins.field_bd() as _)),
-                Argument::None,
-                Argument::None,
-                Argument::None,
-                Argument::None,
-            ],
+            ];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_aa() as usize) << 1 | (ins.field_bp() as usize) << 2
+                    | (ins.field_bnp() as usize) << 3],
+                args: [
+                    Argument::BranchDest(BranchDest(ins.field_bd() as _)),
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0xc && (ins.field_bi() & 0x3) == 0x1 {
-        *out = ParsedIns {
-            mnemonic: [
+        *out = {
+            const MODIFIERS: [&str; 16] = [
                 "bgt",
                 "bgtl",
                 "bgta",
@@ -2410,21 +2524,25 @@ fn simplified_bc(out: &mut ParsedIns, ins: Ins) {
                 "<illegal>",
                 "<illegal>",
                 "<illegal>",
-            ][ins.field_lk() as usize | (ins.field_aa() as usize) << 1
-                | (ins.field_bp() as usize) << 2 | (ins.field_bnp() as usize) << 3],
-            args: [
-                Argument::CRField(CRField(ins.field_crfs() as _)),
-                Argument::BranchDest(BranchDest(ins.field_bd() as _)),
-                Argument::None,
-                Argument::None,
-                Argument::None,
-            ],
+            ];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_aa() as usize) << 1 | (ins.field_bp() as usize) << 2
+                    | (ins.field_bnp() as usize) << 3],
+                args: [
+                    Argument::CRField(CRField(ins.field_crfs() as _)),
+                    Argument::BranchDest(BranchDest(ins.field_bd() as _)),
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0x4 && ins.field_bi() == 0x2 {
-        *out = ParsedIns {
-            mnemonic: [
+        *out = {
+            const MODIFIERS: [&str; 16] = [
                 "bne",
                 "bnel",
                 "bnea",
@@ -2441,21 +2559,25 @@ fn simplified_bc(out: &mut ParsedIns, ins: Ins) {
                 "<illegal>",
                 "<illegal>",
                 "<illegal>",
-            ][ins.field_lk() as usize | (ins.field_aa() as usize) << 1
-                | (ins.field_bp() as usize) << 2 | (ins.field_bnp() as usize) << 3],
-            args: [
-                Argument::BranchDest(BranchDest(ins.field_bd() as _)),
-                Argument::None,
-                Argument::None,
-                Argument::None,
-                Argument::None,
-            ],
+            ];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_aa() as usize) << 1 | (ins.field_bp() as usize) << 2
+                    | (ins.field_bnp() as usize) << 3],
+                args: [
+                    Argument::BranchDest(BranchDest(ins.field_bd() as _)),
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0x4 && (ins.field_bi() & 0x3) == 0x2 {
-        *out = ParsedIns {
-            mnemonic: [
+        *out = {
+            const MODIFIERS: [&str; 16] = [
                 "bne",
                 "bnel",
                 "bnea",
@@ -2472,21 +2594,25 @@ fn simplified_bc(out: &mut ParsedIns, ins: Ins) {
                 "<illegal>",
                 "<illegal>",
                 "<illegal>",
-            ][ins.field_lk() as usize | (ins.field_aa() as usize) << 1
-                | (ins.field_bp() as usize) << 2 | (ins.field_bnp() as usize) << 3],
-            args: [
-                Argument::CRField(CRField(ins.field_crfs() as _)),
-                Argument::BranchDest(BranchDest(ins.field_bd() as _)),
-                Argument::None,
-                Argument::None,
-                Argument::None,
-            ],
+            ];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_aa() as usize) << 1 | (ins.field_bp() as usize) << 2
+                    | (ins.field_bnp() as usize) << 3],
+                args: [
+                    Argument::CRField(CRField(ins.field_crfs() as _)),
+                    Argument::BranchDest(BranchDest(ins.field_bd() as _)),
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0xc && ins.field_bi() == 0x3 {
-        *out = ParsedIns {
-            mnemonic: [
+        *out = {
+            const MODIFIERS: [&str; 16] = [
                 "bso",
                 "bsol",
                 "bsoa",
@@ -2503,21 +2629,25 @@ fn simplified_bc(out: &mut ParsedIns, ins: Ins) {
                 "<illegal>",
                 "<illegal>",
                 "<illegal>",
-            ][ins.field_lk() as usize | (ins.field_aa() as usize) << 1
-                | (ins.field_bp() as usize) << 2 | (ins.field_bnp() as usize) << 3],
-            args: [
-                Argument::BranchDest(BranchDest(ins.field_bd() as _)),
-                Argument::None,
-                Argument::None,
-                Argument::None,
-                Argument::None,
-            ],
+            ];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_aa() as usize) << 1 | (ins.field_bp() as usize) << 2
+                    | (ins.field_bnp() as usize) << 3],
+                args: [
+                    Argument::BranchDest(BranchDest(ins.field_bd() as _)),
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0xc && (ins.field_bi() & 0x3) == 0x3 {
-        *out = ParsedIns {
-            mnemonic: [
+        *out = {
+            const MODIFIERS: [&str; 16] = [
                 "bso",
                 "bsol",
                 "bsoa",
@@ -2534,21 +2664,25 @@ fn simplified_bc(out: &mut ParsedIns, ins: Ins) {
                 "<illegal>",
                 "<illegal>",
                 "<illegal>",
-            ][ins.field_lk() as usize | (ins.field_aa() as usize) << 1
-                | (ins.field_bp() as usize) << 2 | (ins.field_bnp() as usize) << 3],
-            args: [
-                Argument::CRField(CRField(ins.field_crfs() as _)),
-                Argument::BranchDest(BranchDest(ins.field_bd() as _)),
-                Argument::None,
-                Argument::None,
-                Argument::None,
-            ],
+            ];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_aa() as usize) << 1 | (ins.field_bp() as usize) << 2
+                    | (ins.field_bnp() as usize) << 3],
+                args: [
+                    Argument::CRField(CRField(ins.field_crfs() as _)),
+                    Argument::BranchDest(BranchDest(ins.field_bd() as _)),
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0x4 && ins.field_bi() == 0x3 {
-        *out = ParsedIns {
-            mnemonic: [
+        *out = {
+            const MODIFIERS: [&str; 16] = [
                 "bns",
                 "bnsl",
                 "bnsa",
@@ -2565,21 +2699,25 @@ fn simplified_bc(out: &mut ParsedIns, ins: Ins) {
                 "<illegal>",
                 "<illegal>",
                 "<illegal>",
-            ][ins.field_lk() as usize | (ins.field_aa() as usize) << 1
-                | (ins.field_bp() as usize) << 2 | (ins.field_bnp() as usize) << 3],
-            args: [
-                Argument::BranchDest(BranchDest(ins.field_bd() as _)),
-                Argument::None,
-                Argument::None,
-                Argument::None,
-                Argument::None,
-            ],
+            ];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_aa() as usize) << 1 | (ins.field_bp() as usize) << 2
+                    | (ins.field_bnp() as usize) << 3],
+                args: [
+                    Argument::BranchDest(BranchDest(ins.field_bd() as _)),
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0x4 && (ins.field_bi() & 0x3) == 0x3 {
-        *out = ParsedIns {
-            mnemonic: [
+        *out = {
+            const MODIFIERS: [&str; 16] = [
                 "bns",
                 "bnsl",
                 "bnsa",
@@ -2596,21 +2734,25 @@ fn simplified_bc(out: &mut ParsedIns, ins: Ins) {
                 "<illegal>",
                 "<illegal>",
                 "<illegal>",
-            ][ins.field_lk() as usize | (ins.field_aa() as usize) << 1
-                | (ins.field_bp() as usize) << 2 | (ins.field_bnp() as usize) << 3],
-            args: [
-                Argument::CRField(CRField(ins.field_crfs() as _)),
-                Argument::BranchDest(BranchDest(ins.field_bd() as _)),
-                Argument::None,
-                Argument::None,
-                Argument::None,
-            ],
+            ];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_aa() as usize) << 1 | (ins.field_bp() as usize) << 2
+                    | (ins.field_bnp() as usize) << 3],
+                args: [
+                    Argument::CRField(CRField(ins.field_crfs() as _)),
+                    Argument::BranchDest(BranchDest(ins.field_bd() as _)),
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0x10 && ins.field_bi() == 0x0 {
-        *out = ParsedIns {
-            mnemonic: [
+        *out = {
+            const MODIFIERS: [&str; 16] = [
                 "bdnz",
                 "bdnzl",
                 "bdnza",
@@ -2627,21 +2769,25 @@ fn simplified_bc(out: &mut ParsedIns, ins: Ins) {
                 "<illegal>",
                 "<illegal>",
                 "<illegal>",
-            ][ins.field_lk() as usize | (ins.field_aa() as usize) << 1
-                | (ins.field_bp() as usize) << 2 | (ins.field_bnp() as usize) << 3],
-            args: [
-                Argument::BranchDest(BranchDest(ins.field_bd() as _)),
-                Argument::None,
-                Argument::None,
-                Argument::None,
-                Argument::None,
-            ],
+            ];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_aa() as usize) << 1 | (ins.field_bp() as usize) << 2
+                    | (ins.field_bnp() as usize) << 3],
+                args: [
+                    Argument::BranchDest(BranchDest(ins.field_bd() as _)),
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0x8 {
-        *out = ParsedIns {
-            mnemonic: [
+        *out = {
+            const MODIFIERS: [&str; 16] = [
                 "bdnzt",
                 "bdnztl",
                 "bdnzta",
@@ -2658,21 +2804,25 @@ fn simplified_bc(out: &mut ParsedIns, ins: Ins) {
                 "<illegal>",
                 "<illegal>",
                 "<illegal>",
-            ][ins.field_lk() as usize | (ins.field_aa() as usize) << 1
-                | (ins.field_bp() as usize) << 2 | (ins.field_bnp() as usize) << 3],
-            args: [
-                Argument::CRBit(CRBit(ins.field_bi() as _)),
-                Argument::BranchDest(BranchDest(ins.field_bd() as _)),
-                Argument::None,
-                Argument::None,
-                Argument::None,
-            ],
+            ];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_aa() as usize) << 1 | (ins.field_bp() as usize) << 2
+                    | (ins.field_bnp() as usize) << 3],
+                args: [
+                    Argument::CRBit(CRBit(ins.field_bi() as _)),
+                    Argument::BranchDest(BranchDest(ins.field_bd() as _)),
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0x0 {
-        *out = ParsedIns {
-            mnemonic: [
+        *out = {
+            const MODIFIERS: [&str; 16] = [
                 "bdnzf",
                 "bdnzfl",
                 "bdnzfa",
@@ -2689,21 +2839,25 @@ fn simplified_bc(out: &mut ParsedIns, ins: Ins) {
                 "<illegal>",
                 "<illegal>",
                 "<illegal>",
-            ][ins.field_lk() as usize | (ins.field_aa() as usize) << 1
-                | (ins.field_bp() as usize) << 2 | (ins.field_bnp() as usize) << 3],
-            args: [
-                Argument::CRBit(CRBit(ins.field_bi() as _)),
-                Argument::BranchDest(BranchDest(ins.field_bd() as _)),
-                Argument::None,
-                Argument::None,
-                Argument::None,
-            ],
+            ];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_aa() as usize) << 1 | (ins.field_bp() as usize) << 2
+                    | (ins.field_bnp() as usize) << 3],
+                args: [
+                    Argument::CRBit(CRBit(ins.field_bi() as _)),
+                    Argument::BranchDest(BranchDest(ins.field_bd() as _)),
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0x12 && ins.field_bi() == 0x0 {
-        *out = ParsedIns {
-            mnemonic: [
+        *out = {
+            const MODIFIERS: [&str; 16] = [
                 "bdz",
                 "bdzl",
                 "bdza",
@@ -2720,21 +2874,25 @@ fn simplified_bc(out: &mut ParsedIns, ins: Ins) {
                 "<illegal>",
                 "<illegal>",
                 "<illegal>",
-            ][ins.field_lk() as usize | (ins.field_aa() as usize) << 1
-                | (ins.field_bp() as usize) << 2 | (ins.field_bnp() as usize) << 3],
-            args: [
-                Argument::BranchDest(BranchDest(ins.field_bd() as _)),
-                Argument::None,
-                Argument::None,
-                Argument::None,
-                Argument::None,
-            ],
+            ];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_aa() as usize) << 1 | (ins.field_bp() as usize) << 2
+                    | (ins.field_bnp() as usize) << 3],
+                args: [
+                    Argument::BranchDest(BranchDest(ins.field_bd() as _)),
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0xa {
-        *out = ParsedIns {
-            mnemonic: [
+        *out = {
+            const MODIFIERS: [&str; 16] = [
                 "bdzt",
                 "bdztl",
                 "bdzta",
@@ -2751,21 +2909,25 @@ fn simplified_bc(out: &mut ParsedIns, ins: Ins) {
                 "<illegal>",
                 "<illegal>",
                 "<illegal>",
-            ][ins.field_lk() as usize | (ins.field_aa() as usize) << 1
-                | (ins.field_bp() as usize) << 2 | (ins.field_bnp() as usize) << 3],
-            args: [
-                Argument::CRBit(CRBit(ins.field_bi() as _)),
-                Argument::BranchDest(BranchDest(ins.field_bd() as _)),
-                Argument::None,
-                Argument::None,
-                Argument::None,
-            ],
+            ];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_aa() as usize) << 1 | (ins.field_bp() as usize) << 2
+                    | (ins.field_bnp() as usize) << 3],
+                args: [
+                    Argument::CRBit(CRBit(ins.field_bi() as _)),
+                    Argument::BranchDest(BranchDest(ins.field_bd() as _)),
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0x2 {
-        *out = ParsedIns {
-            mnemonic: [
+        *out = {
+            const MODIFIERS: [&str; 16] = [
                 "bdzf",
                 "bdzfl",
                 "bdzfa",
@@ -2782,15 +2944,19 @@ fn simplified_bc(out: &mut ParsedIns, ins: Ins) {
                 "<illegal>",
                 "<illegal>",
                 "<illegal>",
-            ][ins.field_lk() as usize | (ins.field_aa() as usize) << 1
-                | (ins.field_bp() as usize) << 2 | (ins.field_bnp() as usize) << 3],
-            args: [
-                Argument::CRBit(CRBit(ins.field_bi() as _)),
-                Argument::BranchDest(BranchDest(ins.field_bd() as _)),
-                Argument::None,
-                Argument::None,
-                Argument::None,
-            ],
+            ];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_aa() as usize) << 1 | (ins.field_bp() as usize) << 2
+                    | (ins.field_bnp() as usize) << 3],
+                args: [
+                    Argument::CRBit(CRBit(ins.field_bi() as _)),
+                    Argument::BranchDest(BranchDest(ins.field_bd() as _)),
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
@@ -2803,647 +2969,622 @@ fn basic_sc(out: &mut ParsedIns, ins: Ins) {
     };
 }
 fn basic_b(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: [
-            "b",
-            "bl",
-            "ba",
-            "bla",
-        ][ins.field_lk() as usize | (ins.field_aa() as usize) << 1],
-        args: [
-            Argument::BranchDest(BranchDest(ins.field_li() as _)),
-            Argument::None,
-            Argument::None,
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 4] = ["b", "bl", "ba", "bla"];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_lk() as usize
+                | (ins.field_aa() as usize) << 1],
+            args: [
+                Argument::BranchDest(BranchDest(ins.field_li() as _)),
+                Argument::None,
+                Argument::None,
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_bcctr(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: [
-            "bcctr",
-            "bcctrl",
-            "bcctr+",
-            "bcctrl+",
-        ][ins.field_lk() as usize | (ins.field_bp_nd() as usize) << 1],
-        args: [
-            Argument::OpaqueU(OpaqueU(ins.field_bo() as _)),
-            Argument::CRBit(CRBit(ins.field_bi() as _)),
-            Argument::None,
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 4] = ["bcctr", "bcctrl", "bcctr+", "bcctrl+"];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_lk() as usize
+                | (ins.field_bp_nd() as usize) << 1],
+            args: [
+                Argument::OpaqueU(OpaqueU(ins.field_bo() as _)),
+                Argument::CRBit(CRBit(ins.field_bi() as _)),
+                Argument::None,
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn simplified_bcctr(out: &mut ParsedIns, ins: Ins) {
     if ins.field_bo() == 0x14 && ins.field_bi() == 0x0 {
-        *out = ParsedIns {
-            mnemonic: ["bctr", "bctrl"][ins.field_lk() as usize],
-            args: EMPTY_ARGS,
+        *out = {
+            const MODIFIERS: [&str; 2] = ["bctr", "bctrl"];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize],
+                args: EMPTY_ARGS,
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0xc && ins.field_bi() == 0x0 {
-        *out = ParsedIns {
-            mnemonic: [
-                "bltctr",
-                "bltctrl",
-                "bltctr+",
-                "bltctrl+",
-            ][ins.field_lk() as usize | (ins.field_bp_nd() as usize) << 1],
-            args: EMPTY_ARGS,
+        *out = {
+            const MODIFIERS: [&str; 4] = ["bltctr", "bltctrl", "bltctr+", "bltctrl+"];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_bp_nd() as usize) << 1],
+                args: EMPTY_ARGS,
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0xc && (ins.field_bi() & 0x3) == 0x0 {
-        *out = ParsedIns {
-            mnemonic: [
-                "bltctr",
-                "bltctrl",
-                "bltctr+",
-                "bltctrl+",
-            ][ins.field_lk() as usize | (ins.field_bp_nd() as usize) << 1],
-            args: [
-                Argument::CRField(CRField(ins.field_crfs() as _)),
-                Argument::None,
-                Argument::None,
-                Argument::None,
-                Argument::None,
-            ],
+        *out = {
+            const MODIFIERS: [&str; 4] = ["bltctr", "bltctrl", "bltctr+", "bltctrl+"];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_bp_nd() as usize) << 1],
+                args: [
+                    Argument::CRField(CRField(ins.field_crfs() as _)),
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0x4 && ins.field_bi() == 0x1 {
-        *out = ParsedIns {
-            mnemonic: [
-                "blectr",
-                "blectrl",
-                "blectr+",
-                "blectrl+",
-            ][ins.field_lk() as usize | (ins.field_bp_nd() as usize) << 1],
-            args: EMPTY_ARGS,
+        *out = {
+            const MODIFIERS: [&str; 4] = ["blectr", "blectrl", "blectr+", "blectrl+"];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_bp_nd() as usize) << 1],
+                args: EMPTY_ARGS,
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0x4 && (ins.field_bi() & 0x3) == 0x1 {
-        *out = ParsedIns {
-            mnemonic: [
-                "blectr",
-                "blectrl",
-                "blectr+",
-                "blectrl+",
-            ][ins.field_lk() as usize | (ins.field_bp_nd() as usize) << 1],
-            args: [
-                Argument::CRField(CRField(ins.field_crfs() as _)),
-                Argument::None,
-                Argument::None,
-                Argument::None,
-                Argument::None,
-            ],
+        *out = {
+            const MODIFIERS: [&str; 4] = ["blectr", "blectrl", "blectr+", "blectrl+"];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_bp_nd() as usize) << 1],
+                args: [
+                    Argument::CRField(CRField(ins.field_crfs() as _)),
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0xc && ins.field_bi() == 0x2 {
-        *out = ParsedIns {
-            mnemonic: [
-                "beqctr",
-                "beqctrl",
-                "beqctr+",
-                "beqctrl+",
-            ][ins.field_lk() as usize | (ins.field_bp_nd() as usize) << 1],
-            args: EMPTY_ARGS,
+        *out = {
+            const MODIFIERS: [&str; 4] = ["beqctr", "beqctrl", "beqctr+", "beqctrl+"];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_bp_nd() as usize) << 1],
+                args: EMPTY_ARGS,
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0xc && (ins.field_bi() & 0x3) == 0x2 {
-        *out = ParsedIns {
-            mnemonic: [
-                "beqctr",
-                "beqctrl",
-                "beqctr+",
-                "beqctrl+",
-            ][ins.field_lk() as usize | (ins.field_bp_nd() as usize) << 1],
-            args: [
-                Argument::CRField(CRField(ins.field_crfs() as _)),
-                Argument::None,
-                Argument::None,
-                Argument::None,
-                Argument::None,
-            ],
+        *out = {
+            const MODIFIERS: [&str; 4] = ["beqctr", "beqctrl", "beqctr+", "beqctrl+"];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_bp_nd() as usize) << 1],
+                args: [
+                    Argument::CRField(CRField(ins.field_crfs() as _)),
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0x4 && ins.field_bi() == 0x0 {
-        *out = ParsedIns {
-            mnemonic: [
-                "bgectr",
-                "bgectrl",
-                "bgectr+",
-                "bgectrl+",
-            ][ins.field_lk() as usize | (ins.field_bp_nd() as usize) << 1],
-            args: EMPTY_ARGS,
+        *out = {
+            const MODIFIERS: [&str; 4] = ["bgectr", "bgectrl", "bgectr+", "bgectrl+"];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_bp_nd() as usize) << 1],
+                args: EMPTY_ARGS,
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0x4 && (ins.field_bi() & 0x3) == 0x0 {
-        *out = ParsedIns {
-            mnemonic: [
-                "bgectr",
-                "bgectrl",
-                "bgectr+",
-                "bgectrl+",
-            ][ins.field_lk() as usize | (ins.field_bp_nd() as usize) << 1],
-            args: [
-                Argument::CRField(CRField(ins.field_crfs() as _)),
-                Argument::None,
-                Argument::None,
-                Argument::None,
-                Argument::None,
-            ],
+        *out = {
+            const MODIFIERS: [&str; 4] = ["bgectr", "bgectrl", "bgectr+", "bgectrl+"];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_bp_nd() as usize) << 1],
+                args: [
+                    Argument::CRField(CRField(ins.field_crfs() as _)),
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0xc && ins.field_bi() == 0x1 {
-        *out = ParsedIns {
-            mnemonic: [
-                "bgtctr",
-                "bgtctrl",
-                "bgtctr+",
-                "bgtctrl+",
-            ][ins.field_lk() as usize | (ins.field_bp_nd() as usize) << 1],
-            args: EMPTY_ARGS,
+        *out = {
+            const MODIFIERS: [&str; 4] = ["bgtctr", "bgtctrl", "bgtctr+", "bgtctrl+"];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_bp_nd() as usize) << 1],
+                args: EMPTY_ARGS,
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0xc && (ins.field_bi() & 0x3) == 0x1 {
-        *out = ParsedIns {
-            mnemonic: [
-                "bgtctr",
-                "bgtctrl",
-                "bgtctr+",
-                "bgtctrl+",
-            ][ins.field_lk() as usize | (ins.field_bp_nd() as usize) << 1],
-            args: [
-                Argument::CRField(CRField(ins.field_crfs() as _)),
-                Argument::None,
-                Argument::None,
-                Argument::None,
-                Argument::None,
-            ],
+        *out = {
+            const MODIFIERS: [&str; 4] = ["bgtctr", "bgtctrl", "bgtctr+", "bgtctrl+"];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_bp_nd() as usize) << 1],
+                args: [
+                    Argument::CRField(CRField(ins.field_crfs() as _)),
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0x4 && ins.field_bi() == 0x2 {
-        *out = ParsedIns {
-            mnemonic: [
-                "bnectr",
-                "bnectrl",
-                "bnectr+",
-                "bnectrl+",
-            ][ins.field_lk() as usize | (ins.field_bp_nd() as usize) << 1],
-            args: EMPTY_ARGS,
+        *out = {
+            const MODIFIERS: [&str; 4] = ["bnectr", "bnectrl", "bnectr+", "bnectrl+"];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_bp_nd() as usize) << 1],
+                args: EMPTY_ARGS,
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0x4 && (ins.field_bi() & 0x3) == 0x2 {
-        *out = ParsedIns {
-            mnemonic: [
-                "bnectr",
-                "bnectrl",
-                "bnectr+",
-                "bnectrl+",
-            ][ins.field_lk() as usize | (ins.field_bp_nd() as usize) << 1],
-            args: [
-                Argument::CRField(CRField(ins.field_crfs() as _)),
-                Argument::None,
-                Argument::None,
-                Argument::None,
-                Argument::None,
-            ],
+        *out = {
+            const MODIFIERS: [&str; 4] = ["bnectr", "bnectrl", "bnectr+", "bnectrl+"];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_bp_nd() as usize) << 1],
+                args: [
+                    Argument::CRField(CRField(ins.field_crfs() as _)),
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0xc && ins.field_bi() == 0x3 {
-        *out = ParsedIns {
-            mnemonic: [
-                "bsoctr",
-                "bsoctrl",
-                "bsoctr+",
-                "bsoctrl+",
-            ][ins.field_lk() as usize | (ins.field_bp_nd() as usize) << 1],
-            args: EMPTY_ARGS,
+        *out = {
+            const MODIFIERS: [&str; 4] = ["bsoctr", "bsoctrl", "bsoctr+", "bsoctrl+"];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_bp_nd() as usize) << 1],
+                args: EMPTY_ARGS,
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0xc && (ins.field_bi() & 0x3) == 0x3 {
-        *out = ParsedIns {
-            mnemonic: [
-                "bsoctr",
-                "bsoctrl",
-                "bsoctr+",
-                "bsoctrl+",
-            ][ins.field_lk() as usize | (ins.field_bp_nd() as usize) << 1],
-            args: [
-                Argument::CRField(CRField(ins.field_crfs() as _)),
-                Argument::None,
-                Argument::None,
-                Argument::None,
-                Argument::None,
-            ],
+        *out = {
+            const MODIFIERS: [&str; 4] = ["bsoctr", "bsoctrl", "bsoctr+", "bsoctrl+"];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_bp_nd() as usize) << 1],
+                args: [
+                    Argument::CRField(CRField(ins.field_crfs() as _)),
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0x4 && ins.field_bi() == 0x3 {
-        *out = ParsedIns {
-            mnemonic: [
-                "bnsctr",
-                "bnsctrl",
-                "bnsctr+",
-                "bnsctrl+",
-            ][ins.field_lk() as usize | (ins.field_bp_nd() as usize) << 1],
-            args: EMPTY_ARGS,
+        *out = {
+            const MODIFIERS: [&str; 4] = ["bnsctr", "bnsctrl", "bnsctr+", "bnsctrl+"];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_bp_nd() as usize) << 1],
+                args: EMPTY_ARGS,
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0x4 && (ins.field_bi() & 0x3) == 0x3 {
-        *out = ParsedIns {
-            mnemonic: [
-                "bnsctr",
-                "bnsctrl",
-                "bnsctr+",
-                "bnsctrl+",
-            ][ins.field_lk() as usize | (ins.field_bp_nd() as usize) << 1],
-            args: [
-                Argument::CRField(CRField(ins.field_crfs() as _)),
-                Argument::None,
-                Argument::None,
-                Argument::None,
-                Argument::None,
-            ],
+        *out = {
+            const MODIFIERS: [&str; 4] = ["bnsctr", "bnsctrl", "bnsctr+", "bnsctrl+"];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_bp_nd() as usize) << 1],
+                args: [
+                    Argument::CRField(CRField(ins.field_crfs() as _)),
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     basic_bcctr(out, ins)
 }
 fn basic_bclr(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: [
-            "bclr",
-            "bclrl",
-            "bclr+",
-            "bclrl+",
-        ][ins.field_lk() as usize | (ins.field_bp_nd() as usize) << 1],
-        args: [
-            Argument::OpaqueU(OpaqueU(ins.field_bo() as _)),
-            Argument::CRBit(CRBit(ins.field_bi() as _)),
-            Argument::None,
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 4] = ["bclr", "bclrl", "bclr+", "bclrl+"];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_lk() as usize
+                | (ins.field_bp_nd() as usize) << 1],
+            args: [
+                Argument::OpaqueU(OpaqueU(ins.field_bo() as _)),
+                Argument::CRBit(CRBit(ins.field_bi() as _)),
+                Argument::None,
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn simplified_bclr(out: &mut ParsedIns, ins: Ins) {
     if ins.field_bo() == 0x14 && ins.field_bi() == 0x0 {
-        *out = ParsedIns {
-            mnemonic: ["blr", "blrl"][ins.field_lk() as usize],
-            args: EMPTY_ARGS,
+        *out = {
+            const MODIFIERS: [&str; 2] = ["blr", "blrl"];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize],
+                args: EMPTY_ARGS,
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0xc && ins.field_bi() == 0x0 {
-        *out = ParsedIns {
-            mnemonic: [
-                "bltlr",
-                "bltlrl",
-                "bltlr+",
-                "bltlrl+",
-            ][ins.field_lk() as usize | (ins.field_bp_nd() as usize) << 1],
-            args: EMPTY_ARGS,
+        *out = {
+            const MODIFIERS: [&str; 4] = ["bltlr", "bltlrl", "bltlr+", "bltlrl+"];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_bp_nd() as usize) << 1],
+                args: EMPTY_ARGS,
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0xc && (ins.field_bi() & 0x3) == 0x0 {
-        *out = ParsedIns {
-            mnemonic: [
-                "bltlr",
-                "bltlrl",
-                "bltlr+",
-                "bltlrl+",
-            ][ins.field_lk() as usize | (ins.field_bp_nd() as usize) << 1],
-            args: [
-                Argument::CRField(CRField(ins.field_crfs() as _)),
-                Argument::None,
-                Argument::None,
-                Argument::None,
-                Argument::None,
-            ],
+        *out = {
+            const MODIFIERS: [&str; 4] = ["bltlr", "bltlrl", "bltlr+", "bltlrl+"];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_bp_nd() as usize) << 1],
+                args: [
+                    Argument::CRField(CRField(ins.field_crfs() as _)),
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0x4 && ins.field_bi() == 0x1 {
-        *out = ParsedIns {
-            mnemonic: [
-                "blelr",
-                "blelrl",
-                "blelr+",
-                "blelrl+",
-            ][ins.field_lk() as usize | (ins.field_bp_nd() as usize) << 1],
-            args: EMPTY_ARGS,
+        *out = {
+            const MODIFIERS: [&str; 4] = ["blelr", "blelrl", "blelr+", "blelrl+"];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_bp_nd() as usize) << 1],
+                args: EMPTY_ARGS,
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0x4 && (ins.field_bi() & 0x3) == 0x1 {
-        *out = ParsedIns {
-            mnemonic: [
-                "blelr",
-                "blelrl",
-                "blelr+",
-                "blelrl+",
-            ][ins.field_lk() as usize | (ins.field_bp_nd() as usize) << 1],
-            args: [
-                Argument::CRField(CRField(ins.field_crfs() as _)),
-                Argument::None,
-                Argument::None,
-                Argument::None,
-                Argument::None,
-            ],
+        *out = {
+            const MODIFIERS: [&str; 4] = ["blelr", "blelrl", "blelr+", "blelrl+"];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_bp_nd() as usize) << 1],
+                args: [
+                    Argument::CRField(CRField(ins.field_crfs() as _)),
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0xc && ins.field_bi() == 0x2 {
-        *out = ParsedIns {
-            mnemonic: [
-                "beqlr",
-                "beqlrl",
-                "beqlr+",
-                "beqlrl+",
-            ][ins.field_lk() as usize | (ins.field_bp_nd() as usize) << 1],
-            args: EMPTY_ARGS,
+        *out = {
+            const MODIFIERS: [&str; 4] = ["beqlr", "beqlrl", "beqlr+", "beqlrl+"];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_bp_nd() as usize) << 1],
+                args: EMPTY_ARGS,
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0xc && (ins.field_bi() & 0x3) == 0x2 {
-        *out = ParsedIns {
-            mnemonic: [
-                "beqlr",
-                "beqlrl",
-                "beqlr+",
-                "beqlrl+",
-            ][ins.field_lk() as usize | (ins.field_bp_nd() as usize) << 1],
-            args: [
-                Argument::CRField(CRField(ins.field_crfs() as _)),
-                Argument::None,
-                Argument::None,
-                Argument::None,
-                Argument::None,
-            ],
+        *out = {
+            const MODIFIERS: [&str; 4] = ["beqlr", "beqlrl", "beqlr+", "beqlrl+"];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_bp_nd() as usize) << 1],
+                args: [
+                    Argument::CRField(CRField(ins.field_crfs() as _)),
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0x4 && ins.field_bi() == 0x0 {
-        *out = ParsedIns {
-            mnemonic: [
-                "bgelr",
-                "bgelrl",
-                "bgelr+",
-                "bgelrl+",
-            ][ins.field_lk() as usize | (ins.field_bp_nd() as usize) << 1],
-            args: EMPTY_ARGS,
+        *out = {
+            const MODIFIERS: [&str; 4] = ["bgelr", "bgelrl", "bgelr+", "bgelrl+"];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_bp_nd() as usize) << 1],
+                args: EMPTY_ARGS,
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0x4 && (ins.field_bi() & 0x3) == 0x0 {
-        *out = ParsedIns {
-            mnemonic: [
-                "bgelr",
-                "bgelrl",
-                "bgelr+",
-                "bgelrl+",
-            ][ins.field_lk() as usize | (ins.field_bp_nd() as usize) << 1],
-            args: [
-                Argument::CRField(CRField(ins.field_crfs() as _)),
-                Argument::None,
-                Argument::None,
-                Argument::None,
-                Argument::None,
-            ],
+        *out = {
+            const MODIFIERS: [&str; 4] = ["bgelr", "bgelrl", "bgelr+", "bgelrl+"];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_bp_nd() as usize) << 1],
+                args: [
+                    Argument::CRField(CRField(ins.field_crfs() as _)),
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0xc && ins.field_bi() == 0x1 {
-        *out = ParsedIns {
-            mnemonic: [
-                "bgtlr",
-                "bgtlrl",
-                "bgtlr+",
-                "bgtlrl+",
-            ][ins.field_lk() as usize | (ins.field_bp_nd() as usize) << 1],
-            args: EMPTY_ARGS,
+        *out = {
+            const MODIFIERS: [&str; 4] = ["bgtlr", "bgtlrl", "bgtlr+", "bgtlrl+"];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_bp_nd() as usize) << 1],
+                args: EMPTY_ARGS,
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0xc && (ins.field_bi() & 0x3) == 0x1 {
-        *out = ParsedIns {
-            mnemonic: [
-                "bgtlr",
-                "bgtlrl",
-                "bgtlr+",
-                "bgtlrl+",
-            ][ins.field_lk() as usize | (ins.field_bp_nd() as usize) << 1],
-            args: [
-                Argument::CRField(CRField(ins.field_crfs() as _)),
-                Argument::None,
-                Argument::None,
-                Argument::None,
-                Argument::None,
-            ],
+        *out = {
+            const MODIFIERS: [&str; 4] = ["bgtlr", "bgtlrl", "bgtlr+", "bgtlrl+"];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_bp_nd() as usize) << 1],
+                args: [
+                    Argument::CRField(CRField(ins.field_crfs() as _)),
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0x4 && ins.field_bi() == 0x2 {
-        *out = ParsedIns {
-            mnemonic: [
-                "bnelr",
-                "bnelrl",
-                "bnelr+",
-                "bnelrl+",
-            ][ins.field_lk() as usize | (ins.field_bp_nd() as usize) << 1],
-            args: EMPTY_ARGS,
+        *out = {
+            const MODIFIERS: [&str; 4] = ["bnelr", "bnelrl", "bnelr+", "bnelrl+"];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_bp_nd() as usize) << 1],
+                args: EMPTY_ARGS,
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0x4 && (ins.field_bi() & 0x3) == 0x2 {
-        *out = ParsedIns {
-            mnemonic: [
-                "bnelr",
-                "bnelrl",
-                "bnelr+",
-                "bnelrl+",
-            ][ins.field_lk() as usize | (ins.field_bp_nd() as usize) << 1],
-            args: [
-                Argument::CRField(CRField(ins.field_crfs() as _)),
-                Argument::None,
-                Argument::None,
-                Argument::None,
-                Argument::None,
-            ],
+        *out = {
+            const MODIFIERS: [&str; 4] = ["bnelr", "bnelrl", "bnelr+", "bnelrl+"];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_bp_nd() as usize) << 1],
+                args: [
+                    Argument::CRField(CRField(ins.field_crfs() as _)),
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0xc && ins.field_bi() == 0x3 {
-        *out = ParsedIns {
-            mnemonic: [
-                "bsolr",
-                "bsolrl",
-                "bsolr+",
-                "bsolrl+",
-            ][ins.field_lk() as usize | (ins.field_bp_nd() as usize) << 1],
-            args: EMPTY_ARGS,
+        *out = {
+            const MODIFIERS: [&str; 4] = ["bsolr", "bsolrl", "bsolr+", "bsolrl+"];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_bp_nd() as usize) << 1],
+                args: EMPTY_ARGS,
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0xc && (ins.field_bi() & 0x3) == 0x3 {
-        *out = ParsedIns {
-            mnemonic: [
-                "bsolr",
-                "bsolrl",
-                "bsolr+",
-                "bsolrl+",
-            ][ins.field_lk() as usize | (ins.field_bp_nd() as usize) << 1],
-            args: [
-                Argument::CRField(CRField(ins.field_crfs() as _)),
-                Argument::None,
-                Argument::None,
-                Argument::None,
-                Argument::None,
-            ],
+        *out = {
+            const MODIFIERS: [&str; 4] = ["bsolr", "bsolrl", "bsolr+", "bsolrl+"];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_bp_nd() as usize) << 1],
+                args: [
+                    Argument::CRField(CRField(ins.field_crfs() as _)),
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0x4 && ins.field_bi() == 0x3 {
-        *out = ParsedIns {
-            mnemonic: [
-                "bnslr",
-                "bnslrl",
-                "bnslr+",
-                "bnslrl+",
-            ][ins.field_lk() as usize | (ins.field_bp_nd() as usize) << 1],
-            args: EMPTY_ARGS,
+        *out = {
+            const MODIFIERS: [&str; 4] = ["bnslr", "bnslrl", "bnslr+", "bnslrl+"];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_bp_nd() as usize) << 1],
+                args: EMPTY_ARGS,
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0x4 && (ins.field_bi() & 0x3) == 0x3 {
-        *out = ParsedIns {
-            mnemonic: [
-                "bnslr",
-                "bnslrl",
-                "bnslr+",
-                "bnslrl+",
-            ][ins.field_lk() as usize | (ins.field_bp_nd() as usize) << 1],
-            args: [
-                Argument::CRField(CRField(ins.field_crfs() as _)),
-                Argument::None,
-                Argument::None,
-                Argument::None,
-                Argument::None,
-            ],
+        *out = {
+            const MODIFIERS: [&str; 4] = ["bnslr", "bnslrl", "bnslr+", "bnslrl+"];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_bp_nd() as usize) << 1],
+                args: [
+                    Argument::CRField(CRField(ins.field_crfs() as _)),
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0x10 && ins.field_bi() == 0x0 {
-        *out = ParsedIns {
-            mnemonic: [
-                "bdnzlr",
-                "bdnzlrl",
-                "bdnzlr+",
-                "bdnzlrl+",
-            ][ins.field_lk() as usize | (ins.field_bp_nd() as usize) << 1],
-            args: EMPTY_ARGS,
+        *out = {
+            const MODIFIERS: [&str; 4] = ["bdnzlr", "bdnzlrl", "bdnzlr+", "bdnzlrl+"];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_bp_nd() as usize) << 1],
+                args: EMPTY_ARGS,
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0x8 {
-        *out = ParsedIns {
-            mnemonic: [
+        *out = {
+            const MODIFIERS: [&str; 4] = [
                 "bdnztlr",
                 "bdnztlrl",
                 "bdnztlr+",
                 "bdnztlrl+",
-            ][ins.field_lk() as usize | (ins.field_bp_nd() as usize) << 1],
-            args: [
-                Argument::CRBit(CRBit(ins.field_bi() as _)),
-                Argument::None,
-                Argument::None,
-                Argument::None,
-                Argument::None,
-            ],
+            ];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_bp_nd() as usize) << 1],
+                args: [
+                    Argument::CRBit(CRBit(ins.field_bi() as _)),
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0x0 {
-        *out = ParsedIns {
-            mnemonic: [
+        *out = {
+            const MODIFIERS: [&str; 4] = [
                 "bdnzflr",
                 "bdnzflrl",
                 "bdnzflr+",
                 "bdnzflrl+",
-            ][ins.field_lk() as usize | (ins.field_bp_nd() as usize) << 1],
-            args: [
-                Argument::CRBit(CRBit(ins.field_bi() as _)),
-                Argument::None,
-                Argument::None,
-                Argument::None,
-                Argument::None,
-            ],
+            ];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_bp_nd() as usize) << 1],
+                args: [
+                    Argument::CRBit(CRBit(ins.field_bi() as _)),
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0x12 && ins.field_bi() == 0x0 {
-        *out = ParsedIns {
-            mnemonic: [
-                "bdzlr",
-                "bdzlrl",
-                "bdzlr+",
-                "bdzlrl+",
-            ][ins.field_lk() as usize | (ins.field_bp_nd() as usize) << 1],
-            args: EMPTY_ARGS,
+        *out = {
+            const MODIFIERS: [&str; 4] = ["bdzlr", "bdzlrl", "bdzlr+", "bdzlrl+"];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_bp_nd() as usize) << 1],
+                args: EMPTY_ARGS,
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0xa {
-        *out = ParsedIns {
-            mnemonic: [
-                "bdztlr",
-                "bdztlrl",
-                "bdztlr+",
-                "bdztlrl+",
-            ][ins.field_lk() as usize | (ins.field_bp_nd() as usize) << 1],
-            args: [
-                Argument::CRBit(CRBit(ins.field_bi() as _)),
-                Argument::None,
-                Argument::None,
-                Argument::None,
-                Argument::None,
-            ],
+        *out = {
+            const MODIFIERS: [&str; 4] = ["bdztlr", "bdztlrl", "bdztlr+", "bdztlrl+"];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_bp_nd() as usize) << 1],
+                args: [
+                    Argument::CRBit(CRBit(ins.field_bi() as _)),
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if (ins.field_bo() & 0x1e) == 0x0 {
-        *out = ParsedIns {
-            mnemonic: [
-                "bdzflr",
-                "bdzflrl",
-                "bdzflr+",
-                "bdzflrl+",
-            ][ins.field_lk() as usize | (ins.field_bp_nd() as usize) << 1],
-            args: [
-                Argument::CRBit(CRBit(ins.field_bi() as _)),
-                Argument::None,
-                Argument::None,
-                Argument::None,
-                Argument::None,
-            ],
+        *out = {
+            const MODIFIERS: [&str; 4] = ["bdzflr", "bdzflrl", "bdzflr+", "bdzflrl+"];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_lk() as usize
+                    | (ins.field_bp_nd() as usize) << 1],
+                args: [
+                    Argument::CRBit(CRBit(ins.field_bi() as _)),
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
@@ -3634,174 +3775,213 @@ fn basic_rfi(out: &mut ParsedIns, ins: Ins) {
     };
 }
 fn basic_rlwimi(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["rlwimi", "rlwimi."][ins.field_rc() as usize],
-        args: [
-            Argument::GPR(GPR(ins.field_ra() as _)),
-            Argument::GPR(GPR(ins.field_rs() as _)),
-            Argument::OpaqueU(OpaqueU(ins.field_sh() as _)),
-            Argument::OpaqueU(OpaqueU(ins.field_mb() as _)),
-            Argument::OpaqueU(OpaqueU(ins.field_me() as _)),
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["rlwimi", "rlwimi."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::GPR(GPR(ins.field_ra() as _)),
+                Argument::GPR(GPR(ins.field_rs() as _)),
+                Argument::OpaqueU(OpaqueU(ins.field_sh() as _)),
+                Argument::OpaqueU(OpaqueU(ins.field_mb() as _)),
+                Argument::OpaqueU(OpaqueU(ins.field_me() as _)),
+            ],
+        }
     };
 }
 fn basic_rlwinm(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["rlwinm", "rlwinm."][ins.field_rc() as usize],
-        args: [
-            Argument::GPR(GPR(ins.field_ra() as _)),
-            Argument::GPR(GPR(ins.field_rs() as _)),
-            Argument::OpaqueU(OpaqueU(ins.field_sh() as _)),
-            Argument::OpaqueU(OpaqueU(ins.field_mb() as _)),
-            Argument::OpaqueU(OpaqueU(ins.field_me() as _)),
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["rlwinm", "rlwinm."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::GPR(GPR(ins.field_ra() as _)),
+                Argument::GPR(GPR(ins.field_rs() as _)),
+                Argument::OpaqueU(OpaqueU(ins.field_sh() as _)),
+                Argument::OpaqueU(OpaqueU(ins.field_mb() as _)),
+                Argument::OpaqueU(OpaqueU(ins.field_me() as _)),
+            ],
+        }
     };
 }
 fn simplified_rlwinm(out: &mut ParsedIns, ins: Ins) {
     if ins.field_sh() == 0x0 && ins.field_mb() == 0x0 {
-        *out = ParsedIns {
-            mnemonic: ["clrrwi", "clrrwi."][ins.field_rc() as usize],
-            args: [
-                Argument::GPR(GPR(ins.field_ra() as _)),
-                Argument::GPR(GPR(ins.field_rs() as _)),
-                Argument::OpaqueU(OpaqueU((31 - ins.field_me()) as _)),
-                Argument::None,
-                Argument::None,
-            ],
+        *out = {
+            const MODIFIERS: [&str; 2] = ["clrrwi", "clrrwi."];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_rc() as usize],
+                args: [
+                    Argument::GPR(GPR(ins.field_ra() as _)),
+                    Argument::GPR(GPR(ins.field_rs() as _)),
+                    Argument::OpaqueU(OpaqueU((31 - ins.field_me()) as _)),
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if ins.field_sh() == 0x0 && ins.field_me() == 0x1f {
-        *out = ParsedIns {
-            mnemonic: ["clrlwi", "clrlwi."][ins.field_rc() as usize],
-            args: [
-                Argument::GPR(GPR(ins.field_ra() as _)),
-                Argument::GPR(GPR(ins.field_rs() as _)),
-                Argument::OpaqueU(OpaqueU(ins.field_mb() as _)),
-                Argument::None,
-                Argument::None,
-            ],
+        *out = {
+            const MODIFIERS: [&str; 2] = ["clrlwi", "clrlwi."];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_rc() as usize],
+                args: [
+                    Argument::GPR(GPR(ins.field_ra() as _)),
+                    Argument::GPR(GPR(ins.field_rs() as _)),
+                    Argument::OpaqueU(OpaqueU(ins.field_mb() as _)),
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if ins.field_mb() == 0x0 && ins.field_me() == 0x1f && ins.field_sh() <= 0x10 {
-        *out = ParsedIns {
-            mnemonic: ["rotlwi", "rotlwi."][ins.field_rc() as usize],
-            args: [
-                Argument::GPR(GPR(ins.field_ra() as _)),
-                Argument::GPR(GPR(ins.field_rs() as _)),
-                Argument::OpaqueU(OpaqueU(ins.field_sh() as _)),
-                Argument::None,
-                Argument::None,
-            ],
+        *out = {
+            const MODIFIERS: [&str; 2] = ["rotlwi", "rotlwi."];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_rc() as usize],
+                args: [
+                    Argument::GPR(GPR(ins.field_ra() as _)),
+                    Argument::GPR(GPR(ins.field_rs() as _)),
+                    Argument::OpaqueU(OpaqueU(ins.field_sh() as _)),
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if ins.field_mb() == 0x0 && ins.field_me() == 0x1f && ins.field_sh() > 0x10 {
-        *out = ParsedIns {
-            mnemonic: ["rotrwi", "rotrwi."][ins.field_rc() as usize],
-            args: [
-                Argument::GPR(GPR(ins.field_ra() as _)),
-                Argument::GPR(GPR(ins.field_rs() as _)),
-                Argument::OpaqueU(OpaqueU((32 - ins.field_sh()) as _)),
-                Argument::None,
-                Argument::None,
-            ],
+        *out = {
+            const MODIFIERS: [&str; 2] = ["rotrwi", "rotrwi."];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_rc() as usize],
+                args: [
+                    Argument::GPR(GPR(ins.field_ra() as _)),
+                    Argument::GPR(GPR(ins.field_rs() as _)),
+                    Argument::OpaqueU(OpaqueU((32 - ins.field_sh()) as _)),
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if ins.field_mb() == 0x0 && ins.field_me() == 31 - ins.field_sh() {
-        *out = ParsedIns {
-            mnemonic: ["slwi", "slwi."][ins.field_rc() as usize],
-            args: [
-                Argument::GPR(GPR(ins.field_ra() as _)),
-                Argument::GPR(GPR(ins.field_rs() as _)),
-                Argument::OpaqueU(OpaqueU(ins.field_sh() as _)),
-                Argument::None,
-                Argument::None,
-            ],
+        *out = {
+            const MODIFIERS: [&str; 2] = ["slwi", "slwi."];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_rc() as usize],
+                args: [
+                    Argument::GPR(GPR(ins.field_ra() as _)),
+                    Argument::GPR(GPR(ins.field_rs() as _)),
+                    Argument::OpaqueU(OpaqueU(ins.field_sh() as _)),
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if ins.field_me() == 0x1f && ins.field_sh() == 32 - ins.field_mb() {
-        *out = ParsedIns {
-            mnemonic: ["srwi", "srwi."][ins.field_rc() as usize],
-            args: [
-                Argument::GPR(GPR(ins.field_ra() as _)),
-                Argument::GPR(GPR(ins.field_rs() as _)),
-                Argument::OpaqueU(OpaqueU(ins.field_mb() as _)),
-                Argument::None,
-                Argument::None,
-            ],
+        *out = {
+            const MODIFIERS: [&str; 2] = ["srwi", "srwi."];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_rc() as usize],
+                args: [
+                    Argument::GPR(GPR(ins.field_ra() as _)),
+                    Argument::GPR(GPR(ins.field_rs() as _)),
+                    Argument::OpaqueU(OpaqueU(ins.field_mb() as _)),
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if ins.field_sh() < 0x20 && ins.field_me() == 31 - ins.field_sh() {
-        *out = ParsedIns {
-            mnemonic: ["clrlslwi", "clrlslwi."][ins.field_rc() as usize],
-            args: [
-                Argument::GPR(GPR(ins.field_ra() as _)),
-                Argument::GPR(GPR(ins.field_rs() as _)),
-                Argument::OpaqueU(OpaqueU((ins.field_mb() + ins.field_sh()) as _)),
-                Argument::OpaqueU(OpaqueU(ins.field_sh() as _)),
-                Argument::None,
-            ],
+        *out = {
+            const MODIFIERS: [&str; 2] = ["clrlslwi", "clrlslwi."];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_rc() as usize],
+                args: [
+                    Argument::GPR(GPR(ins.field_ra() as _)),
+                    Argument::GPR(GPR(ins.field_rs() as _)),
+                    Argument::OpaqueU(OpaqueU((ins.field_mb() + ins.field_sh()) as _)),
+                    Argument::OpaqueU(OpaqueU(ins.field_sh() as _)),
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if ins.field_mb() == 0x0 {
-        *out = ParsedIns {
-            mnemonic: ["extlwi", "extlwi."][ins.field_rc() as usize],
-            args: [
-                Argument::GPR(GPR(ins.field_ra() as _)),
-                Argument::GPR(GPR(ins.field_rs() as _)),
-                Argument::OpaqueU(OpaqueU((ins.field_me() + 1) as _)),
-                Argument::OpaqueU(OpaqueU(ins.field_sh() as _)),
-                Argument::None,
-            ],
+        *out = {
+            const MODIFIERS: [&str; 2] = ["extlwi", "extlwi."];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_rc() as usize],
+                args: [
+                    Argument::GPR(GPR(ins.field_ra() as _)),
+                    Argument::GPR(GPR(ins.field_rs() as _)),
+                    Argument::OpaqueU(OpaqueU((ins.field_me() + 1) as _)),
+                    Argument::OpaqueU(OpaqueU(ins.field_sh() as _)),
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     if ins.field_me() == 0x1f && ins.field_sh() >= 32 - ins.field_mb() {
-        *out = ParsedIns {
-            mnemonic: ["extrwi", "extrwi."][ins.field_rc() as usize],
-            args: [
-                Argument::GPR(GPR(ins.field_ra() as _)),
-                Argument::GPR(GPR(ins.field_rs() as _)),
-                Argument::OpaqueU(OpaqueU((32 - ins.field_mb()) as _)),
-                Argument::OpaqueU(
-                    OpaqueU((ins.field_sh() - (32 - ins.field_mb())) as _),
-                ),
-                Argument::None,
-            ],
+        *out = {
+            const MODIFIERS: [&str; 2] = ["extrwi", "extrwi."];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_rc() as usize],
+                args: [
+                    Argument::GPR(GPR(ins.field_ra() as _)),
+                    Argument::GPR(GPR(ins.field_rs() as _)),
+                    Argument::OpaqueU(OpaqueU((32 - ins.field_mb()) as _)),
+                    Argument::OpaqueU(
+                        OpaqueU((ins.field_sh() - (32 - ins.field_mb())) as _),
+                    ),
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     basic_rlwinm(out, ins)
 }
 fn basic_rlwnm(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["rlwnm", "rlwnm."][ins.field_rc() as usize],
-        args: [
-            Argument::GPR(GPR(ins.field_ra() as _)),
-            Argument::GPR(GPR(ins.field_rs() as _)),
-            Argument::GPR(GPR(ins.field_rb() as _)),
-            Argument::OpaqueU(OpaqueU(ins.field_mb() as _)),
-            Argument::OpaqueU(OpaqueU(ins.field_me() as _)),
-        ],
-    };
-}
-fn simplified_rlwnm(out: &mut ParsedIns, ins: Ins) {
-    if ins.field_mb() == 0x0 && ins.field_me() == 0x1f {
-        *out = ParsedIns {
-            mnemonic: ["rotlw", "rotlw."][ins.field_rc() as usize],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["rlwnm", "rlwnm."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
                 Argument::GPR(GPR(ins.field_ra() as _)),
                 Argument::GPR(GPR(ins.field_rs() as _)),
                 Argument::GPR(GPR(ins.field_rb() as _)),
-                Argument::None,
-                Argument::None,
+                Argument::OpaqueU(OpaqueU(ins.field_mb() as _)),
+                Argument::OpaqueU(OpaqueU(ins.field_me() as _)),
             ],
+        }
+    };
+}
+fn simplified_rlwnm(out: &mut ParsedIns, ins: Ins) {
+    if ins.field_mb() == 0x0 && ins.field_me() == 0x1f {
+        *out = {
+            const MODIFIERS: [&str; 2] = ["rotlw", "rotlw."];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_rc() as usize],
+                args: [
+                    Argument::GPR(GPR(ins.field_ra() as _)),
+                    Argument::GPR(GPR(ins.field_rs() as _)),
+                    Argument::GPR(GPR(ins.field_rb() as _)),
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
@@ -3890,112 +4070,113 @@ fn basic_andis_(out: &mut ParsedIns, ins: Ins) {
     };
 }
 fn basic_add(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: [
-            "add",
-            "addo",
-            "add.",
-            "addo.",
-        ][ins.field_oe() as usize | (ins.field_rc() as usize) << 1],
-        args: [
-            Argument::GPR(GPR(ins.field_rd() as _)),
-            Argument::GPR(GPR(ins.field_ra() as _)),
-            Argument::GPR(GPR(ins.field_rb() as _)),
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 4] = ["add", "addo", "add.", "addo."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_oe() as usize
+                | (ins.field_rc() as usize) << 1],
+            args: [
+                Argument::GPR(GPR(ins.field_rd() as _)),
+                Argument::GPR(GPR(ins.field_ra() as _)),
+                Argument::GPR(GPR(ins.field_rb() as _)),
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_addc(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: [
-            "addc",
-            "addco",
-            "addc.",
-            "addco.",
-        ][ins.field_oe() as usize | (ins.field_rc() as usize) << 1],
-        args: [
-            Argument::GPR(GPR(ins.field_rd() as _)),
-            Argument::GPR(GPR(ins.field_ra() as _)),
-            Argument::GPR(GPR(ins.field_rb() as _)),
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 4] = ["addc", "addco", "addc.", "addco."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_oe() as usize
+                | (ins.field_rc() as usize) << 1],
+            args: [
+                Argument::GPR(GPR(ins.field_rd() as _)),
+                Argument::GPR(GPR(ins.field_ra() as _)),
+                Argument::GPR(GPR(ins.field_rb() as _)),
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_adde(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: [
-            "adde",
-            "addeo",
-            "adde.",
-            "addeo.",
-        ][ins.field_oe() as usize | (ins.field_rc() as usize) << 1],
-        args: [
-            Argument::GPR(GPR(ins.field_rd() as _)),
-            Argument::GPR(GPR(ins.field_ra() as _)),
-            Argument::GPR(GPR(ins.field_rb() as _)),
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 4] = ["adde", "addeo", "adde.", "addeo."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_oe() as usize
+                | (ins.field_rc() as usize) << 1],
+            args: [
+                Argument::GPR(GPR(ins.field_rd() as _)),
+                Argument::GPR(GPR(ins.field_ra() as _)),
+                Argument::GPR(GPR(ins.field_rb() as _)),
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_addme(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: [
-            "addme",
-            "addmeo",
-            "addme.",
-            "addmeo.",
-        ][ins.field_oe() as usize | (ins.field_rc() as usize) << 1],
-        args: [
-            Argument::GPR(GPR(ins.field_rd() as _)),
-            Argument::GPR(GPR(ins.field_ra() as _)),
-            Argument::None,
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 4] = ["addme", "addmeo", "addme.", "addmeo."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_oe() as usize
+                | (ins.field_rc() as usize) << 1],
+            args: [
+                Argument::GPR(GPR(ins.field_rd() as _)),
+                Argument::GPR(GPR(ins.field_ra() as _)),
+                Argument::None,
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_addze(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: [
-            "addze",
-            "addzeo",
-            "addze.",
-            "addzeo.",
-        ][ins.field_oe() as usize | (ins.field_rc() as usize) << 1],
-        args: [
-            Argument::GPR(GPR(ins.field_rd() as _)),
-            Argument::GPR(GPR(ins.field_ra() as _)),
-            Argument::None,
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 4] = ["addze", "addzeo", "addze.", "addzeo."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_oe() as usize
+                | (ins.field_rc() as usize) << 1],
+            args: [
+                Argument::GPR(GPR(ins.field_rd() as _)),
+                Argument::GPR(GPR(ins.field_ra() as _)),
+                Argument::None,
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_and(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["and", "and."][ins.field_rc() as usize],
-        args: [
-            Argument::GPR(GPR(ins.field_ra() as _)),
-            Argument::GPR(GPR(ins.field_rs() as _)),
-            Argument::GPR(GPR(ins.field_rb() as _)),
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["and", "and."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::GPR(GPR(ins.field_ra() as _)),
+                Argument::GPR(GPR(ins.field_rs() as _)),
+                Argument::GPR(GPR(ins.field_rb() as _)),
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_andc(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["andc", "andc."][ins.field_rc() as usize],
-        args: [
-            Argument::GPR(GPR(ins.field_ra() as _)),
-            Argument::GPR(GPR(ins.field_rs() as _)),
-            Argument::GPR(GPR(ins.field_rb() as _)),
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["andc", "andc."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::GPR(GPR(ins.field_ra() as _)),
+                Argument::GPR(GPR(ins.field_rs() as _)),
+                Argument::GPR(GPR(ins.field_rb() as _)),
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_cmp(out: &mut ParsedIns, ins: Ins) {
@@ -4133,15 +4314,18 @@ fn simplified_cmpl(out: &mut ParsedIns, ins: Ins) {
     basic_cmpl(out, ins)
 }
 fn basic_cntlzw(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["cntlzw", "cntlzw."][ins.field_rc() as usize],
-        args: [
-            Argument::GPR(GPR(ins.field_ra() as _)),
-            Argument::GPR(GPR(ins.field_rs() as _)),
-            Argument::None,
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["cntlzw", "cntlzw."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::GPR(GPR(ins.field_ra() as _)),
+                Argument::GPR(GPR(ins.field_rs() as _)),
+                Argument::None,
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_dcbf(out: &mut ParsedIns, ins: Ins) {
@@ -4217,37 +4401,35 @@ fn basic_dcbz(out: &mut ParsedIns, ins: Ins) {
     };
 }
 fn basic_divw(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: [
-            "divw",
-            "divwo",
-            "divw.",
-            "divwo.",
-        ][ins.field_oe() as usize | (ins.field_rc() as usize) << 1],
-        args: [
-            Argument::GPR(GPR(ins.field_rd() as _)),
-            Argument::GPR(GPR(ins.field_ra() as _)),
-            Argument::GPR(GPR(ins.field_rb() as _)),
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 4] = ["divw", "divwo", "divw.", "divwo."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_oe() as usize
+                | (ins.field_rc() as usize) << 1],
+            args: [
+                Argument::GPR(GPR(ins.field_rd() as _)),
+                Argument::GPR(GPR(ins.field_ra() as _)),
+                Argument::GPR(GPR(ins.field_rb() as _)),
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_divwu(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: [
-            "divwu",
-            "divwuo",
-            "divwu.",
-            "divwuo.",
-        ][ins.field_oe() as usize | (ins.field_rc() as usize) << 1],
-        args: [
-            Argument::GPR(GPR(ins.field_rd() as _)),
-            Argument::GPR(GPR(ins.field_ra() as _)),
-            Argument::GPR(GPR(ins.field_rb() as _)),
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 4] = ["divwu", "divwuo", "divwu.", "divwuo."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_oe() as usize
+                | (ins.field_rc() as usize) << 1],
+            args: [
+                Argument::GPR(GPR(ins.field_rd() as _)),
+                Argument::GPR(GPR(ins.field_ra() as _)),
+                Argument::GPR(GPR(ins.field_rb() as _)),
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_eciwx(out: &mut ParsedIns, ins: Ins) {
@@ -4281,51 +4463,63 @@ fn basic_eieio(out: &mut ParsedIns, ins: Ins) {
     };
 }
 fn basic_eqv(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["eqv", "eqv."][ins.field_rc() as usize],
-        args: [
-            Argument::GPR(GPR(ins.field_ra() as _)),
-            Argument::GPR(GPR(ins.field_rs() as _)),
-            Argument::GPR(GPR(ins.field_rb() as _)),
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["eqv", "eqv."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::GPR(GPR(ins.field_ra() as _)),
+                Argument::GPR(GPR(ins.field_rs() as _)),
+                Argument::GPR(GPR(ins.field_rb() as _)),
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_extsb(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["extsb", "extsb."][ins.field_rc() as usize],
-        args: [
-            Argument::GPR(GPR(ins.field_ra() as _)),
-            Argument::GPR(GPR(ins.field_rs() as _)),
-            Argument::None,
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["extsb", "extsb."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::GPR(GPR(ins.field_ra() as _)),
+                Argument::GPR(GPR(ins.field_rs() as _)),
+                Argument::None,
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_extsh(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["extsh", "extsh."][ins.field_rc() as usize],
-        args: [
-            Argument::GPR(GPR(ins.field_ra() as _)),
-            Argument::GPR(GPR(ins.field_rs() as _)),
-            Argument::None,
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["extsh", "extsh."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::GPR(GPR(ins.field_ra() as _)),
+                Argument::GPR(GPR(ins.field_rs() as _)),
+                Argument::None,
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_icbi(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["icbi", "icbi."][ins.field_rc() as usize],
-        args: [
-            Argument::GPR(GPR(ins.field_ra() as _)),
-            Argument::GPR(GPR(ins.field_rb() as _)),
-            Argument::None,
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["icbi", "icbi."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::GPR(GPR(ins.field_ra() as _)),
+                Argument::GPR(GPR(ins.field_rb() as _)),
+                Argument::None,
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_lbzux(out: &mut ParsedIns, ins: Ins) {
@@ -5099,173 +5293,204 @@ fn basic_mtsrin(out: &mut ParsedIns, ins: Ins) {
     };
 }
 fn basic_mulhw(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["mulhw", "mulhw."][ins.field_rc() as usize],
-        args: [
-            Argument::GPR(GPR(ins.field_rd() as _)),
-            Argument::GPR(GPR(ins.field_ra() as _)),
-            Argument::GPR(GPR(ins.field_rb() as _)),
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["mulhw", "mulhw."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::GPR(GPR(ins.field_rd() as _)),
+                Argument::GPR(GPR(ins.field_ra() as _)),
+                Argument::GPR(GPR(ins.field_rb() as _)),
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_mulhwu(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["mulhwu", "mulhwu."][ins.field_rc() as usize],
-        args: [
-            Argument::GPR(GPR(ins.field_rd() as _)),
-            Argument::GPR(GPR(ins.field_ra() as _)),
-            Argument::GPR(GPR(ins.field_rb() as _)),
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["mulhwu", "mulhwu."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::GPR(GPR(ins.field_rd() as _)),
+                Argument::GPR(GPR(ins.field_ra() as _)),
+                Argument::GPR(GPR(ins.field_rb() as _)),
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_mullw(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: [
-            "mullw",
-            "mullwo",
-            "mullw.",
-            "mullwo.",
-        ][ins.field_oe() as usize | (ins.field_rc() as usize) << 1],
-        args: [
-            Argument::GPR(GPR(ins.field_rd() as _)),
-            Argument::GPR(GPR(ins.field_ra() as _)),
-            Argument::GPR(GPR(ins.field_rb() as _)),
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 4] = ["mullw", "mullwo", "mullw.", "mullwo."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_oe() as usize
+                | (ins.field_rc() as usize) << 1],
+            args: [
+                Argument::GPR(GPR(ins.field_rd() as _)),
+                Argument::GPR(GPR(ins.field_ra() as _)),
+                Argument::GPR(GPR(ins.field_rb() as _)),
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_nand(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["nand", "nand."][ins.field_rc() as usize],
-        args: [
-            Argument::GPR(GPR(ins.field_ra() as _)),
-            Argument::GPR(GPR(ins.field_rs() as _)),
-            Argument::GPR(GPR(ins.field_rb() as _)),
-            Argument::None,
-            Argument::None,
-        ],
-    };
-}
-fn basic_neg(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: [
-            "neg",
-            "nego",
-            "neg.",
-            "nego.",
-        ][ins.field_oe() as usize | (ins.field_rc() as usize) << 1],
-        args: [
-            Argument::GPR(GPR(ins.field_rd() as _)),
-            Argument::GPR(GPR(ins.field_ra() as _)),
-            Argument::None,
-            Argument::None,
-            Argument::None,
-        ],
-    };
-}
-fn basic_nor(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["nor", "nor."][ins.field_rc() as usize],
-        args: [
-            Argument::GPR(GPR(ins.field_ra() as _)),
-            Argument::GPR(GPR(ins.field_rs() as _)),
-            Argument::GPR(GPR(ins.field_rb() as _)),
-            Argument::None,
-            Argument::None,
-        ],
-    };
-}
-fn basic_or(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["or", "or."][ins.field_rc() as usize],
-        args: [
-            Argument::GPR(GPR(ins.field_ra() as _)),
-            Argument::GPR(GPR(ins.field_rs() as _)),
-            Argument::GPR(GPR(ins.field_rb() as _)),
-            Argument::None,
-            Argument::None,
-        ],
-    };
-}
-fn simplified_or(out: &mut ParsedIns, ins: Ins) {
-    if ins.field_rb() == ins.field_rs() {
-        *out = ParsedIns {
-            mnemonic: ["mr", "mr."][ins.field_rc() as usize],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["nand", "nand."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
                 Argument::GPR(GPR(ins.field_ra() as _)),
                 Argument::GPR(GPR(ins.field_rs() as _)),
+                Argument::GPR(GPR(ins.field_rb() as _)),
+                Argument::None,
+                Argument::None,
+            ],
+        }
+    };
+}
+fn basic_neg(out: &mut ParsedIns, ins: Ins) {
+    *out = {
+        const MODIFIERS: [&str; 4] = ["neg", "nego", "neg.", "nego."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_oe() as usize
+                | (ins.field_rc() as usize) << 1],
+            args: [
+                Argument::GPR(GPR(ins.field_rd() as _)),
+                Argument::GPR(GPR(ins.field_ra() as _)),
                 Argument::None,
                 Argument::None,
                 Argument::None,
             ],
+        }
+    };
+}
+fn basic_nor(out: &mut ParsedIns, ins: Ins) {
+    *out = {
+        const MODIFIERS: [&str; 2] = ["nor", "nor."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::GPR(GPR(ins.field_ra() as _)),
+                Argument::GPR(GPR(ins.field_rs() as _)),
+                Argument::GPR(GPR(ins.field_rb() as _)),
+                Argument::None,
+                Argument::None,
+            ],
+        }
+    };
+}
+fn basic_or(out: &mut ParsedIns, ins: Ins) {
+    *out = {
+        const MODIFIERS: [&str; 2] = ["or", "or."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::GPR(GPR(ins.field_ra() as _)),
+                Argument::GPR(GPR(ins.field_rs() as _)),
+                Argument::GPR(GPR(ins.field_rb() as _)),
+                Argument::None,
+                Argument::None,
+            ],
+        }
+    };
+}
+fn simplified_or(out: &mut ParsedIns, ins: Ins) {
+    if ins.field_rb() == ins.field_rs() {
+        *out = {
+            const MODIFIERS: [&str; 2] = ["mr", "mr."];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_rc() as usize],
+                args: [
+                    Argument::GPR(GPR(ins.field_ra() as _)),
+                    Argument::GPR(GPR(ins.field_rs() as _)),
+                    Argument::None,
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
         };
         return;
     }
     basic_or(out, ins)
 }
 fn basic_orc(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["orc", "orc."][ins.field_rc() as usize],
-        args: [
-            Argument::GPR(GPR(ins.field_ra() as _)),
-            Argument::GPR(GPR(ins.field_rs() as _)),
-            Argument::GPR(GPR(ins.field_rb() as _)),
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["orc", "orc."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::GPR(GPR(ins.field_ra() as _)),
+                Argument::GPR(GPR(ins.field_rs() as _)),
+                Argument::GPR(GPR(ins.field_rb() as _)),
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_slw(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["slw", "slw."][ins.field_rc() as usize],
-        args: [
-            Argument::GPR(GPR(ins.field_ra() as _)),
-            Argument::GPR(GPR(ins.field_rs() as _)),
-            Argument::GPR(GPR(ins.field_rb() as _)),
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["slw", "slw."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::GPR(GPR(ins.field_ra() as _)),
+                Argument::GPR(GPR(ins.field_rs() as _)),
+                Argument::GPR(GPR(ins.field_rb() as _)),
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_sraw(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["sraw", "sraw."][ins.field_rc() as usize],
-        args: [
-            Argument::GPR(GPR(ins.field_ra() as _)),
-            Argument::GPR(GPR(ins.field_rs() as _)),
-            Argument::GPR(GPR(ins.field_rb() as _)),
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["sraw", "sraw."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::GPR(GPR(ins.field_ra() as _)),
+                Argument::GPR(GPR(ins.field_rs() as _)),
+                Argument::GPR(GPR(ins.field_rb() as _)),
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_srawi(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["srawi", "srawi."][ins.field_rc() as usize],
-        args: [
-            Argument::GPR(GPR(ins.field_ra() as _)),
-            Argument::GPR(GPR(ins.field_rs() as _)),
-            Argument::OpaqueU(OpaqueU(ins.field_sh() as _)),
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["srawi", "srawi."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::GPR(GPR(ins.field_ra() as _)),
+                Argument::GPR(GPR(ins.field_rs() as _)),
+                Argument::OpaqueU(OpaqueU(ins.field_sh() as _)),
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_srw(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["srw", "srw."][ins.field_rc() as usize],
-        args: [
-            Argument::GPR(GPR(ins.field_ra() as _)),
-            Argument::GPR(GPR(ins.field_rs() as _)),
-            Argument::GPR(GPR(ins.field_rb() as _)),
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["srw", "srw."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::GPR(GPR(ins.field_ra() as _)),
+                Argument::GPR(GPR(ins.field_rs() as _)),
+                Argument::GPR(GPR(ins.field_rb() as _)),
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_stbux(out: &mut ParsedIns, ins: Ins) {
@@ -5461,88 +5686,83 @@ fn basic_stwx(out: &mut ParsedIns, ins: Ins) {
     };
 }
 fn basic_subf(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: [
-            "subf",
-            "subfo",
-            "subf.",
-            "subfo.",
-        ][ins.field_oe() as usize | (ins.field_rc() as usize) << 1],
-        args: [
-            Argument::GPR(GPR(ins.field_rd() as _)),
-            Argument::GPR(GPR(ins.field_ra() as _)),
-            Argument::GPR(GPR(ins.field_rb() as _)),
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 4] = ["subf", "subfo", "subf.", "subfo."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_oe() as usize
+                | (ins.field_rc() as usize) << 1],
+            args: [
+                Argument::GPR(GPR(ins.field_rd() as _)),
+                Argument::GPR(GPR(ins.field_ra() as _)),
+                Argument::GPR(GPR(ins.field_rb() as _)),
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_subfc(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: [
-            "subfc",
-            "subfco",
-            "subfc.",
-            "subfco.",
-        ][ins.field_oe() as usize | (ins.field_rc() as usize) << 1],
-        args: [
-            Argument::GPR(GPR(ins.field_rd() as _)),
-            Argument::GPR(GPR(ins.field_ra() as _)),
-            Argument::GPR(GPR(ins.field_rb() as _)),
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 4] = ["subfc", "subfco", "subfc.", "subfco."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_oe() as usize
+                | (ins.field_rc() as usize) << 1],
+            args: [
+                Argument::GPR(GPR(ins.field_rd() as _)),
+                Argument::GPR(GPR(ins.field_ra() as _)),
+                Argument::GPR(GPR(ins.field_rb() as _)),
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_subfe(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: [
-            "subfe",
-            "subfeo",
-            "subfe.",
-            "subfeo.",
-        ][ins.field_oe() as usize | (ins.field_rc() as usize) << 1],
-        args: [
-            Argument::GPR(GPR(ins.field_rd() as _)),
-            Argument::GPR(GPR(ins.field_ra() as _)),
-            Argument::GPR(GPR(ins.field_rb() as _)),
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 4] = ["subfe", "subfeo", "subfe.", "subfeo."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_oe() as usize
+                | (ins.field_rc() as usize) << 1],
+            args: [
+                Argument::GPR(GPR(ins.field_rd() as _)),
+                Argument::GPR(GPR(ins.field_ra() as _)),
+                Argument::GPR(GPR(ins.field_rb() as _)),
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_subfme(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: [
-            "subfme",
-            "subfmeo",
-            "subfme.",
-            "subfmeo.",
-        ][ins.field_oe() as usize | (ins.field_rc() as usize) << 1],
-        args: [
-            Argument::GPR(GPR(ins.field_rd() as _)),
-            Argument::GPR(GPR(ins.field_ra() as _)),
-            Argument::None,
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 4] = ["subfme", "subfmeo", "subfme.", "subfmeo."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_oe() as usize
+                | (ins.field_rc() as usize) << 1],
+            args: [
+                Argument::GPR(GPR(ins.field_rd() as _)),
+                Argument::GPR(GPR(ins.field_ra() as _)),
+                Argument::None,
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_subfze(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: [
-            "subfze",
-            "subfzeo",
-            "subfze.",
-            "subfzeo.",
-        ][ins.field_oe() as usize | (ins.field_rc() as usize) << 1],
-        args: [
-            Argument::GPR(GPR(ins.field_rd() as _)),
-            Argument::GPR(GPR(ins.field_ra() as _)),
-            Argument::None,
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 4] = ["subfze", "subfzeo", "subfze.", "subfzeo."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_oe() as usize
+                | (ins.field_rc() as usize) << 1],
+            args: [
+                Argument::GPR(GPR(ins.field_rd() as _)),
+                Argument::GPR(GPR(ins.field_ra() as _)),
+                Argument::None,
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_sync(out: &mut ParsedIns, ins: Ins) {
@@ -5618,15 +5838,18 @@ fn simplified_tw(out: &mut ParsedIns, ins: Ins) {
     basic_tw(out, ins)
 }
 fn basic_xor(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["xor", "xor."][ins.field_rc() as usize],
-        args: [
-            Argument::GPR(GPR(ins.field_ra() as _)),
-            Argument::GPR(GPR(ins.field_rs() as _)),
-            Argument::GPR(GPR(ins.field_rb() as _)),
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["xor", "xor."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::GPR(GPR(ins.field_ra() as _)),
+                Argument::GPR(GPR(ins.field_rs() as _)),
+                Argument::GPR(GPR(ins.field_rb() as _)),
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_lwz(out: &mut ParsedIns, ins: Ins) {
@@ -5942,111 +6165,138 @@ fn basic_psq_lu(out: &mut ParsedIns, ins: Ins) {
     };
 }
 fn basic_fadds(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["fadds", "fadds."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_fra() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["fadds", "fadds."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_fra() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_fdivs(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["fdivs", "fdivs."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_fra() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["fdivs", "fdivs."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_fra() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_fmadds(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["fmadds", "fmadds."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_fra() as _)),
-            Argument::FPR(FPR(ins.field_frc() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["fmadds", "fmadds."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_fra() as _)),
+                Argument::FPR(FPR(ins.field_frc() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_fmsubs(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["fmsubs", "fmsubs."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_fra() as _)),
-            Argument::FPR(FPR(ins.field_frc() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["fmsubs", "fmsubs."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_fra() as _)),
+                Argument::FPR(FPR(ins.field_frc() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_fmuls(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["fmuls", "fmuls."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_fra() as _)),
-            Argument::FPR(FPR(ins.field_frc() as _)),
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["fmuls", "fmuls."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_fra() as _)),
+                Argument::FPR(FPR(ins.field_frc() as _)),
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_fnmadds(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["fnmadds", "fnmadds."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_fra() as _)),
-            Argument::FPR(FPR(ins.field_frc() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["fnmadds", "fnmadds."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_fra() as _)),
+                Argument::FPR(FPR(ins.field_frc() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_fnmsubs(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["fnmsubs", "fnmsubs."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_fra() as _)),
-            Argument::FPR(FPR(ins.field_frc() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["fnmsubs", "fnmsubs."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_fra() as _)),
+                Argument::FPR(FPR(ins.field_frc() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_fres(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["fres", "fres."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["fres", "fres."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_fsubs(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["fsubs", "fsubs."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_fra() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["fsubs", "fsubs."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_fra() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_psq_st(out: &mut ParsedIns, ins: Ins) {
@@ -6074,27 +6324,33 @@ fn basic_psq_stu(out: &mut ParsedIns, ins: Ins) {
     };
 }
 fn basic_fabs(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["fabs", "fabs."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["fabs", "fabs."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_fadd(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["fadd", "fadd."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_fra() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["fadd", "fadd."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_fra() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_fcmpo(out: &mut ParsedIns, ins: Ins) {
@@ -6122,183 +6378,228 @@ fn basic_fcmpu(out: &mut ParsedIns, ins: Ins) {
     };
 }
 fn basic_fctiw(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["fctiw", "fctiw."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["fctiw", "fctiw."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_fctiwz(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["fctiwz", "fctiwz."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["fctiwz", "fctiwz."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_fdiv(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["fdiv", "fdiv."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_fra() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["fdiv", "fdiv."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_fra() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_fmadd(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["fmadd", "fmadd."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_fra() as _)),
-            Argument::FPR(FPR(ins.field_frc() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["fmadd", "fmadd."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_fra() as _)),
+                Argument::FPR(FPR(ins.field_frc() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_fmr(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["fmr", "fmr."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["fmr", "fmr."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_fmsub(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["fmsub", "fmsub."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_fra() as _)),
-            Argument::FPR(FPR(ins.field_frc() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["fmsub", "fmsub."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_fra() as _)),
+                Argument::FPR(FPR(ins.field_frc() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_fmul(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["fmul", "fmul."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_fra() as _)),
-            Argument::FPR(FPR(ins.field_frc() as _)),
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["fmul", "fmul."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_fra() as _)),
+                Argument::FPR(FPR(ins.field_frc() as _)),
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_fnabs(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["fnabs", "fnabs."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["fnabs", "fnabs."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_fneg(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["fneg", "fneg."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["fneg", "fneg."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_fnmadd(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["fnmadd", "fnmadd."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_fra() as _)),
-            Argument::FPR(FPR(ins.field_frc() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["fnmadd", "fnmadd."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_fra() as _)),
+                Argument::FPR(FPR(ins.field_frc() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_fnmsub(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["fnmsub", "fnmsub."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_fra() as _)),
-            Argument::FPR(FPR(ins.field_frc() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["fnmsub", "fnmsub."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_fra() as _)),
+                Argument::FPR(FPR(ins.field_frc() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_frsp(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["frsp", "frsp."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["frsp", "frsp."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_frsqrte(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["frsqrte", "frsqrte."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["frsqrte", "frsqrte."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_fsel(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["fsel", "fsel."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_fra() as _)),
-            Argument::FPR(FPR(ins.field_frc() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["fsel", "fsel."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_fra() as _)),
+                Argument::FPR(FPR(ins.field_frc() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_fsub(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["fsub", "fsub."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::FPR(FPR(ins.field_fra() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["fsub", "fsub."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::FPR(FPR(ins.field_fra() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_mcrfs(out: &mut ParsedIns, ins: Ins) {
@@ -6314,63 +6615,78 @@ fn basic_mcrfs(out: &mut ParsedIns, ins: Ins) {
     };
 }
 fn basic_mffs(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["mffs", "mffs."][ins.field_rc() as usize],
-        args: [
-            Argument::FPR(FPR(ins.field_frd() as _)),
-            Argument::None,
-            Argument::None,
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["mffs", "mffs."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::FPR(FPR(ins.field_frd() as _)),
+                Argument::None,
+                Argument::None,
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_mtfsb0(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["mtfsb0", "mtfsb0."][ins.field_rc() as usize],
-        args: [
-            Argument::CRBit(CRBit(ins.field_crbd() as _)),
-            Argument::None,
-            Argument::None,
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["mtfsb0", "mtfsb0."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::CRBit(CRBit(ins.field_crbd() as _)),
+                Argument::None,
+                Argument::None,
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_mtfsb1(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["mtfsb1", "mtfsb1."][ins.field_rc() as usize],
-        args: [
-            Argument::CRBit(CRBit(ins.field_crbd() as _)),
-            Argument::None,
-            Argument::None,
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["mtfsb1", "mtfsb1."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::CRBit(CRBit(ins.field_crbd() as _)),
+                Argument::None,
+                Argument::None,
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_mtfsf(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["mtfsf", "mtfsf."][ins.field_rc() as usize],
-        args: [
-            Argument::OpaqueU(OpaqueU(ins.field_mtfsf_fm() as _)),
-            Argument::FPR(FPR(ins.field_frb() as _)),
-            Argument::None,
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["mtfsf", "mtfsf."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::OpaqueU(OpaqueU(ins.field_mtfsf_fm() as _)),
+                Argument::FPR(FPR(ins.field_frb() as _)),
+                Argument::None,
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn basic_mtfsfi(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: ["mtfsfi", "mtfsfi."][ins.field_rc() as usize],
-        args: [
-            Argument::CRField(CRField(ins.field_crfd() as _)),
-            Argument::OpaqueU(OpaqueU(ins.field_mtfsf_imm() as _)),
-            Argument::None,
-            Argument::None,
-            Argument::None,
-        ],
+    *out = {
+        const MODIFIERS: [&str; 2] = ["mtfsfi", "mtfsfi."];
+        ParsedIns {
+            mnemonic: MODIFIERS[ins.field_rc() as usize],
+            args: [
+                Argument::CRField(CRField(ins.field_crfd() as _)),
+                Argument::OpaqueU(OpaqueU(ins.field_mtfsf_imm() as _)),
+                Argument::None,
+                Argument::None,
+                Argument::None,
+            ],
+        }
     };
 }
 fn mnemonic_illegal(out: &mut ParsedIns, _ins: Ins) {

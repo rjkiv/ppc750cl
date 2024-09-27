@@ -465,6 +465,10 @@ fn gen_mnemonic(
                 bitset.extend(quote! { | (ins.#modifier() as usize) << #i });
             }
         }
-        Ok(quote! { ParsedIns { mnemonic: [#(#names),*][#bitset], args: #arguments } })
+        let names_len = Literal::usize_unsuffixed(names.len());
+        Ok(quote! { {
+            const MODIFIERS: [&str; #names_len] = [#(#names),*];
+            ParsedIns { mnemonic: MODIFIERS[#bitset], args: #arguments }
+        } })
     }
 }
