@@ -1051,11 +1051,28 @@ impl Opcode {
         for i in entry.0..entry.1 {
             let pattern = OPCODE_PATTERNS[i as usize];
             if (code & pattern.0) == pattern.1 {
-                // Safety: The enum is repr(u8) and marked non_exhaustive
+                // Safety: The enum is repr(u8) and the value is within the enum's range
                 return unsafe { core::mem::transmute::<u8, Opcode>(i) };
             }
         }
         Self::Illegal
+    }
+}
+impl From<u8> for Opcode {
+    #[inline]
+    fn from(value: u8) -> Self {
+        if value > 221 {
+            Self::Illegal
+        } else {
+            // Safety: The enum is repr(u8) and the value is within the enum's range
+            unsafe { core::mem::transmute::<u8, Self>(value) }
+        }
+    }
+}
+impl From<Opcode> for u8 {
+    #[inline]
+    fn from(value: Opcode) -> Self {
+        value as u8
     }
 }
 impl Ins {

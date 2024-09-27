@@ -41,6 +41,8 @@ pub fn gen_disasm(isa: &Isa, max_args: usize) -> Result<TokenStream> {
         entries.push(entry);
     }
     ensure!(sorted_ops.len() == isa.opcodes.len());
+    ensure!(sorted_ops.len() <= 256);
+    let opcode_max = Literal::u8_unsuffixed((sorted_ops.len() - 1) as u8);
 
     // Generate the opcode entries table
     let mut opcode_entries = TokenStream::new();
@@ -337,11 +339,28 @@ pub fn gen_disasm(isa: &Isa, max_args: usize) -> Result<TokenStream> {
                 for i in entry.0..entry.1 {
                     let pattern = OPCODE_PATTERNS[i as usize];
                     if (code & pattern.0) == pattern.1 {
-                        #[comment = " Safety: The enum is repr(u8) and marked non_exhaustive"]
+                        #[comment = " Safety: The enum is repr(u8) and the value is within the enum's range"]
                         return unsafe { core::mem::transmute::<u8, Opcode>(i) };
                     }
                 }
                 Self::Illegal
+            }
+        }
+        impl From<u8> for Opcode {
+            #[inline]
+            fn from(value: u8) -> Self {
+                if value > #opcode_max {
+                    Self::Illegal
+                } else {
+                    #[comment = " Safety: The enum is repr(u8) and the value is within the enum's range"]
+                    unsafe { core::mem::transmute::<u8, Self>(value) }
+                }
+            }
+        }
+        impl From<Opcode> for u8 {
+            #[inline]
+            fn from(value: Opcode) -> Self {
+                value as u8
             }
         }
 
