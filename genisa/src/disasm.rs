@@ -41,7 +41,7 @@ pub fn gen_disasm(isa: &Isa, max_args: usize) -> Result<TokenStream> {
         entries.push(entry);
     }
     ensure!(sorted_ops.len() == isa.opcodes.len());
-    ensure!(sorted_ops.len() <= 256);
+    ensure!(sorted_ops.len() <= 255);
     let opcode_max = Literal::u8_unsuffixed((sorted_ops.len() - 1) as u8);
 
     // Generate the opcode entries table
