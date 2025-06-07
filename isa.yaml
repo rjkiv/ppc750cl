@@ -397,6 +397,16 @@ opcodes:
     defs: [ crfD ]
     uses: [ rA ]
 
+  # 64-bit only
+  - name: cntlzd
+    desc: Count Leading Zeros Double Word
+    bitmask: 0xfc00fffe
+    pattern: 0x7c000074
+    modifiers: [ Rc ]
+    args: [ rA, rS ]
+    defs: [ rA ]
+    uses: [ rS ]
+
   - name: cntlzw
     desc: Count Leading Zeros Word
     bitmask: 0xfc00fffe
@@ -519,6 +529,26 @@ opcodes:
     args: [ rA, rB ]
     uses: [ rA.nz, rB ]
 
+  # 64-bit only
+  - name: divd
+    desc: Divide Double Word
+    bitmask: 0xfc0003fe
+    pattern: 0x7c0003d2
+    modifiers: [ OE, Rc ]
+    args: [ rD, rA, rB ]
+    defs: [ rD ]
+    uses: [ rA, rB ]
+    
+  # 64-bit only
+  - name: divdu
+    desc: Divide Double Word Unsigned
+    bitmask: 0xfc0003fe
+    pattern: 0x7c000392
+    modifiers: [ OE, Rc ]
+    args: [ rD, rA, rB ]
+    defs: [ rD ]
+    uses: [ rA, rB ]
+
   - name: divw
     desc: Divide Word
     bitmask: 0xfc0003fe
@@ -583,6 +613,16 @@ opcodes:
     args: [ rA, rS ]
     defs: [ rA ]
     uses: [ rS ]
+    
+  # 64-bit only
+  - name: extsw
+    desc: Extend Sign Word
+    bitmask: 0xfc00fffe
+    pattern: 0x7c0007b4
+    modifiers: [ Rc ]
+    args: [ rA, rS ]
+    defs: [ rA ]
+    uses: [ rS ]
 
   - name: fabs
     desc: Floating Absolute Value
@@ -610,6 +650,16 @@ opcodes:
     args: [ frD, frA, frB ]
     defs: [ frD ]
     uses: [ frA, frB ]
+    
+  # 64-bit only
+  - name: fcfid
+    desc: Floating Convert from Integer Double Word
+    bitmask: 0xfc1f07fe
+    pattern: 0xfc00069c
+    modifiers: [ Rc ]
+    args: [ frD, frB ]
+    defs: [ frD ]
+    uses: [ frB ]
 
   - name: fcmpo
     desc: Floating Compare Ordered
@@ -626,6 +676,26 @@ opcodes:
     args: [ crfD, frA, frB ]
     defs: [ crfD ]
     uses: [ frA, frB ]
+
+  # 64-bit only
+  - name: fctid
+    desc: Floating Convert to Integer Double Word
+    bitmask: 0xfc1f07fe
+    pattern: 0xfc00065c
+    modifiers: [ Rc ]
+    args: [ frD, frB ]
+    defs: [ frD ]
+    uses: [ frB ]
+
+  # 64-bit only
+  - name: fctidz
+    desc: Floating Convert to Integer Double Word with Round toward Zero
+    bitmask: 0xfc1f07fe
+    pattern: 0xfc00065e
+    modifiers: [ Rc ]
+    args: [ frD, frB ]
+    defs: [ frD ]
+    uses: [ frB ]
 
   - name: fctiw
     desc: Floating Convert to Integer Word
@@ -879,6 +949,52 @@ opcodes:
     defs: [ rD ]
     uses: [ rA.nz, rB ]
 
+  # TODO: verify that the load instructions have nonzero rA's
+  # 64-bit only
+  - name: ld
+    desc: Load Double Word
+    bitmask: 0xfc000003
+    pattern: 0xe8000000
+    args: [ rD, offset, rA ]
+    defs: [ rD ]
+    uses: [ offset, rA.nz ]
+  
+  # 64-bit only
+  - name: ldarx
+    desc: Load Double Word and Reserve Indexed
+    bitmask: 0xfc0007ff
+    pattern: 0x7c0000a8
+    args: [ rD, rA, rB ]
+    defs: [ rD ]
+    uses: [ rA, rB ]
+  
+  # 64-bit only
+  - name: ldu
+    desc: Load Double Word with Update
+    bitmask: 0xfc000003
+    pattern: 0xe8000001
+    args: [ rD, offset, rA ]
+    defs: [ rD ]
+    uses: [ offset, rA.nz ]
+  
+  # 64-bit only
+  - name: ldux
+    desc: Load Double Word with Update Indexed
+    bitmask: 0xfc0007ff
+    pattern: 0x7c00006a
+    args: [ rD, rA, rB ]
+    defs: [ rD ]
+    uses: [ rA.nz, rB ]
+  
+  # 64-bit only
+  - name: ldx
+    desc: Load Double Word Indexed
+    bitmask: 0xfc0007ff
+    pattern: 0x7c00002a
+    args: [ rD, rA, rB ]
+    defs: [ rD ]
+    uses: [ rA, rB ]
+
   - name: lfd
     desc: Load Floating-Point Double
     bitmask: 0xfc000000
@@ -1040,10 +1156,37 @@ opcodes:
     defs: [ rD ]
     uses: [ rA.nz, rB ]
 
+  # 64-bit only
+  - name: lwa
+    desc: Load Word Algebraic
+    bitmask: 0xfc000003
+    pattern: 0xe8000002
+    args: [ rD, offset, rA ]
+    defs: [ rD ]
+    uses: [ offset, rA.nz ]
+
   - name: lwarx
     desc: Load String Word and Reverse Indexed
     bitmask: 0xfc0007ff
     pattern: 0x7c000028
+    args: [ rD, rA, rB ]
+    defs: [ rD ]
+    uses: [ rA.nz, rB ]
+  
+  # 64-bit only
+  - name: lwaux
+    desc: Load Word Algebraic with Update Indexed
+    bitmask: 0xfc0007ff
+    pattern: 0x7c0002ea
+    args: [ rD, rA, rB ]
+    defs: [ rD ]
+    uses: [ rA.nz, rB ]
+  
+  # 64-bit only
+  - name: lwax
+    desc: Load Word Algebraic Indexed
+    bitmask: 0xfc0007ff
+    pattern: 0x7c0002aa
     args: [ rD, rA, rB ]
     defs: [ rD ]
     uses: [ rA.nz, rB ]
@@ -1207,6 +1350,14 @@ opcodes:
     pattern: 0x7c000124
     args: [ rS ]
     uses: [ rS ]
+  
+  # 64-bit only
+  - name: mtmsrd
+    desc: Move to Machine State Register Double Word
+    bitmask: 0xfc1fffff
+    pattern: 0x7c000164
+    args: [ rS ]
+    uses: [ rS ]
 
   - name: mtspr
     desc: Move to Special-Purpose Register
@@ -1221,6 +1372,22 @@ opcodes:
     pattern: 0x7c0001a4
     args: [ sr, rS ]
     uses: [ rS ]
+  
+  # 64-bit only
+  - name: mtsrd
+    desc: Move to Segment Register Double Word
+    bitmask: 0xfc10ffff
+    pattern: 0x7c0000a4
+    args: [ sr, rS ]
+    uses: [ rS ]
+  
+  # 64-bit only
+  - name: mtsrdin
+    desc: Move to Segment Register Double Word Indirect
+    bitmask: 0xfc1f07ff
+    pattern: 0x7c0000e4
+    args: [ rS, rB ]
+    uses: [ rS, rB ]
 
   - name: mtsrin
     desc: Move to Segment Register Indirect
@@ -1228,6 +1395,26 @@ opcodes:
     pattern: 0x7c0001e4
     args: [ rS, rB ]
     uses: [ rS, rB ]
+  
+  # 64-bit only
+  - name: mulhd
+    desc: Multiply High Double Word
+    bitmask: 0xfc0007fe
+    pattern: 0x7c000092
+    modifiers: [ Rc ]
+    args: [ rD, rA, rB ]
+    defs: [ rD ]
+    uses: [ rA, rB ]
+  
+  # 64-bit only
+  - name: mulhdu
+    desc: Multiply High Double Word Unsigned
+    bitmask: 0xfc0007fe
+    pattern: 0x7c000012
+    modifiers: [ Rc ]
+    args: [ rD, rA, rB ]
+    defs: [ rD ]
+    uses: [ rA, rB ]
 
   - name: mulhw
     desc: Multiply High Word
@@ -1243,6 +1430,16 @@ opcodes:
     bitmask: 0xfc0007fe
     pattern: 0x7c000016
     modifiers: [ Rc ]
+    args: [ rD, rA, rB ]
+    defs: [ rD ]
+    uses: [ rA, rB ]
+
+  # 64-bit only
+  - name: mulld
+    desc: Multiply Low Double Word
+    bitmask: 0xfc0003fe
+    pattern: 0x7c0001d2
+    modifiers: [ OE, Rc ]
     args: [ rD, rA, rB ]
     defs: [ rD ]
     uses: [ rA, rB ]
@@ -1649,6 +1846,73 @@ opcodes:
     bitmask: 0xffffffff
     pattern: 0x4c000064
 
+  # 64-bit only
+  - name: rfid
+    desc: Return from Interrupt Double Word
+    bitmask: 0xffffffff
+    pattern: 0x4c000024
+
+  # TODO: verify the uses of the rotate instructions are right
+  # 64-bit only
+  - name: rldcl
+    desc: Rotate Left Double Word then Clear Left
+    bitmask: 0xfc00001e
+    pattern: 0x78000010
+    modifiers: [ Rc ]
+    args: [ rA, rS, rB, MB ]
+    defs: [ rA ]
+    uses: [ rS, rB ]
+
+  # 64-bit only
+  - name: rldcr
+    desc: Rotate Left Double Word then Clear Right
+    bitmask: 0xfc00001e
+    pattern: 0x78000012
+    modifiers: [ Rc ]
+    args: [ rA, rS, rB, ME ]
+    defs: [ rA ]
+    uses: [ rS, rB ]
+
+  # 64-bit only
+  - name: rldic
+    desc: Rotate Left Double Word Immediate then Clear
+    bitmask: 0xfc00001c
+    pattern: 0x78000008
+    modifiers: [ Rc ]
+    args: [ rA, rS, SH, MB ]
+    defs: [ rA ]
+    uses: [ rA, rS, SH ]
+
+  # 64-bit only
+  - name: rldicl
+    desc: Rotate Left Double Word Immediate then Clear Left
+    bitmask: 0xfc00001c
+    pattern: 0x78000000
+    modifiers: [ Rc ]
+    args: [ rA, rS, SH, MB ]
+    defs: [ rA ]
+    uses: [ rA, rS, SH ]
+
+  # 64-bit only
+  - name: rldicr
+    desc: Rotate Left Double Word Immediate then Clear Right
+    bitmask: 0xfc00001c
+    pattern: 0x78000004
+    modifiers: [ Rc ]
+    args: [ rA, rS, SH, ME ]
+    defs: [ rA ]
+    uses: [ rA, rS, SH ]
+
+  # 64-bit only
+  - name: rldimi
+    desc: Rotate Left Double Word Immediate then Mask Insert
+    bitmask: 0xfc00001c
+    pattern: 0x7800000c
+    modifiers: [ Rc ]
+    args: [ rA, rS, SH, MB ]
+    defs: [ rA ]
+    uses: [ rA, rS, SH ]
+
   - name: rlwimi
     desc: Rotate Left Word Immediate then Mask Insert
     bitmask: 0xfc000000
@@ -1681,6 +1945,31 @@ opcodes:
     bitmask: 0xffffffff
     pattern: 0x44000002
 
+  # 64-bit only
+  - name: slbia
+    desc: SLB Invalidate All
+    bitmask: 0xffffffff
+    pattern: 0x7c0003e4
+
+  # 64-bit only - verify rB usage!
+  - name: slbie
+    desc: SLB Invalidate Entry
+    bitmask: 0xffffffff
+    pattern: 0x7c000364
+    args: [ rB ]
+    defs: [ rB ]
+    uses: [ rB ]
+
+  # 64-bit only
+  - name: sld
+    desc: Shift Left Double Word
+    bitmask: 0xfc0007fe
+    pattern: 0x7c000036
+    modifiers: [ Rc ]
+    args: [ rA, rS, rB ]
+    defs: [ rA ]
+    uses: [ rS, rB ]
+
   - name: slw
     desc: Shift Left Word
     bitmask: 0xfc0007fe
@@ -1689,6 +1978,26 @@ opcodes:
     args: [ rA, rS, rB ]
     defs: [ rA ]
     uses: [ rS, rB ]
+
+  # 64-bit only
+  - name: srad
+    desc: Shift Right Algebraic Double Word
+    bitmask: 0xfc0007fe
+    pattern: 0x7c000634
+    modifiers: [ Rc ]
+    args: [ rA, rS, rB ]
+    defs: [ rA ]
+    uses: [ rS, rB ]
+
+  # 64-bit only
+  - name: sradi
+    desc: Shift Right Algebraic Double Word Immediate
+    bitmask: 0xfc0007fe
+    pattern: 0x7c000674
+    modifiers: [ Rc ]
+    args: [ rA, rS, SH ]
+    defs: [ rA ]
+    uses: [ rS ]
 
   - name: sraw
     desc: Shift Right Algebraic Word
@@ -1707,6 +2016,16 @@ opcodes:
     args: [ rA, rS, SH ]
     defs: [ rA ]
     uses: [ rS ]
+
+  # 64-bit only
+  - name: srd
+    desc: Shift Right Double Word
+    bitmask: 0xfc0007fe
+    pattern: 0x7c000436
+    modifiers: [ Rc ]
+    args: [ rA, rS, rB ]
+    defs: [ rA ]
+    uses: [ rA, rB ]
 
   - name: srw
     desc: Shift Right Word
@@ -1746,6 +2065,50 @@ opcodes:
     pattern: 0x7c0001ae
     args: [ rS, rA, rB ]
     uses: [ rS, rA.nz, rB ]
+
+  # 64-bit only
+  - name: std
+    desc: Store Double Word
+    bitmask: 0xfc000003
+    pattern: 0xf8000000
+    args: [ rS, offset, rA ]
+    uses: [ rS, rA.nz ]
+
+  # 64-bit only
+  - name: stdcx
+    desc: Store Double Word Conditional Indexed
+    bitmask: 0xfc0007ff
+    pattern: 0x7c0001ad
+    args: [ rS, rA, rB ]
+    defs: [ rA ]
+    uses: [ rS, rA, rB ]
+
+  # 64-bit only
+  - name: stdu
+    desc: Store Double Word with Update
+    bitmask: 0xfc000003
+    pattern: 0xf8000001
+    args: [ rS, offset, rA ]
+    defs: [ rA ]
+    uses: [ rS, rA ]
+
+  # 64-bit only
+  - name: stdux
+    desc: Store Double Word with Update Indexed
+    bitmask: 0xfc0007ff
+    pattern: 0x7c00016a
+    args: [ rS, rA, rB ]
+    defs: [ rA ]
+    uses: [ rS, rA, rB ]
+
+  # 64-bit only
+  - name: stdx
+    desc: Store Double Word Indexed
+    bitmask: 0xfc0007ff
+    pattern: 0x7c00012a
+    args: [ rS, rA, rB ]
+    defs: [ rA ]
+    uses: [ rS, rA, rB ]
 
   - name: stfd
     desc: Store Floating-Point Double
@@ -1973,6 +2336,22 @@ opcodes:
     desc: Synchronize
     bitmask: 0xffffffff
     pattern: 0x7c0004ac
+    
+  # 64-bit only
+  - name: td
+    desc: Trap Double Word
+    bitmask: 0xfc0007ff
+    pattern: 0x7c000088
+    args: [ TO, rA, rB ]
+    uses: [ rA, rB ]
+
+  # 64-bit only
+  - name: tdwi
+    desc: Trap Double Word Immediate
+    bitmask: 0xfc000000
+    pattern: 0x08000000
+    args: [ TO, rA, simm ]
+    uses: [ rA ]
 
   - name: tlbie
     desc: Translation Lookaside Buffer Invalidate Entry
