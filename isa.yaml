@@ -9,6 +9,15 @@ fields:
     arg: Uimm
     desc: Unsigned Immediate
     bits: 16..32
+  - name: vsimm
+    arg: Simm
+    desc: Vector Signed Immediate
+    bits: 11..16
+    signed: true
+  - name: vuimm
+    arg: Uimm
+    desc: Vector Unsigned Immediate
+    bits: 11..16
   - name: offset
     arg: Offset
     desc: Branch Offset
@@ -104,6 +113,31 @@ fields:
     arg: FPR
     desc: Floating-Point Register C
     bits: 21..26
+  # Vector registers
+  - name: vS
+    arg: GPR
+    desc: Vector Source Register
+    bits: 6..11
+  - name: vD
+    arg: GPR
+    desc: Vector Destination Register
+    bits: 6..11
+  - name: vA
+    arg: GPR
+    desc: Vector Register A
+    bits: 11..16
+  - name: vA.nz
+    arg: GPR
+    desc: Vector Register A (non-zero)
+    bits: 11..16
+  - name: vB
+    arg: GPR
+    desc: Vector Register B
+    bits: 16..21
+  - name: vC
+    arg: GPR
+    desc: Vector Register C
+    bits: 21..26
   # Condition register bits
   - name: crbD
     arg: CRBit
@@ -183,6 +217,16 @@ fields:
     desc: Count Register
   - name: lr
     desc: Link Register
+  # AltiVec exclusive
+  - name: STRM
+    # what's the arg?
+    arg: OpaqueU
+    desc: Stream ID
+    bits: 9..11
+  - name: SHB
+    # what's the arg?
+    arg: OpaqueU
+    bits: 22..26
 
 modifiers:
   - name: OE
@@ -218,6 +262,23 @@ modifiers:
     desc: Predict branch to be taken (implicit dest for LR/CTR)
     suffix: +
     bit: 10
+  # AltiVec exclusive
+  - name: A
+    desc: All bit
+    suffix: All
+    bit: 6
+  - name: NJ
+    desc: non-Java mode bit
+    # TODO: suffix?
+    bit: 15
+  - name: SAT
+    desc: Saturation bit
+    # TODO: suffix?
+    bit: 31
+  - name: T
+    desc: Transient bit
+    suffix: t
+    bit: 6
 
 opcodes:
   - name: add
@@ -2403,6 +2464,1295 @@ opcodes:
     args: [ rA, rS, uimm ]
     defs: [ rA ]
     uses: [ rS ]
+
+  # altivec insts: dss to vxor
+  - name: dss
+    desc: Data Stream Stop
+    bitmask: 0xfd9fffff
+    pattern: 0x7c00066c
+    modifiers: [ A ]
+    args: [ STRM ]
+    defs: [ STRM ]
+    uses: [ STRM ]
+
+  - name: dst
+    desc: Data Stream Touch
+    bitmask: 0xfd8007fe
+    pattern: 0x7c0002ac
+    modifiers: [ T ]
+    args: [ rA, rB, STRM ]
+    defs: [ rA ] # ???
+    uses: [ rA, rB, STRM ]
+
+  - name: dstst
+    desc: Data Stream Touch for Store
+    bitmask: 0xfd8007fe
+    pattern: 0x7c0002ec
+    modifiers: [ T ]
+    args: [ rA, rB, STRM ]
+    defs: [ rA ] # ???
+    uses: [ rA, rB, STRM ]
+
+  - name: lvebx
+    desc: Load Vector Element Byte Indexed
+    bitmask: 0xfc0007ff
+    pattern: 0x7c00000e
+    args: [ vD, rA, rB ]
+    defs: [ vD ]
+    uses: [ rA, rB ]
+
+  - name: lvehx
+    desc: Load Vector Element Half Word Indexed
+    bitmask: 0xfc0007ff
+    pattern: 0x7c00004e
+    args: [ vD, rA, rB ]
+    defs: [ vD ]
+    uses: [ rA, rB ]
+    
+  - name: lvewx
+    desc: Load Vector Element Word Indexed
+    bitmask: 0xfc0007ff
+    pattern: 0x7c00008e
+    args: [ vD, rA, rB ]
+    defs: [ vD ]
+    uses: [ rA, rB ]
+    
+  - name: lvsl
+    desc: Load Vector for Shift Left
+    bitmask: 0xfc0007ff
+    pattern: 0x7c00000c
+    args: [ vD, rA, rB ]
+    defs: [ vD ]
+    uses: [ rA, rB ]
+    
+  - name: lvsr
+    desc: Load Vector for Shift Right
+    bitmask: 0xfc0007ff
+    pattern: 0x7c00004c
+    args: [ vD, rA, rB ]
+    defs: [ vD ]
+    uses: [ rA, rB ]
+    
+  - name: lvx
+    desc: Load Vector Indexed
+    bitmask: 0xfc0007ff
+    pattern: 0x7c0000ce
+    args: [ vD, rA, rB ]
+    defs: [ vD ]
+    uses: [ rA, rB ]
+    
+  - name: lvxl
+    desc: Load Vector Indexed LRU
+    bitmask: 0xfc0007ff
+    pattern: 0x7c0002ce
+    args: [ vD, rA, rB ]
+    defs: [ vD ]
+    uses: [ rA, rB ]
+
+  - name: mfvscr
+    desc: Move from Vector Status and Control Register
+    bitmask: 0xfc1fffff
+    pattern: 0x10000604
+    args: [ vD ]
+    defs: [ vD ]
+    uses: [ vD ]
+
+  - name: mtvscr
+    desc: Move to Vector Status and Control Register
+    bitmask: 0xffff07ff
+    pattern: 0x10000c44
+    args: [ vB ]
+    defs: [ vB ]
+    uses: [ vB ]
+
+  - name: stvebx
+    desc: Store Vector Element Byte Indexed
+    bitmask: 0xfc0007ff
+    pattern: 0x7c00010e
+    args: [ vS, rA, rB ]
+    defs: [ vs ]
+    uses: [ rA, rB ]
+
+  - name: stvehx
+    desc: Store Vector Element Half Word Indexed
+    bitmask: 0xfc0007ff
+    pattern: 0x7c00014e
+    args: [ vS, rA, rB ]
+    defs: [ vs ]
+    uses: [ rA, rB ]
+
+  - name: stvewx
+    desc: Store Vector Element Word Indexed
+    bitmask: 0xfc0007ff
+    pattern: 0x7c00018e
+    args: [ vS, rA, rB ]
+    defs: [ vs ]
+    uses: [ rA, rB ]
+
+  - name: stvx
+    desc: Store Vector Indexed
+    bitmask: 0xfc0007ff
+    pattern: 0x7c0001ce
+    args: [ vS, rA, rB ]
+    defs: [ vs ]
+    uses: [ rA, rB ]
+
+  - name: stvxl
+    desc: Store Vector Indexed LRU
+    bitmask: 0xfc0007ff
+    pattern: 0x7c0003ce
+    args: [ vS, rA, rB ]
+    defs: [ vS ]
+    uses: [ rA, rB ]
+
+  - name: vaddcuw
+    desc: Vector Add Carryout Unsigned Word
+    bitmask: 0xfc0007ff
+    pattern: 0x10000180
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vaddfp
+    desc: Vector Add Floating Point
+    bitmask: 0xfc0007ff
+    pattern: 0x1000000a
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vaddsbs
+    desc: Vector Add Signed Byte Saturate
+    bitmask: 0xfc0007ff
+    pattern: 0x10000300
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vaddshs
+    desc: Vector Add Signed Half Word Saturate
+    bitmask: 0xfc0007ff
+    pattern: 0x10000340
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vaddsws
+    desc: Vector Add Signed Word Saturate
+    bitmask: 0xfc0007ff
+    pattern: 0x10000380
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vaddubm
+    desc: Vector Add Unsigned Byte Modulo
+    bitmask: 0xfc0007ff
+    pattern: 0x10000000
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vaddubs
+    desc: Vector Add Unsigned Byte Saturate
+    bitmask: 0xfc0007ff
+    pattern: 0x10000200
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vadduhm
+    desc: Vector Add Unsigned Half Word Modulo
+    bitmask: 0xfc0007ff
+    pattern: 0x10000040
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vadduhs
+    desc: Vector Add Unsigned Half Word Saturate
+    bitmask: 0xfc0007ff
+    pattern: 0x10000240
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vadduwm
+    desc: Vector Add Unsigned Word Modulo
+    bitmask: 0xfc0007ff
+    pattern: 0x10000080
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vadduws
+    desc: Vector Add Unsigned Word Saturate
+    bitmask: 0xfc0007ff
+    pattern: 0x10000280
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vand
+    desc: Vector Logical AND
+    bitmask: 0xfc0007ff
+    pattern: 0x10000404
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vandc
+    desc: Vector Logical AND with Complement
+    bitmask: 0xfc0007ff
+    pattern: 0x10000444
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vavgsb
+    desc: Vector Average Signed Byte
+    bitmask: 0xfc0007ff
+    pattern: 0x10000502
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vavgsh
+    desc: Vector Average Signed Half Word
+    bitmask: 0xfc0007ff
+    pattern: 0x10000542
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vavgsw
+    desc: Vector Average Signed Word
+    bitmask: 0xfc0007ff
+    pattern: 0x10000582
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vavgub
+    desc: Vector Average Unsigned Byte
+    bitmask: 0xfc0007ff
+    pattern: 0x10000402
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vavguh
+    desc: Vector Average Unsigned Half Word
+    bitmask: 0xfc0007ff
+    pattern: 0x10000442
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vavguw
+    desc: Vector Average Unsigned Word
+    bitmask: 0xfc0007ff
+    pattern: 0x10000482
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vcfsx
+    desc: Vector Convert from Signed Fixed-Point Word
+    bitmask: 0xfc0007ff
+    pattern: 0x1000034a
+    args: [ vD, vB, vuimm ]
+    defs: [ vD ]
+    uses: [ vB, vuimm ]
+
+  - name: vcfux
+    desc: Vector Convert from Unsigned Fixed-Point Word
+    bitmask: 0xfc0007ff
+    pattern: 0x1000030a
+    args: [ vD, vB, vuimm ]
+    defs: [ vD ]
+    uses: [ vB, vuimm ]
+
+  - name: vcmpbfp
+    desc: Vector Compare Bounds Floating Point
+    bitmask: 0xfc0003ff
+    pattern: 0x100003c6
+    modifiers: [ Rc ]
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vcmpeqfp
+    desc: Vector Compare Equal-to-Floating Point
+    bitmask: 0xfc0003ff
+    pattern: 0x100000c6
+    modifiers: [ Rc ]
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vcmpequb
+    desc: Vector Compare Equal-to Unsigned Byte
+    bitmask: 0xfc0003ff
+    pattern: 0x10000006
+    modifiers: [ Rc ]
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vcmpequh
+    desc: Vector Compare Equal-to Unsigned Half Word
+    bitmask: 0xfc0003ff
+    pattern: 0x10000046
+    modifiers: [ Rc ]
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vcmpequw
+    desc: Vector Compare Equal-to Unsigned Word
+    bitmask: 0xfc0003ff
+    pattern: 0x10000086
+    modifiers: [ Rc ]
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vcmpgefp
+    desc: Vector Compare Greater-Than-or-Equal-to Floating Point
+    bitmask: 0xfc0003ff
+    pattern: 0x100001c6
+    modifiers: [ Rc ]
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vcmpgtfp
+    desc: Vector Compare Greater-Than Floating Point
+    bitmask: 0xfc0003ff
+    pattern: 0x100002c6
+    modifiers: [ Rc ]
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vcmpgtsb
+    desc: Vector Compare Greater-Than Signed Byte
+    bitmask: 0xfc0003ff
+    pattern: 0x10000306
+    modifiers: [ Rc ]
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vcmpgtsh
+    desc: Vector Compare Greater-Than Condition Register Signed Half Word
+    bitmask: 0xfc0003ff
+    pattern: 0x10000346
+    modifiers: [ Rc ]
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vcmpgtsw
+    desc: Vector Compare Greater-Than Signed Word
+    bitmask: 0xfc0003ff
+    pattern: 0x10000386
+    modifiers: [ Rc ]
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vcmpgtub
+    desc: Vector Compare Greater-Than Unsigned Byte
+    bitmask: 0xfc0003ff
+    pattern: 0x10000206
+    modifiers: [ Rc ]
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vcmpgtuh
+    desc: Vector Compare Greater-Than Unsigned Half Word
+    bitmask: 0xfc0003ff
+    pattern: 0x10000246
+    modifiers: [ Rc ]
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vcmpgtuw
+    desc: Vector Compare Greater-Than Unsigned Word
+    bitmask: 0xfc0003ff
+    pattern: 0x10000286
+    modifiers: [ Rc ]
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vctsxs
+    desc: Vector Convert to Signed Fixed-Point Word Saturate
+    bitmask: 0xfc0007ff
+    pattern: 0x100003ca
+    args: [ vD, vB, vuimm ]
+    defs: [ vD ]
+    uses: [ vB, vuimm ]
+
+  - name: vctuxs
+    desc: Vector Convert to Unsigned Fixed-Point Word Saturate
+    bitmask: 0xfc0007ff
+    pattern: 0x1000038a
+    args: [ vD, vB, vuimm ]
+    defs: [ vD ]
+    uses: [ vB, vuimm ]
+
+  - name: vexptefp
+    desc: Vector 2 Raised to the Exponent Estimate Floating Point
+    bitmask: 0xfc1f07ff
+    pattern: 0x1000018a
+    args: [ vD, vB ]
+    defs: [ vD ]
+    uses: [ vB ]
+
+  - name: vlogefp
+    desc: Vector Log2 Estimate Floating Point
+    bitmask: 0xfc1f07ff
+    pattern: 0x100001ca
+    args: [ vD, vB ]
+    defs: [ vD ]
+    uses: [ vB ]
+
+  - name: vmaddfp
+    desc: Vector Multiply Add Floating Point
+    bitmask: 0xfc00003f
+    pattern: 0x1000002e
+    args: [ vD, vA, vC, vB ]
+    defs: [ vD ]
+    uses: [ vA, vC, vB ]
+
+  - name: vmaxfp
+    desc: Vector Maximum Floating Point
+    bitmask: 0xfc0007ff
+    pattern: 0x1000040a
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vmaxsb
+    desc: Vector Maximum Signed Byte
+    bitmask: 0xfc0007ff
+    pattern: 0x10000102
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vmaxsh
+    desc: Vector Maximum Signed Half Word
+    bitmask: 0xfc0007ff
+    pattern: 0x10000142
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vmaxsw
+    desc: Vector Maximum Signed Word
+    bitmask: 0xfc0007ff
+    pattern: 0x10000182
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vmaxub
+    desc: Vector Maximum Unsigned Byte
+    bitmask: 0xfc0007ff
+    pattern: 0x10000002
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vmaxuh
+    desc: Vector Maximum Unsigned Half Word
+    bitmask: 0xfc0007ff
+    pattern: 0x10000042
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vmaxuw
+    desc: Vector Maximum Unsigned Word
+    bitmask: 0xfc0007ff
+    pattern: 0x10000082
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vmhaddshs
+    desc: Vector Multiply High and Add Signed Half Word Saturate
+    bitmask: 0xfc00003f
+    pattern: 0x10000020
+    args: [ vD, vA, vB, vC ]
+    defs: [ vD ]
+    uses: [ vA, vB, vC ]
+
+  - name: vmhraddshs
+    desc: Vector Multiply High Round and Add Signed Half Word Saturate
+    bitmask: 0xfc00003f
+    pattern: 0x10000021
+    args: [ vD, vA, vB, vC ]
+    defs: [ vD ]
+    uses: [ vA, vB, vC ]
+
+  - name: vminfp
+    desc: Vector Minimum Floating Point
+    bitmask: 0xfc0007ff
+    pattern: 0x1000044a
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vminsb
+    desc: Vector Minimum Signed Byte
+    bitmask: 0xfc0007ff
+    pattern: 0x10000302
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vminsh
+    desc: Vector Minimum Signed Half Word
+    bitmask: 0xfc0007ff
+    pattern: 0x10000342
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vminsw
+    desc: Vector Minimum Signed Word
+    bitmask: 0xfc0007ff
+    pattern: 0x10000382
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vminub
+    desc: Vector Minimum Unsigned Byte
+    bitmask: 0xfc0007ff
+    pattern: 0x10000202
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vminuh
+    desc: Vector Minimum Unsigned Half Word
+    bitmask: 0xfc0007ff
+    pattern: 0x10000242
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vminuw
+    desc: Vector Minimum Unsigned Word
+    bitmask: 0xfc0007ff
+    pattern: 0x10000282
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vmladduhm
+    desc: Vector Multiply Low and Add Unsigned Half Word Modulo
+    bitmask: 0xfc00003f
+    pattern: 0x10000022
+    args: [ vD, vA, vB, vC ]
+    defs: [ vD ]
+    uses: [ vA, vB, vC ]
+
+  - name: vmrghb
+    desc: Vector Merge High Byte
+    bitmask: 0xfc0007ff
+    pattern: 0x1000000c
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vmrghh
+    desc: Vector Merge High Half Word
+    bitmask: 0xfc0007ff
+    pattern: 0x1000004c
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vmrghw
+    desc: Vector Merge High Word
+    bitmask: 0xfc0007ff
+    pattern: 0x1000008c
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vmrglb
+    desc: Vector Merge Low Byte
+    bitmask: 0xfc0007ff
+    pattern: 0x1000010c
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vmrglh
+    desc: Vector Merge Low Half Word
+    bitmask: 0xfc0007ff
+    pattern: 0x1000014c
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vmrglw
+    desc: Vector Merge Low Word
+    bitmask: 0xfc0007ff
+    pattern: 0x1000018c
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vmsummbm
+    desc: Vector Multiply Sum Mixed-Sign Byte Modulo
+    bitmask: 0xfc00003f
+    pattern: 0x10000025
+    args: [ vD, vA, vB, vC ]
+    defs: [ vD ]
+    uses: [ vA, vB, vC ]
+
+  - name: vmsummhm
+    desc: Vector Multiply Sum Signed Half Word Modulo
+    bitmask: 0xfc00003f
+    pattern: 0x10000028
+    args: [ vD, vA, vB, vC ]
+    defs: [ vD ]
+    uses: [ vA, vB, vC ]
+
+  - name: vmsumshs
+    desc: Vector Multiply Sum Signed Half Word Saturate
+    bitmask: 0xfc00003f
+    pattern: 0x10000029
+    args: [ vD, vA, vB, vC ]
+    defs: [ vD ]
+    uses: [ vA, vB, vC ]
+
+  - name: vmsumubm
+    desc: Vector Multiply Sum Unsigned Byte Modulo
+    bitmask: 0xfc00003f
+    pattern: 0x10000024
+    args: [ vD, vA, vB, vC ]
+    defs: [ vD ]
+    uses: [ vA, vB, vC ]
+
+  - name: vmsumuhm
+    desc: Vector Multiply Sum Unsigned Half Word Modulo
+    bitmask: 0xfc00003f
+    pattern: 0x10000026
+    args: [ vD, vA, vB, vC ]
+    defs: [ vD ]
+    uses: [ vA, vB, vC ]
+
+  - name: vmsumuhs
+    desc: Vector Multiply Sum Unsigned Half Word Saturate
+    bitmask: 0xfc00003f
+    pattern: 0x10000027
+    args: [ vD, vA, vB, vC ]
+    defs: [ vD ]
+    uses: [ vA, vB, vC ]
+
+  - name: vmulesb
+    desc: Vector Multiply Even Signed Byte
+    bitmask: 0xfc0007ff
+    pattern: 0x10000308
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vmulesh
+    desc: Vector Multiply Even Signed Half Word
+    bitmask: 0xfc0007ff
+    pattern: 0x10000348
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vmuleub
+    desc: Vector Multiply Even Unsigned Byte
+    bitmask: 0xfc0007ff
+    pattern: 0x10000208
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vmuleuh
+    desc: Vector Multiply Even Unsigned Half Word
+    bitmask: 0xfc0007ff
+    pattern: 0x10000248
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vmulosb
+    desc: Vector Multiply Odd Signed Byte
+    bitmask: 0xfc0007ff
+    pattern: 0x10000108
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vmulosh
+    desc: Vector Multiply Odd Signed Half Word
+    bitmask: 0xfc0007ff
+    pattern: 0x10000148
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vmuloub
+    desc: Vector Multiply Odd Unsigned Byte
+    bitmask: 0xfc0007ff
+    pattern: 0x10000008
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vmulouh
+    desc: Vector Multiply Odd Unsigned Half Word
+    bitmask: 0xfc0007ff
+    pattern: 0x10000048
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vnmsubfp
+    desc: Vector Negative Multiply-Subtract Floating Point
+    bitmask: 0xfc00003f
+    pattern: 0x1000002f
+    args: [ vD, vA, vC, vB ]
+    defs: [ vD ]
+    uses: [ vA, vC, vB ]
+
+  - name: vnor
+    desc: Vector Logical NOR
+    bitmask: 0xfc0007ff
+    pattern: 0x10000504
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vor
+    desc: Vector Logical OR
+    bitmask: 0xfc0007ff
+    pattern: 0x10000484
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vperm
+    desc: Vector Permute
+    bitmask: 0xfc00003f
+    pattern: 0x1000002b
+    args: [ vD, vA, vB, vC ]
+    defs: [ vD ]
+    uses: [ vA, vB, vC ]
+
+  - name: vpkpx
+    desc: Vector Pack Pixel32
+    bitmask: 0xfc0007ff
+    pattern: 0x1000030e
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vpkshss
+    desc: Vector Pack Signed Half Word Signed Saturate
+    bitmask: 0xfc0007ff
+    pattern: 0x1000018e
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vpkshus
+    desc: Vector Pack Signed Half Word Unsigned Saturate
+    bitmask: 0xfc0007ff
+    pattern: 0x1000010e
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vpkswss
+    desc: Vector Pack Signed Word Signed Saturate
+    bitmask: 0xfc0007ff
+    pattern: 0x100001ce
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vpkswus
+    desc: Vector Pack Signed Word Unsigned Saturate
+    bitmask: 0xfc0007ff
+    pattern: 0x1000014e
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vpkuhum
+    desc: Vector Pack Unsigned Half Word Unsigned Modulo
+    bitmask: 0xfc0007ff
+    pattern: 0x1000000e
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vpkuhus
+    desc: Vector Pack Unsigned Half Word Unsigned Saturate
+    bitmask: 0xfc0007ff
+    pattern: 0x1000008e
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vpkuwum
+    desc: Vector Pack Unsigned Word Unsigned Modulo
+    bitmask: 0xfc0007ff
+    pattern: 0x1000004e
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vpkuwus
+    desc: Vector Pack Unsigned Word Unsigned Saturate
+    bitmask: 0xfc0007ff
+    pattern: 0x100000ce
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vrefp
+    desc: Vector Reciprocal Estimate Floating Point
+    bitmask: 0xfc1f07ff
+    pattern: 0x1000010a
+    args: [ vD, vB ]
+    defs: [ vD ]
+    uses: [ vB ]
+
+  - name: vrfim
+    desc: Vector Round to Floating-Point Integer toward Minus Infinity
+    bitmask: 0xfc1f07ff
+    pattern: 0x100002ca
+    args: [ vD, vB ]
+    defs: [ vD ]
+    uses: [ vB ]
+
+  - name: vrfin
+    desc: Vector Round to Floating-Point Integer Nearest
+    bitmask: 0xfc1f07ff
+    pattern: 0x1000020a
+    args: [ vD, vB ]
+    defs: [ vD ]
+    uses: [ vB ]
+
+  - name: vrfip
+    desc: Vector Round to Floating-Point Integer toward Plus Infinity
+    bitmask: 0xfc1f07ff
+    pattern: 0x1000028a
+    args: [ vD, vB ]
+    defs: [ vD ]
+    uses: [ vB ]
+
+  - name: vrfiz
+    desc: Vector Round to Floating-Point Integer toward Zero
+    bitmask: 0xfc1f07ff
+    pattern: 0x1000024a
+    args: [ vD, vB ]
+    defs: [ vD ]
+    uses: [ vB ]
+
+  - name: vrlb
+    desc: Vector Rotate Left Integer Byte
+    bitmask: 0xfc0007ff
+    pattern: 0x10000004
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vrlh
+    desc: Vector Rotate Left Integer Half Word
+    bitmask: 0xfc0007ff
+    pattern: 0x10000044
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vrlw
+    desc: Vector Rotate Left Integer Word
+    bitmask: 0xfc0007ff
+    pattern: 0x10000084
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vrsqrtefp
+    desc: Vector Reciprocal Square Root Estimate Floating Point
+    bitmask: 0xfc1f07ff
+    pattern: 0x1000014a
+    args: [ vD, vB ]
+    defs: [ vD ]
+    uses: [ vB ]
+
+  - name: vsel
+    desc: Vector Conditional Select
+    bitmask: 0xfc00003f
+    pattern: 0x1000002a
+    args: [ vD, vA, vB, vC ]
+    defs: [ vD ]
+    uses: [ vA, vB, vC ]
+
+  - name: vsl
+    desc: Vector Shift Left
+    bitmask: 0xfc0007ff
+    pattern: 0x100001c4
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vslb
+    desc: Vector Shift Left Integer Byte
+    bitmask: 0xfc0007ff
+    pattern: 0x10000104
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vsldoi
+    desc: Vector Shift Left Double by Octet Immediate
+    bitmask: 0xfc00043f
+    pattern: 0x1000002c
+    args: [ vD, vA, vB, SHB ]
+    defs: [ vD ]
+    uses: [ vA, vB, SHB ]
+
+  - name: vslh
+    desc: Vector Shift Left Integer Half Word
+    bitmask: 0xfc0007ff
+    pattern: 0x10000144
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vslo
+    desc: Vector Shift Left by Octet
+    bitmask: 0xfc0007ff
+    pattern: 0x1000040c
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vslw
+    desc: Vector Shift Left Integer Word
+    bitmask: 0xfc0007ff
+    pattern: 0x10000184
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vspltb
+    desc: Vector Splat Byte
+    bitmask: 0xfc0007ff
+    pattern: 0x1000020c
+    args: [ vD, vB, vuimm ]
+    defs: [ vD ]
+    uses: [ vB, vuimm ]
+
+  - name: vsplth
+    desc: Vector Splat Half Word
+    bitmask: 0xfc0007ff
+    pattern: 0x1000024c
+    args: [ vD, vB, vuimm ]
+    defs: [ vD ]
+    uses: [ vB, vuimm ]
+
+  - name: vspltisb
+    desc: Vector Splat Immediate Signed Byte
+    bitmask: 0xfc00ffff
+    pattern: 0x1000030c
+    args: [ vD, vsimm ]
+    defs: [ vD ]
+    uses: [ vsimm ]
+
+  - name: vspltish
+    desc: Vector Splat Immediate Signed Half Word
+    bitmask: 0xfc00ffff
+    pattern: 0x1000034c
+    args: [ vD, vsimm ]
+    defs: [ vD ]
+    uses: [ vsimm ]
+
+  - name: vspltisw
+    desc: Vector Splat Immediate Signed Word
+    bitmask: 0xfc00ffff
+    pattern: 0x1000038c
+    args: [ vD, vsimm ]
+    defs: [ vD ]
+    uses: [ vsimm ]
+
+  - name: vspltw
+    desc: Vector Splat Word
+    bitmask: 0xfc0007ff
+    pattern: 0x1000028c
+    args: [ vD, vB, vuimm ]
+    defs: [ vD ]
+    uses: [ vB, vuimm ]
+
+  - name: vsr
+    desc: Vector Shift Right
+    bitmask: 0xfc0007ff
+    pattern: 0x100002c4
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vsrab
+    desc: Vector Shift Right Algebraic Byte
+    bitmask: 0xfc0007ff
+    pattern: 0x10000304
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vsrah
+    desc: Vector Shift Right Algebraic Half Word
+    bitmask: 0xfc0007ff
+    pattern: 0x10000344
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vsraw
+    desc: Vector Shift Right Algebraic Word
+    bitmask: 0xfc0007ff
+    pattern: 0x10000384
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vsrb
+    desc: Vector Shift Right Byte
+    bitmask: 0xfc0007ff
+    pattern: 0x10000204
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vsrh
+    desc: Vector Shift Right Half Word
+    bitmask: 0xfc0007ff
+    pattern: 0x10000244
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vsro
+    desc: Vector Shift Right by Octet
+    bitmask: 0xfc0007ff
+    pattern: 0x1000044c
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vsrw
+    desc: Vector Shift Right Word
+    bitmask: 0xfc0007ff
+    pattern: 0x10000284
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vsubcuw
+    desc: Vector Subtract Carryout Unsigned Word
+    bitmask: 0xfc0007ff
+    pattern: 0x10000580
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vsubfp
+    desc: Vector Subtract Floating Point
+    bitmask: 0xfc0007ff
+    pattern: 0x1000004a
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vsubsbs
+    desc: Vector Subtract Signed Byte Saturate
+    bitmask: 0xfc0007ff
+    pattern: 0x10000700
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vsubshs
+    desc: Vector Subtract Signed Half Word Saturate
+    bitmask: 0xfc0007ff
+    pattern: 0x10000740
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vsubsws
+    desc: Vector Subtract Signed Word Saturate
+    bitmask: 0xfc0007ff
+    pattern: 0x10000780
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vsububm
+    desc: Vector Subtract Unsigned Byte Modulo
+    bitmask: 0xfc0007ff
+    pattern: 0x10000400
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vsububs
+    desc: Vector Subtract Unsigned Byte Saturate
+    bitmask: 0xfc0007ff
+    pattern: 0x10000600
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vsubuhm
+    desc: Vector Subtract Unsigned Half Word Modulo
+    bitmask: 0xfc0007ff
+    pattern: 0x10000440
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vsubuhs
+    desc: Vector Subtract Unsigned Half Word Saturate
+    bitmask: 0xfc0007ff
+    pattern: 0x10000640
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vsubuwm
+    desc: Vector Subtract Unsigned Word Modulo
+    bitmask: 0xfc0007ff
+    pattern: 0x10000480
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vsubuws
+    desc: Vector Subtract Unsigned Word Saturate
+    bitmask: 0xfc0007ff
+    pattern: 0x10000680
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vsumsws
+    desc: Vector Sum Across Signed Word Saturate
+    bitmask: 0xfc0007ff
+    pattern: 0x10000788
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vsum2sws
+    desc: Vector Sum Across Partial (1/2) Signed Word Saturate
+    bitmask: 0xfc0007ff
+    pattern: 0x10000688
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vsum4sbs
+    desc: Vector Sum Across Partial (1/4) Signed Byte Saturate
+    bitmask: 0xfc0007ff
+    pattern: 0x10000708
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vsum4shs
+    desc: Vector Sum Across Partial (1/4) Signed Half Word Saturate
+    bitmask: 0xfc0007ff
+    pattern: 0x10000648
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vsum4ubs
+    desc: Vector Sum Across Partial (1/4) Unsigned Byte Saturate
+    bitmask: 0xfc0007ff
+    pattern: 0x10000608
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
+
+  - name: vupkhpx
+    desc: Vector Unpack High Pixel16
+    bitmask: 0xfc1f07ff
+    pattern: 0x1000034e
+    args: [ vD, vB ]
+    defs: [ vD ]
+    uses: [ vB ]
+
+  - name: vupkhsb
+    desc: Vector Unpack High Signed Byte
+    bitmask: 0xfc1f07ff
+    pattern: 0x1000020e
+    args: [ vD, vB ]
+    defs: [ vD ]
+    uses: [ vB ]
+
+  - name: vupkhsh
+    desc: Vector Unpack High Signed Half Word
+    bitmask: 0xfc1f07ff
+    pattern: 0x1000024e
+    args: [ vD, vB ]
+    defs: [ vD ]
+    uses: [ vB ]
+
+  - name: vupklpx
+    desc: Vector Unpack Low Pixel16
+    bitmask: 0xfc1f07ff
+    pattern: 0x100003ce
+    args: [ vD, vB ]
+    defs: [ vD ]
+    uses: [ vB ]
+
+  - name: vupklsb
+    desc: Vector Unpack Low Signed Byte
+    bitmask: 0xfc1f07ff
+    pattern: 0x1000028e
+    args: [ vD, vB ]
+    defs: [ vD ]
+    uses: [ vB ]
+
+  - name: vupklsh
+    desc: Vector Unpack Low Signed Half Word
+    bitmask: 0xfc1f07ff
+    pattern: 0x100002ce
+    args: [ vD, vB ]
+    defs: [ vD ]
+    uses: [ vB ]
+
+  - name: vxor
+    desc: Vector Logical XOR
+    bitmask: 0xfc0007ff
+    pattern: 0x100004c4
+    args: [ vD, vA, vB ]
+    defs: [ vD ]
+    uses: [ vA, vB ]
 
 mnemonics:
   # Arithmetic
