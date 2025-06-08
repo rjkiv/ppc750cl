@@ -1010,7 +1010,6 @@ opcodes:
     defs: [ rD ]
     uses: [ rA.nz, rB ]
 
-  # TODO: verify that the load instructions have nonzero rA's
   # 64-bit only
   - name: ld
     desc: Load Double Word
@@ -1035,8 +1034,8 @@ opcodes:
     bitmask: 0xfc000003
     pattern: 0xe8000001
     args: [ rD, offset, rA ]
-    defs: [ rD ]
-    uses: [ offset, rA.nz ]
+    defs: [ rD, rA ]
+    uses: [ offset, rA ]
   
   # 64-bit only
   - name: ldux
@@ -1044,8 +1043,8 @@ opcodes:
     bitmask: 0xfc0007ff
     pattern: 0x7c00006a
     args: [ rD, rA, rB ]
-    defs: [ rD ]
-    uses: [ rA.nz, rB ]
+    defs: [ rD, rA ]
+    uses: [ rA, rB ]
   
   # 64-bit only
   - name: ldx
@@ -1054,7 +1053,7 @@ opcodes:
     pattern: 0x7c00002a
     args: [ rD, rA, rB ]
     defs: [ rD ]
-    uses: [ rA, rB ]
+    uses: [ rA.nz, rB ]
 
   - name: lfd
     desc: Load Floating-Point Double
@@ -1241,7 +1240,7 @@ opcodes:
     pattern: 0x7c0002ea
     args: [ rD, rA, rB ]
     defs: [ rD ]
-    uses: [ rA.nz, rB ]
+    uses: [ rA, rB ]
   
   # 64-bit only
   - name: lwax
@@ -1913,7 +1912,6 @@ opcodes:
     bitmask: 0xffffffff
     pattern: 0x4c000024
 
-  # TODO: verify the uses of the rotate instructions are right
   # 64-bit only
   - name: rldcl
     desc: Rotate Left Double Word then Clear Left
@@ -1942,7 +1940,7 @@ opcodes:
     modifiers: [ Rc ]
     args: [ rA, rS, SH, MB ]
     defs: [ rA ]
-    uses: [ rA, rS, SH ]
+    uses: [ rS, SH ]
 
   # 64-bit only
   - name: rldicl
@@ -1952,7 +1950,7 @@ opcodes:
     modifiers: [ Rc ]
     args: [ rA, rS, SH, MB ]
     defs: [ rA ]
-    uses: [ rA, rS, SH ]
+    uses: [ rS, SH ]
 
   # 64-bit only
   - name: rldicr
@@ -1962,7 +1960,7 @@ opcodes:
     modifiers: [ Rc ]
     args: [ rA, rS, SH, ME ]
     defs: [ rA ]
-    uses: [ rA, rS, SH ]
+    uses: [ rS, SH ]
 
   # 64-bit only
   - name: rldimi
@@ -2012,13 +2010,12 @@ opcodes:
     bitmask: 0xffffffff
     pattern: 0x7c0003e4
 
-  # 64-bit only - verify rB usage!
+  # 64-bit only
   - name: slbie
     desc: SLB Invalidate Entry
-    bitmask: 0xffffffff
+    bitmask: 0xffff07ff
     pattern: 0x7c000364
     args: [ rB ]
-    defs: [ rB ]
     uses: [ rB ]
 
   # 64-bit only
@@ -2141,8 +2138,7 @@ opcodes:
     bitmask: 0xfc0007ff
     pattern: 0x7c0001ad
     args: [ rS, rA, rB ]
-    defs: [ rA ]
-    uses: [ rS, rA, rB ]
+    uses: [ rS, rA.nz, rB ]
 
   # 64-bit only
   - name: stdu
@@ -2169,7 +2165,7 @@ opcodes:
     pattern: 0x7c00012a
     args: [ rS, rA, rB ]
     defs: [ rA ]
-    uses: [ rS, rA, rB ]
+    uses: [ rS, rA.nz, rB ]
 
   - name: stfd
     desc: Store Floating-Point Double
