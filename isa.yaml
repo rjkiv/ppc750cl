@@ -219,12 +219,10 @@ fields:
     desc: Link Register
   # AltiVec exclusive
   - name: STRM
-    # what's the arg?
     arg: OpaqueU
     desc: Stream ID
     bits: 9..11
   - name: SHB
-    # what's the arg?
     arg: OpaqueU
     bits: 22..26
 
@@ -2468,7 +2466,6 @@ opcodes:
     pattern: 0x7c00066c
     modifiers: [ A ]
     args: [ STRM ]
-    defs: [ STRM ]
     uses: [ STRM ]
 
   - name: dst
@@ -2477,7 +2474,6 @@ opcodes:
     pattern: 0x7c0002ac
     modifiers: [ T ]
     args: [ rA, rB, STRM ]
-    defs: [ rA ] # ???
     uses: [ rA, rB, STRM ]
 
   - name: dstst
@@ -2486,7 +2482,6 @@ opcodes:
     pattern: 0x7c0002ec
     modifiers: [ T ]
     args: [ rA, rB, STRM ]
-    defs: [ rA ] # ???
     uses: [ rA, rB, STRM ]
 
   - name: lvebx
@@ -2495,7 +2490,7 @@ opcodes:
     pattern: 0x7c00000e
     args: [ vD, rA, rB ]
     defs: [ vD ]
-    uses: [ rA, rB ]
+    uses: [ rA.nz, rB ]
 
   - name: lvehx
     desc: Load Vector Element Half Word Indexed
@@ -2503,7 +2498,7 @@ opcodes:
     pattern: 0x7c00004e
     args: [ vD, rA, rB ]
     defs: [ vD ]
-    uses: [ rA, rB ]
+    uses: [ rA.nz, rB ]
     
   - name: lvewx
     desc: Load Vector Element Word Indexed
@@ -2511,7 +2506,7 @@ opcodes:
     pattern: 0x7c00008e
     args: [ vD, rA, rB ]
     defs: [ vD ]
-    uses: [ rA, rB ]
+    uses: [ rA.nz, rB ]
     
   - name: lvsl
     desc: Load Vector for Shift Left
@@ -2519,7 +2514,7 @@ opcodes:
     pattern: 0x7c00000c
     args: [ vD, rA, rB ]
     defs: [ vD ]
-    uses: [ rA, rB ]
+    uses: [ rA.nz, rB ]
     
   - name: lvsr
     desc: Load Vector for Shift Right
@@ -2527,7 +2522,7 @@ opcodes:
     pattern: 0x7c00004c
     args: [ vD, rA, rB ]
     defs: [ vD ]
-    uses: [ rA, rB ]
+    uses: [ rA.nz, rB ]
     
   - name: lvx
     desc: Load Vector Indexed
@@ -2535,7 +2530,7 @@ opcodes:
     pattern: 0x7c0000ce
     args: [ vD, rA, rB ]
     defs: [ vD ]
-    uses: [ rA, rB ]
+    uses: [ rA.nz, rB ]
     
   - name: lvxl
     desc: Load Vector Indexed LRU
@@ -2543,7 +2538,7 @@ opcodes:
     pattern: 0x7c0002ce
     args: [ vD, rA, rB ]
     defs: [ vD ]
-    uses: [ rA, rB ]
+    uses: [ rA.nz, rB ]
 
   - name: mfvscr
     desc: Move from Vector Status and Control Register
@@ -2551,14 +2546,12 @@ opcodes:
     pattern: 0x10000604
     args: [ vD ]
     defs: [ vD ]
-    uses: [ vD ]
 
   - name: mtvscr
     desc: Move to Vector Status and Control Register
     bitmask: 0xffff07ff
     pattern: 0x10000c44
     args: [ vB ]
-    defs: [ vB ]
     uses: [ vB ]
 
   - name: stvebx
@@ -2566,40 +2559,35 @@ opcodes:
     bitmask: 0xfc0007ff
     pattern: 0x7c00010e
     args: [ vS, rA, rB ]
-    defs: [ vs ]
-    uses: [ rA, rB ]
+    uses: [ rA.nz, rB ]
 
   - name: stvehx
     desc: Store Vector Element Half Word Indexed
     bitmask: 0xfc0007ff
     pattern: 0x7c00014e
     args: [ vS, rA, rB ]
-    defs: [ vs ]
-    uses: [ rA, rB ]
+    uses: [ rA.nz, rB ]
 
   - name: stvewx
     desc: Store Vector Element Word Indexed
     bitmask: 0xfc0007ff
     pattern: 0x7c00018e
     args: [ vS, rA, rB ]
-    defs: [ vs ]
-    uses: [ rA, rB ]
+    uses: [ rA.nz, rB ]
 
   - name: stvx
     desc: Store Vector Indexed
     bitmask: 0xfc0007ff
     pattern: 0x7c0001ce
     args: [ vS, rA, rB ]
-    defs: [ vs ]
-    uses: [ rA, rB ]
+    uses: [ rA.nz, rB ]
 
   - name: stvxl
     desc: Store Vector Indexed LRU
     bitmask: 0xfc0007ff
     pattern: 0x7c0003ce
     args: [ vS, rA, rB ]
-    defs: [ vS ]
-    uses: [ rA, rB ]
+    uses: [ rA.nz, rB ]
 
   - name: vaddcuw
     desc: Vector Add Carryout Unsigned Word
@@ -3118,7 +3106,7 @@ opcodes:
     defs: [ vD ]
     uses: [ vA, vB, vC ]
 
-  - name: vmsummhm
+  - name: vmsumshm
     desc: Vector Multiply Sum Signed Half Word Modulo
     bitmask: 0xfc00003f
     pattern: 0x10000028
