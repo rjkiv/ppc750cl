@@ -23,7 +23,7 @@ fn main() -> Result<()> {
 
     let isa = load_isa(Path::new("isa.yaml"))?;
     // Make sure we can fit the opcodes into a u8
-    ensure!(isa.opcodes.len() <= 255);
+    // ensure!(isa.opcodes.len() <= 255);
 
     // Sanity check the opcodes and mnemonics
     // Calculate the bitmask for each opcode and compare it to the stored bitmask

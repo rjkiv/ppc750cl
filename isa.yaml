@@ -263,16 +263,16 @@ modifiers:
   # AltiVec exclusive
   - name: A
     desc: All bit
-    suffix: All
+    suffix: a
     bit: 6
-  - name: NJ
-    desc: non-Java mode bit
-    # TODO: suffix?
-    bit: 15
-  - name: SAT
-    desc: Saturation bit
-    # TODO: suffix?
-    bit: 31
+  # - name: NJ
+  #   desc: non-Java mode bit
+  #   # TODO: suffix?
+  #   bit: 15
+  # - name: SAT
+  #   desc: Saturation bit
+  #   # TODO: suffix?
+  #   bit: 31
   - name: T
     desc: Transient bit
     suffix: t
