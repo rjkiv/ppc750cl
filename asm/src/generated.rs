@@ -1643,8 +1643,13 @@ fn gen_rldcl(args: &Arguments, modifiers: u32) -> Result<u32, ArgumentError> {
     code |= (parse_unsigned(args, 1, 0x0, 0x1f)? & 0x1f) << 21;
     // rB
     code |= (parse_unsigned(args, 2, 0x0, 0x1f)? & 0x1f) << 11;
-    // MB
-    code |= (parse_unsigned(args, 3, 0x0, 0x1f)? & 0x1f) << 6;
+    // MB64
+    code
+        |= {
+            let mut value = parse_unsigned(args, 3, 0x0, 0x3f)?;
+            value = ((value & 0b11111_00000) >> 5) | ((value & 0b00000_11111) << 5);
+            (value & 0x3f) << 5
+        };
     Ok(code)
 }
 fn gen_rldcr(args: &Arguments, modifiers: u32) -> Result<u32, ArgumentError> {
@@ -1656,60 +1661,133 @@ fn gen_rldcr(args: &Arguments, modifiers: u32) -> Result<u32, ArgumentError> {
     code |= (parse_unsigned(args, 1, 0x0, 0x1f)? & 0x1f) << 21;
     // rB
     code |= (parse_unsigned(args, 2, 0x0, 0x1f)? & 0x1f) << 11;
-    // ME
-    code |= (parse_unsigned(args, 3, 0x0, 0x1f)? & 0x1f) << 1;
+    // ME64
+    code
+        |= {
+            let mut value = parse_unsigned(args, 3, 0x0, 0x3f)?;
+            value = ((value & 0b11111_00000) >> 5) | ((value & 0b00000_11111) << 5);
+            (value & 0x3f) << 5
+        };
     Ok(code)
 }
 fn gen_rldic(args: &Arguments, modifiers: u32) -> Result<u32, ArgumentError> {
-    check_arg_count(args, 4)?;
+    check_arg_count(args, 5)?;
     let mut code = 0x78000008 | modifiers;
     // rA
     code |= (parse_unsigned(args, 0, 0x0, 0x1f)? & 0x1f) << 16;
     // rS
     code |= (parse_unsigned(args, 1, 0x0, 0x1f)? & 0x1f) << 21;
-    // SH
-    code |= (parse_unsigned(args, 2, 0x0, 0x1f)? & 0x1f) << 11;
-    // MB
-    code |= (parse_unsigned(args, 3, 0x0, 0x1f)? & 0x1f) << 6;
+    // SH1
+    code
+        |= {
+            let mut value = parse_unsigned(args, 2, 0x0, 0x1f)?;
+            value = ((value & 0b11111_00000) >> 5) | ((value & 0b00000_11111) << 5);
+            (value & 0x1f) << 11
+        };
+    // MB64
+    code
+        |= {
+            let mut value = parse_unsigned(args, 3, 0x0, 0x3f)?;
+            value = ((value & 0b11111_00000) >> 5) | ((value & 0b00000_11111) << 5);
+            (value & 0x3f) << 5
+        };
+    // SH2
+    code
+        |= {
+            let mut value = parse_unsigned(args, 4, 0x0, 0x1)?;
+            value = ((value & 0b11111_00000) >> 5) | ((value & 0b00000_11111) << 5);
+            (value & 0x1) << 1
+        };
     Ok(code)
 }
 fn gen_rldicl(args: &Arguments, modifiers: u32) -> Result<u32, ArgumentError> {
-    check_arg_count(args, 4)?;
+    check_arg_count(args, 5)?;
     let mut code = 0x78000000 | modifiers;
     // rA
     code |= (parse_unsigned(args, 0, 0x0, 0x1f)? & 0x1f) << 16;
     // rS
     code |= (parse_unsigned(args, 1, 0x0, 0x1f)? & 0x1f) << 21;
-    // SH
-    code |= (parse_unsigned(args, 2, 0x0, 0x1f)? & 0x1f) << 11;
-    // MB
-    code |= (parse_unsigned(args, 3, 0x0, 0x1f)? & 0x1f) << 6;
+    // SH1
+    code
+        |= {
+            let mut value = parse_unsigned(args, 2, 0x0, 0x1f)?;
+            value = ((value & 0b11111_00000) >> 5) | ((value & 0b00000_11111) << 5);
+            (value & 0x1f) << 11
+        };
+    // MB64
+    code
+        |= {
+            let mut value = parse_unsigned(args, 3, 0x0, 0x3f)?;
+            value = ((value & 0b11111_00000) >> 5) | ((value & 0b00000_11111) << 5);
+            (value & 0x3f) << 5
+        };
+    // SH2
+    code
+        |= {
+            let mut value = parse_unsigned(args, 4, 0x0, 0x1)?;
+            value = ((value & 0b11111_00000) >> 5) | ((value & 0b00000_11111) << 5);
+            (value & 0x1) << 1
+        };
     Ok(code)
 }
 fn gen_rldicr(args: &Arguments, modifiers: u32) -> Result<u32, ArgumentError> {
-    check_arg_count(args, 4)?;
+    check_arg_count(args, 5)?;
     let mut code = 0x78000004 | modifiers;
     // rA
     code |= (parse_unsigned(args, 0, 0x0, 0x1f)? & 0x1f) << 16;
     // rS
     code |= (parse_unsigned(args, 1, 0x0, 0x1f)? & 0x1f) << 21;
-    // SH
-    code |= (parse_unsigned(args, 2, 0x0, 0x1f)? & 0x1f) << 11;
-    // ME
-    code |= (parse_unsigned(args, 3, 0x0, 0x1f)? & 0x1f) << 1;
+    // SH1
+    code
+        |= {
+            let mut value = parse_unsigned(args, 2, 0x0, 0x1f)?;
+            value = ((value & 0b11111_00000) >> 5) | ((value & 0b00000_11111) << 5);
+            (value & 0x1f) << 11
+        };
+    // ME64
+    code
+        |= {
+            let mut value = parse_unsigned(args, 3, 0x0, 0x3f)?;
+            value = ((value & 0b11111_00000) >> 5) | ((value & 0b00000_11111) << 5);
+            (value & 0x3f) << 5
+        };
+    // SH2
+    code
+        |= {
+            let mut value = parse_unsigned(args, 4, 0x0, 0x1)?;
+            value = ((value & 0b11111_00000) >> 5) | ((value & 0b00000_11111) << 5);
+            (value & 0x1) << 1
+        };
     Ok(code)
 }
 fn gen_rldimi(args: &Arguments, modifiers: u32) -> Result<u32, ArgumentError> {
-    check_arg_count(args, 4)?;
+    check_arg_count(args, 5)?;
     let mut code = 0x7800000c | modifiers;
     // rA
     code |= (parse_unsigned(args, 0, 0x0, 0x1f)? & 0x1f) << 16;
     // rS
     code |= (parse_unsigned(args, 1, 0x0, 0x1f)? & 0x1f) << 21;
-    // SH
-    code |= (parse_unsigned(args, 2, 0x0, 0x1f)? & 0x1f) << 11;
-    // MB
-    code |= (parse_unsigned(args, 3, 0x0, 0x1f)? & 0x1f) << 6;
+    // SH1
+    code
+        |= {
+            let mut value = parse_unsigned(args, 2, 0x0, 0x1f)?;
+            value = ((value & 0b11111_00000) >> 5) | ((value & 0b00000_11111) << 5);
+            (value & 0x1f) << 11
+        };
+    // MB64
+    code
+        |= {
+            let mut value = parse_unsigned(args, 3, 0x0, 0x3f)?;
+            value = ((value & 0b11111_00000) >> 5) | ((value & 0b00000_11111) << 5);
+            (value & 0x3f) << 5
+        };
+    // SH2
+    code
+        |= {
+            let mut value = parse_unsigned(args, 4, 0x0, 0x1)?;
+            value = ((value & 0b11111_00000) >> 5) | ((value & 0b00000_11111) << 5);
+            (value & 0x1) << 1
+        };
     Ok(code)
 }
 fn gen_rlwimi(args: &Arguments, modifiers: u32) -> Result<u32, ArgumentError> {

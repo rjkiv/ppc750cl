@@ -253,12 +253,12 @@ static OPCODE_PATTERNS: [(u32, u32); 512] = [
     (0xfc000000, 0x6c000000),
     (0xfc000000, 0x70000000),
     (0xfc000000, 0x74000000),
-    (0xfc00003e, 0x78000010),
-    (0xfc0007c0, 0x78000012),
-    (0xfc00003e, 0x78000008),
-    (0xfc00003e, 0x78000000),
-    (0xfc0007c0, 0x78000004),
-    (0xfc00003e, 0x7800000c),
+    (0xfc00001e, 0x78000010),
+    (0xfc00001e, 0x78000012),
+    (0xfc00001c, 0x78000008),
+    (0xfc00001c, 0x78000000),
+    (0xfc00001c, 0x78000004),
+    (0xfc00001c, 0x7800000c),
     (0xfc0003fe, 0x7c000214),
     (0xfc0003fe, 0x7c000014),
     (0xfc0003fe, 0x7c000114),
@@ -1964,15 +1964,39 @@ impl Ins {
     pub const fn field_sh(&self) -> u8 {
         ((self.code >> 11) & 0x1f) as u8
     }
+    /// SH1: Shift Amount (for 64 bit implementations)
+    #[inline(always)]
+    pub const fn field_sh1(&self) -> u8 {
+        let value = ((self.code >> 11) & 0x1f) as u8;
+        ((value & 0b11111_00000) >> 5) | ((value & 0b00000_11111) << 5)
+    }
+    /// SH2: Shift Amount (for 64 bit implementations)
+    #[inline(always)]
+    pub const fn field_sh2(&self) -> u8 {
+        let value = ((self.code >> 1) & 0x1) as u8;
+        ((value & 0b11111_00000) >> 5) | ((value & 0b00000_11111) << 5)
+    }
     /// MB: Mask Begin
     #[inline(always)]
     pub const fn field_mb(&self) -> u8 {
         ((self.code >> 6) & 0x1f) as u8
     }
+    /// MB64: Mask Begin (for 64 bit implementations)
+    #[inline(always)]
+    pub const fn field_mb64(&self) -> u8 {
+        let value = ((self.code >> 5) & 0x3f) as u8;
+        ((value & 0b11111_00000) >> 5) | ((value & 0b00000_11111) << 5)
+    }
     /// ME: Mask End
     #[inline(always)]
     pub const fn field_me(&self) -> u8 {
         ((self.code >> 1) & 0x1f) as u8
+    }
+    /// ME64: Mask End (for 64 bit implementations)
+    #[inline(always)]
+    pub const fn field_me64(&self) -> u8 {
+        let value = ((self.code >> 5) & 0x3f) as u8;
+        ((value & 0b11111_00000) >> 5) | ((value & 0b00000_11111) << 5)
     }
     /// rS: Source Register
     #[inline(always)]
@@ -6260,7 +6284,7 @@ fn basic_rldcl(out: &mut ParsedIns, ins: Ins) {
                 Argument::GPR(GPR(ins.field_ra() as _)),
                 Argument::GPR(GPR(ins.field_rs() as _)),
                 Argument::GPR(GPR(ins.field_rb() as _)),
-                Argument::OpaqueU(OpaqueU(ins.field_mb() as _)),
+                Argument::OpaqueU(OpaqueU(ins.field_mb64() as _)),
                 Argument::None,
             ],
         }
@@ -6275,7 +6299,7 @@ fn basic_rldcr(out: &mut ParsedIns, ins: Ins) {
                 Argument::GPR(GPR(ins.field_ra() as _)),
                 Argument::GPR(GPR(ins.field_rs() as _)),
                 Argument::GPR(GPR(ins.field_rb() as _)),
-                Argument::OpaqueU(OpaqueU(ins.field_me() as _)),
+                Argument::OpaqueU(OpaqueU(ins.field_me64() as _)),
                 Argument::None,
             ],
         }
@@ -6289,9 +6313,9 @@ fn basic_rldic(out: &mut ParsedIns, ins: Ins) {
             args: [
                 Argument::GPR(GPR(ins.field_ra() as _)),
                 Argument::GPR(GPR(ins.field_rs() as _)),
-                Argument::OpaqueU(OpaqueU(ins.field_sh() as _)),
-                Argument::OpaqueU(OpaqueU(ins.field_mb() as _)),
-                Argument::None,
+                Argument::OpaqueU(OpaqueU(ins.field_sh1() as _)),
+                Argument::OpaqueU(OpaqueU(ins.field_mb64() as _)),
+                Argument::OpaqueU(OpaqueU(ins.field_sh2() as _)),
             ],
         }
     };
@@ -6304,9 +6328,9 @@ fn basic_rldicl(out: &mut ParsedIns, ins: Ins) {
             args: [
                 Argument::GPR(GPR(ins.field_ra() as _)),
                 Argument::GPR(GPR(ins.field_rs() as _)),
-                Argument::OpaqueU(OpaqueU(ins.field_sh() as _)),
-                Argument::OpaqueU(OpaqueU(ins.field_mb() as _)),
-                Argument::None,
+                Argument::OpaqueU(OpaqueU(ins.field_sh1() as _)),
+                Argument::OpaqueU(OpaqueU(ins.field_mb64() as _)),
+                Argument::OpaqueU(OpaqueU(ins.field_sh2() as _)),
             ],
         }
     };
@@ -6319,9 +6343,9 @@ fn basic_rldicr(out: &mut ParsedIns, ins: Ins) {
             args: [
                 Argument::GPR(GPR(ins.field_ra() as _)),
                 Argument::GPR(GPR(ins.field_rs() as _)),
-                Argument::OpaqueU(OpaqueU(ins.field_sh() as _)),
-                Argument::OpaqueU(OpaqueU(ins.field_me() as _)),
-                Argument::None,
+                Argument::OpaqueU(OpaqueU(ins.field_sh1() as _)),
+                Argument::OpaqueU(OpaqueU(ins.field_me64() as _)),
+                Argument::OpaqueU(OpaqueU(ins.field_sh2() as _)),
             ],
         }
     };
@@ -6334,9 +6358,9 @@ fn basic_rldimi(out: &mut ParsedIns, ins: Ins) {
             args: [
                 Argument::GPR(GPR(ins.field_ra() as _)),
                 Argument::GPR(GPR(ins.field_rs() as _)),
-                Argument::OpaqueU(OpaqueU(ins.field_sh() as _)),
-                Argument::OpaqueU(OpaqueU(ins.field_mb() as _)),
-                Argument::None,
+                Argument::OpaqueU(OpaqueU(ins.field_sh1() as _)),
+                Argument::OpaqueU(OpaqueU(ins.field_mb64() as _)),
+                Argument::OpaqueU(OpaqueU(ins.field_sh2() as _)),
             ],
         }
     };
@@ -13706,8 +13730,8 @@ fn defs_rldic(out: &mut Arguments, ins: Ins) {
 fn uses_rldic(out: &mut Arguments, ins: Ins) {
     *out = [
         Argument::GPR(GPR(ins.field_rs() as _)),
-        Argument::OpaqueU(OpaqueU(ins.field_sh() as _)),
-        Argument::None,
+        Argument::OpaqueU(OpaqueU(ins.field_sh1() as _)),
+        Argument::OpaqueU(OpaqueU(ins.field_sh2() as _)),
         Argument::None,
         Argument::None,
     ];
@@ -13724,8 +13748,8 @@ fn defs_rldicl(out: &mut Arguments, ins: Ins) {
 fn uses_rldicl(out: &mut Arguments, ins: Ins) {
     *out = [
         Argument::GPR(GPR(ins.field_rs() as _)),
-        Argument::OpaqueU(OpaqueU(ins.field_sh() as _)),
-        Argument::None,
+        Argument::OpaqueU(OpaqueU(ins.field_sh1() as _)),
+        Argument::OpaqueU(OpaqueU(ins.field_sh2() as _)),
         Argument::None,
         Argument::None,
     ];
@@ -13742,8 +13766,8 @@ fn defs_rldicr(out: &mut Arguments, ins: Ins) {
 fn uses_rldicr(out: &mut Arguments, ins: Ins) {
     *out = [
         Argument::GPR(GPR(ins.field_rs() as _)),
-        Argument::OpaqueU(OpaqueU(ins.field_sh() as _)),
-        Argument::None,
+        Argument::OpaqueU(OpaqueU(ins.field_sh1() as _)),
+        Argument::OpaqueU(OpaqueU(ins.field_sh2() as _)),
         Argument::None,
         Argument::None,
     ];
@@ -13759,9 +13783,9 @@ fn defs_rldimi(out: &mut Arguments, ins: Ins) {
 }
 fn uses_rldimi(out: &mut Arguments, ins: Ins) {
     *out = [
-        Argument::GPR(GPR(ins.field_ra() as _)),
         Argument::GPR(GPR(ins.field_rs() as _)),
-        Argument::OpaqueU(OpaqueU(ins.field_sh() as _)),
+        Argument::OpaqueU(OpaqueU(ins.field_sh1() as _)),
+        Argument::OpaqueU(OpaqueU(ins.field_sh2() as _)),
         Argument::None,
         Argument::None,
     ];

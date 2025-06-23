@@ -49,14 +49,34 @@ fields:
     arg: OpaqueU
     desc: Shift Amount
     bits: 16..21
+  - name: SH1
+    arg: OpaqueU
+    desc: Shift Amount (for 64 bit implementations)
+    bits: 16..21
+    split: true
+  - name: SH2
+    arg: OpaqueU
+    desc: Shift Amount (for 64 bit implementations)
+    bits: 30..31
+    split: true
   - name: MB
     arg: OpaqueU
     desc: Mask Begin
     bits: 21..26
+  - name: MB64
+    arg: OpaqueU
+    desc: Mask Begin (for 64 bit implementations)
+    bits: 21..27
+    split: true
   - name: ME
     arg: OpaqueU
     desc: Mask End
     bits: 26..31
+  - name: ME64
+    arg: OpaqueU
+    desc: Mask End (for 64 bit implementations)
+    bits: 21..27
+    split: true
   # Registers
   - name: rS
     arg: GPR
@@ -1579,7 +1599,7 @@ opcodes:
     bitmask: 0xfc00001e
     pattern: 0x78000010
     modifiers: [ Rc ]
-    args: [ rA, rS, rB, MB ]
+    args: [ rA, rS, rB, MB64 ]
     defs: [ rA ]
     uses: [ rS, rB ]
 
@@ -1589,7 +1609,7 @@ opcodes:
     bitmask: 0xfc00001e
     pattern: 0x78000012
     modifiers: [ Rc ]
-    args: [ rA, rS, rB, ME ]
+    args: [ rA, rS, rB, ME64 ]
     defs: [ rA ]
     uses: [ rS, rB ]
 
@@ -1599,9 +1619,9 @@ opcodes:
     bitmask: 0xfc00001c
     pattern: 0x78000008
     modifiers: [ Rc ]
-    args: [ rA, rS, SH, MB ]
+    args: [ rA, rS, SH1, MB64, SH2 ]
     defs: [ rA ]
-    uses: [ rS, SH ]
+    uses: [ rS, SH1, SH2 ]
 
   # 64-bit only
   - name: rldicl
@@ -1609,9 +1629,9 @@ opcodes:
     bitmask: 0xfc00001c
     pattern: 0x78000000
     modifiers: [ Rc ]
-    args: [ rA, rS, SH, MB ]
+    args: [ rA, rS, SH1, MB64, SH2 ]
     defs: [ rA ]
-    uses: [ rS, SH ]
+    uses: [ rS, SH1, SH2 ]
 
   # 64-bit only
   - name: rldicr
@@ -1619,9 +1639,9 @@ opcodes:
     bitmask: 0xfc00001c
     pattern: 0x78000004
     modifiers: [ Rc ]
-    args: [ rA, rS, SH, ME ]
+    args: [ rA, rS, SH1, ME64, SH2 ]
     defs: [ rA ]
-    uses: [ rS, SH ]
+    uses: [ rS, SH1, SH2 ]
 
   # 64-bit only
   - name: rldimi
@@ -1629,9 +1649,9 @@ opcodes:
     bitmask: 0xfc00001c
     pattern: 0x7800000c
     modifiers: [ Rc ]
-    args: [ rA, rS, SH, MB ]
+    args: [ rA, rS, SH1, MB64, SH2 ]
     defs: [ rA ]
-    uses: [ rA, rS, SH ]
+    uses: [ rS, SH1, SH2 ]
 
   - name: rlwimi
     desc: Rotate Left Word Immediate then Mask Insert
