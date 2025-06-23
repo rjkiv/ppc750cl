@@ -53,12 +53,10 @@ fields:
     arg: OpaqueU
     desc: Shift Amount (for 64 bit implementations)
     bits: 16..21
-    split: true
   - name: SH2
     arg: OpaqueU
     desc: Shift Amount (for 64 bit implementations)
     bits: 30..31
-    split: true
   - name: MB
     arg: OpaqueU
     desc: Mask Begin

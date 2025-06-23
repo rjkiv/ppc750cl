@@ -1967,14 +1967,12 @@ impl Ins {
     /// SH1: Shift Amount (for 64 bit implementations)
     #[inline(always)]
     pub const fn field_sh1(&self) -> u8 {
-        let value = ((self.code >> 11) & 0x1f) as u8;
-        ((value & 0b11111_00000) >> 5) | ((value & 0b00000_11111) << 5)
+        ((self.code >> 11) & 0x1f) as u8
     }
     /// SH2: Shift Amount (for 64 bit implementations)
     #[inline(always)]
     pub const fn field_sh2(&self) -> u8 {
-        let value = ((self.code >> 1) & 0x1) as u8;
-        ((value & 0b11111_00000) >> 5) | ((value & 0b00000_11111) << 5)
+        ((self.code >> 1) & 0x1) as u8
     }
     /// MB: Mask Begin
     #[inline(always)]
