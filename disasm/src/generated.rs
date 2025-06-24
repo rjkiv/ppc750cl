@@ -9,66 +9,66 @@ static OPCODE_ENTRIES: [(u16, u16); 64] = [
     (0, 0),
     (0, 1),
     (1, 2),
-    (2, 147),
+    (2, 164),
+    (164, 189),
+    (189, 222),
+    (222, 223),
+    (223, 224),
+    (0, 0),
+    (224, 225),
+    (225, 226),
+    (226, 227),
+    (227, 228),
+    (228, 229),
+    (229, 230),
+    (230, 231),
+    (231, 232),
+    (232, 233),
+    (233, 247),
+    (247, 248),
+    (248, 249),
+    (0, 0),
+    (249, 250),
+    (250, 251),
+    (251, 252),
+    (252, 253),
+    (253, 254),
+    (254, 255),
+    (255, 256),
+    (256, 262),
+    (262, 394),
+    (394, 395),
+    (395, 396),
+    (396, 397),
+    (397, 398),
+    (398, 399),
+    (399, 400),
+    (400, 401),
+    (401, 402),
+    (402, 403),
+    (403, 404),
+    (404, 405),
+    (405, 406),
+    (406, 407),
+    (407, 408),
+    (408, 409),
+    (409, 410),
+    (410, 411),
+    (411, 412),
+    (412, 413),
+    (413, 414),
+    (414, 415),
+    (415, 416),
+    (416, 417),
+    (417, 418),
     (0, 0),
     (0, 0),
-    (147, 148),
-    (148, 149),
-    (0, 0),
-    (149, 150),
-    (150, 151),
-    (151, 152),
-    (152, 153),
-    (153, 154),
-    (154, 155),
-    (155, 156),
-    (156, 157),
-    (157, 158),
-    (158, 172),
-    (172, 173),
-    (173, 174),
-    (0, 0),
-    (174, 175),
-    (175, 176),
-    (176, 177),
-    (177, 178),
-    (178, 179),
-    (179, 180),
-    (180, 181),
-    (181, 187),
-    (187, 319),
-    (319, 320),
-    (320, 321),
-    (321, 322),
-    (322, 323),
-    (323, 324),
-    (324, 325),
-    (325, 326),
-    (326, 327),
-    (327, 328),
-    (328, 329),
-    (329, 330),
-    (330, 331),
-    (331, 332),
-    (332, 333),
-    (333, 334),
-    (334, 335),
-    (335, 336),
-    (336, 337),
-    (337, 338),
-    (338, 339),
-    (339, 340),
-    (340, 341),
-    (341, 342),
-    (342, 343),
+    (418, 421),
+    (421, 430),
     (0, 0),
     (0, 0),
-    (343, 346),
-    (346, 355),
-    (0, 0),
-    (0, 0),
-    (355, 357),
-    (357, 385),
+    (430, 432),
+    (432, 460),
 ];
 /// The bitmask and pattern for each opcode.
 static OPCODE_PATTERNS: [(u32, u32); 512] = [
@@ -219,6 +219,81 @@ static OPCODE_PATTERNS: [(u32, u32); 512] = [
     (0xfc1f07ff, 0x1000028e),
     (0xfc1f07ff, 0x100002ce),
     (0xfc0007ff, 0x100004c4),
+    (0xffffffff, 0x10000083),
+    (0xffffffff, 0x10000403),
+    (0xffffffff, 0x10000443),
+    (0xffffffff, 0x10000603),
+    (0xffffffff, 0x10000643),
+    (0xffffffff, 0x10000003),
+    (0xffffffff, 0x10000043),
+    (0xffffffff, 0x100000c3),
+    (0xffffffff, 0x100002c3),
+    (0xffffffff, 0x10000303),
+    (0xffffffff, 0x10000503),
+    (0xffffffff, 0x10000703),
+    (0xffffffff, 0x10000543),
+    (0xffffffff, 0x10000743),
+    (0xffffffff, 0x100001c3),
+    (0xffffffff, 0x100003c3),
+    (0xffffffff, 0x10000010),
+    (0xffffffff, 0x14000010),
+    (0xffffffff, 0x14000210),
+    (0xffffffff, 0x14000290),
+    (0xffffffff, 0x14000110),
+    (0xffffffff, 0x140000d0),
+    (0xffffffff, 0x14000190),
+    (0xffffffff, 0x140001d0),
+    (0xffffffff, 0x14000090),
+    (0xffffffff, 0x14000150),
+    (0xffffffff, 0x14000290),
+    (0xffffffff, 0x140002d0),
+    (0xffffffff, 0x14000000),
+    (0xffffffff, 0x14000200),
+    (0xffffffff, 0x14000240),
+    (0xffffffff, 0x14000280),
+    (0xffffffff, 0x140002c0),
+    (0xffffffff, 0x14000300),
+    (0xffffffff, 0x14000340),
+    (0xffffffff, 0x14000380),
+    (0xffffffff, 0x140003c0),
+    (0xffffffff, 0x14000050),
+    (0xffffffff, 0x14000350),
+    (0xffffffff, 0x14000390),
+    (0xffffffff, 0x14000050),
+    (0xffffffff, 0x14000310),
+    (0xffffffff, 0x18000230),
+    (0xffffffff, 0x18000270),
+    (0xffffffff, 0x18000180),
+    (0xffffffff, 0x18000000),
+    (0xffffffff, 0x18000200),
+    (0xffffffff, 0x18000080),
+    (0xffffffff, 0x18000100),
+    (0xffffffff, 0x180002b0),
+    (0xffffffff, 0x180002f0),
+    (0xffffffff, 0x180006b0),
+    (0xffffffff, 0x180006f0),
+    (0xffffffff, 0x18000280),
+    (0xffffffff, 0x180002c0),
+    (0xffffffff, 0x18000300),
+    (0xffffffff, 0x18000340),
+    (0xffffffff, 0x18000210),
+    (0xffffffff, 0x18000610),
+    (0xffffffff, 0x18000630),
+    (0xffffffff, 0x18000330),
+    (0xffffffff, 0x18000370),
+    (0xffffffff, 0x180003b0),
+    (0xffffffff, 0x180003f0),
+    (0xffffffff, 0x18000710),
+    (0xffffffff, 0x18000670),
+    (0xffffffff, 0x180000d0),
+    (0xffffffff, 0x18000770),
+    (0xffffffff, 0x18000730),
+    (0xffffffff, 0x18000150),
+    (0xffffffff, 0x180003d0),
+    (0xffffffff, 0x180001d0),
+    (0xffffffff, 0x180007f0),
+    (0xffffffff, 0x18000380),
+    (0xffffffff, 0x180003c0),
     (0xfc000000, 0x1c000000),
     (0xfc000000, 0x20000000),
     (0xfc400000, 0x28000000),
@@ -509,81 +584,6 @@ static OPCODE_PATTERNS: [(u32, u32); 512] = [
     (0, 0),
     (0, 0),
     (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
-    (0, 0),
 ];
 /// The name of each opcode.
 static OPCODE_NAMES: [&str; 512] = [
@@ -734,6 +734,81 @@ static OPCODE_NAMES: [&str; 512] = [
     "vupklsb",
     "vupklsh",
     "vxor",
+    "lvewx128",
+    "lvlx128",
+    "lvrx128",
+    "lvlxl128",
+    "lvrxl128",
+    "lvsl128",
+    "lvsr128",
+    "lvx128",
+    "lvxl128",
+    "stvewx128",
+    "stvlx128",
+    "stvlxl128",
+    "stvrx128",
+    "stvrxl128",
+    "stvx128",
+    "stvxl128",
+    "vsldoi128",
+    "vaddfp128",
+    "vand128",
+    "vandc128",
+    "vmaddcfp128",
+    "vmaddfp128",
+    "vmsum3fp128",
+    "vmsum4fp128",
+    "vmulfp128",
+    "vnmsubfp128",
+    "vnor128",
+    "vor128",
+    "vperm128",
+    "vpkshss128",
+    "vpkshus128",
+    "vpkswss128",
+    "vpkswus128",
+    "vpkuhum128",
+    "vpkuhus128",
+    "vpkuwum128",
+    "vpkuwus128",
+    "vrlw128",
+    "vsel128",
+    "vslo128",
+    "vsubfp128",
+    "vxor128",
+    "vcfpsxws128",
+    "vcfpuxws128",
+    "vcmpbfp128",
+    "vcmpeqfp128",
+    "vcmpequw128",
+    "vcmpgefp128",
+    "vcmpgtfp128",
+    "vcsxwfp128",
+    "vcuxwfp128",
+    "vexptefp128",
+    "vlogefp128",
+    "vmaxfp128",
+    "vminfp128",
+    "vmrghw128",
+    "vmrglw128",
+    "vpertmwi128",
+    "vpkd3d128",
+    "vrefp128",
+    "vrfim128",
+    "vrfin128",
+    "vrfip128",
+    "vrfiz128",
+    "vrlimi128",
+    "vrsqrtefp128",
+    "vslw128",
+    "vspltisw128",
+    "vspltw128",
+    "vsraw128",
+    "vsro128",
+    "vsrw128",
+    "vupkd3d128",
+    "vupkhsb128",
+    "vupklsb128",
     "mulli",
     "subfic",
     "cmpli",
@@ -972,81 +1047,6 @@ static OPCODE_NAMES: [&str; 512] = [
     "mtfsb1",
     "mtfsf",
     "mtfsfi",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
-    "<illegal>",
     "<illegal>",
     "<illegal>",
     "<illegal>",
@@ -1401,482 +1401,632 @@ pub enum Opcode {
     Vupklsh = 145,
     /// vxor: Vector Logical XOR
     Vxor = 146,
+    /// lvewx128: Load Vector128 Element Word Indexed
+    Lvewx128 = 147,
+    /// lvlx128: Load Vector128 Left Indexed
+    Lvlx128 = 148,
+    /// lvrx128: Load Vector128 Right Indexed
+    Lvrx128 = 149,
+    /// lvlxl128: Load Vector128 Left Indexed LRU
+    Lvlxl128 = 150,
+    /// lvrxl128: Load Vector128 Right Indexed LRU
+    Lvrxl128 = 151,
+    /// lvsl128: Load Vector128 for Shift Left
+    Lvsl128 = 152,
+    /// lvsr128: Load Vector128 for Shift Right
+    Lvsr128 = 153,
+    /// lvx128: Load Vector128 Indexed
+    Lvx128 = 154,
+    /// lvxl128: Load Vector128 Indexed LRU
+    Lvxl128 = 155,
+    /// stvewx128: Store Vector128 Element Word Indexed
+    Stvewx128 = 156,
+    /// stvlx128: Store Vector128 Left Indexed
+    Stvlx128 = 157,
+    /// stvlxl128: Store Vector128 Left Indexed LRU
+    Stvlxl128 = 158,
+    /// stvrx128: Store Vector128 Right Indexed
+    Stvrx128 = 159,
+    /// stvrxl128: Store Vector128 Right Indexed LRU
+    Stvrxl128 = 160,
+    /// stvx128: Store Vector128 Indexed
+    Stvx128 = 161,
+    /// stvxl128: Store Vector128 Indexed LRU
+    Stvxl128 = 162,
+    /// vsldoi128: Vector128 Shift Left Double by Octet Immediate
+    Vsldoi128 = 163,
+    /// vaddfp128: Vector128 Add Floating Point
+    Vaddfp128 = 164,
+    /// vand128: Vector128 Logical AND
+    Vand128 = 165,
+    /// vandc128: Vector128 Logical AND with Complement
+    Vandc128 = 166,
+    /// vmaddcfp128: Vector128 Multiply Add Carryout Floating Point
+    Vmaddcfp128 = 167,
+    /// vmaddfp128: Vector128 Multiply Add Floating Point
+    Vmaddfp128 = 168,
+    /// vmsum3fp128: Vector128 Multiply Sum 3-way Floating Point
+    Vmsum3fp128 = 169,
+    /// vmsum4fp128: Vector128 Multiply Sum 4-way Floating Point
+    Vmsum4fp128 = 170,
+    /// vmulfp128: Vector128 Multiply Floating-Point
+    Vmulfp128 = 171,
+    /// vnmsubfp128: Vector128 Negative Multiply-Subtract Floating Point
+    Vnmsubfp128 = 172,
+    /// vnor128: Vector128 Logical NOR
+    Vnor128 = 173,
+    /// vor128: Vector128 Logical OR
+    Vor128 = 174,
+    /// vperm128: Vector128 Permutation
+    Vperm128 = 175,
+    /// vpkshss128: Vector128 Pack Signed Half Word Signed Saturate
+    Vpkshss128 = 176,
+    /// vpkshus128: Vector128 Pack Signed Half Word Unsigned Saturate
+    Vpkshus128 = 177,
+    /// vpkswss128: Vector128 Pack Signed Word Signed Saturate
+    Vpkswss128 = 178,
+    /// vpkswus128: Vector128 Pack Signed Word Unsigned Saturate
+    Vpkswus128 = 179,
+    /// vpkuhum128: Vector128 Pack Unsigned Half Word Unsigned Modulo
+    Vpkuhum128 = 180,
+    /// vpkuhus128: Vector128 Pack Unsigned Half Word Unsigned Saturate
+    Vpkuhus128 = 181,
+    /// vpkuwum128: Vector128 Pack Unsigned Word Unsigned Modulo
+    Vpkuwum128 = 182,
+    /// vpkuwus128: Vector128 Pack Unsigned Word Unsigned Saturate
+    Vpkuwus128 = 183,
+    /// vrlw128: Vector128 Rotate Left Word
+    Vrlw128 = 184,
+    /// vsel128: Vector128 Select
+    Vsel128 = 185,
+    /// vslo128: Vector128 Shift Left Octet
+    Vslo128 = 186,
+    /// vsubfp128: Vector128 Subtract Floating Point
+    Vsubfp128 = 187,
+    /// vxor128: Vector128 Logical XOR
+    Vxor128 = 188,
+    /// vcfpsxws128: Vector128 Convert From Floating-Point to Signed Fixed-Point Word Saturate
+    Vcfpsxws128 = 189,
+    /// vcfpuxws128: Vector128 Convert From Floating-Point to Unsigned Fixed-Point Word Saturate
+    Vcfpuxws128 = 190,
+    /// vcmpbfp128: Vector128 Compare Bounds Floating Point
+    Vcmpbfp128 = 191,
+    /// vcmpeqfp128: Vector128 Compare Equal-to Floating Point
+    Vcmpeqfp128 = 192,
+    /// vcmpequw128: Vector128 Compare Equal-to Unsigned Word
+    Vcmpequw128 = 193,
+    /// vcmpgefp128: Vector128 Compare Greater-Than-or-Equal-to Floating Point
+    Vcmpgefp128 = 194,
+    /// vcmpgtfp128: Vector128 Compare Greater-Than Floating-Point
+    Vcmpgtfp128 = 195,
+    /// vcsxwfp128: Vector128 Convert From Signed Fixed-Point Word to Floating-Point
+    Vcsxwfp128 = 196,
+    /// vcuxwfp128: Vector128 Convert From Unsigned Fixed-Point Word to Floating-Point
+    Vcuxwfp128 = 197,
+    /// vexptefp128: Vector128 2 Raised to the Exponent Estimate Floating Point
+    Vexptefp128 = 198,
+    /// vlogefp128: Vector128 Log2 Estimate Floating Point
+    Vlogefp128 = 199,
+    /// vmaxfp128: Vector128 Maximum Floating Point
+    Vmaxfp128 = 200,
+    /// vminfp128: Vector128 Minimum Floating Point
+    Vminfp128 = 201,
+    /// vmrghw128: Vector128 Merge High Word
+    Vmrghw128 = 202,
+    /// vmrglw128: Vector128 Merge Low Word
+    Vmrglw128 = 203,
+    /// vpertmwi128: Vector128 Permutate Word Immediate
+    Vpertmwi128 = 204,
+    /// vpkd3d128: Vector128 Pack D3Dtype, Rotate Left Immediate and Mask Insert
+    Vpkd3d128 = 205,
+    /// vrefp128: Vector128 Reciprocal Estimate Floating Point
+    Vrefp128 = 206,
+    /// vrfim128: Vector128 Round to Floating-Point Integer toward -oo
+    Vrfim128 = 207,
+    /// vrfin128: Vector128 Round to Floating-Point Integer toward Nearest
+    Vrfin128 = 208,
+    /// vrfip128: Vector128 Round to Floating-Point Integer toward +oo
+    Vrfip128 = 209,
+    /// vrfiz128: Vector128 Round to Floating-Point Integer toward Zero
+    Vrfiz128 = 210,
+    /// vrlimi128: Vector128 Rotate Left Immediate and Mask Insert
+    Vrlimi128 = 211,
+    /// vrsqrtefp128: Vector128 Reciprocal Square Root Estimate Floating Point
+    Vrsqrtefp128 = 212,
+    /// vslw128: Vector128 Shift Left Word
+    Vslw128 = 213,
+    /// vspltisw128: Vector128 Splat Immediate Signed Word
+    Vspltisw128 = 214,
+    /// vspltw128: Vector128 Splat Word
+    Vspltw128 = 215,
+    /// vsraw128: Vector128 Shift Right Arithmetic Word
+    Vsraw128 = 216,
+    /// vsro128: Vector128 Shift Right Octet
+    Vsro128 = 217,
+    /// vsrw128: Vector128 Shift Right Word
+    Vsrw128 = 218,
+    /// vupkd3d128: Vector128 Unpack D3Dtype
+    Vupkd3d128 = 219,
+    /// vupkhsb128: Vector128 Unpack High Signed Byte
+    Vupkhsb128 = 220,
+    /// vupklsb128: Vector128 Unpack Low Signed Byte
+    Vupklsb128 = 221,
     /// mulli: Multiply Low Immediate
-    Mulli = 147,
+    Mulli = 222,
     /// subfic: Subtract from Immediate Carrying
-    Subfic = 148,
+    Subfic = 223,
     /// cmpli: Compare Logical Immediate
-    Cmpli = 149,
+    Cmpli = 224,
     /// cmpi: Compare Immediate
-    Cmpi = 150,
+    Cmpi = 225,
     /// addic: Add Immediate Carrying
-    Addic = 151,
+    Addic = 226,
     /// addic.: Add Immediate Carrying and Record
-    Addic_ = 152,
+    Addic_ = 227,
     /// addi: Add Immediate
-    Addi = 153,
+    Addi = 228,
     /// addis: Add Immediate Shifted
-    Addis = 154,
+    Addis = 229,
     /// bc: Branch Conditional
-    Bc = 155,
+    Bc = 230,
     /// sc: System Call
-    Sc = 156,
+    Sc = 231,
     /// b: Branch
-    B = 157,
+    B = 232,
     /// bcctr: Branch Conditional to Count Register
-    Bcctr = 158,
+    Bcctr = 233,
     /// bclr: Branch Conditional to Link Register
-    Bclr = 159,
+    Bclr = 234,
     /// crand: Condition Register AND
-    Crand = 160,
+    Crand = 235,
     /// crandc: Condition Register AND with Complement
-    Crandc = 161,
+    Crandc = 236,
     /// creqv: Condition Register Equivalent
-    Creqv = 162,
+    Creqv = 237,
     /// crnand: Condition Register NAND
-    Crnand = 163,
+    Crnand = 238,
     /// crnor: Condition Register NOR
-    Crnor = 164,
+    Crnor = 239,
     /// cror: Condition Register OR
-    Cror = 165,
+    Cror = 240,
     /// crorc: Condition Register OR with Complement
-    Crorc = 166,
+    Crorc = 241,
     /// crxor: Condition Register XOR
-    Crxor = 167,
+    Crxor = 242,
     /// isync: Instruction Synchronize
-    Isync = 168,
+    Isync = 243,
     /// mcrf: Move Condition Register Field
-    Mcrf = 169,
+    Mcrf = 244,
     /// rfi: Return from Interrupt
-    Rfi = 170,
+    Rfi = 245,
     /// rfid: Return from Interrupt Double Word
-    Rfid = 171,
+    Rfid = 246,
     /// rlwimi: Rotate Left Word Immediate then Mask Insert
-    Rlwimi = 172,
+    Rlwimi = 247,
     /// rlwinm: Rotate Left Word Immediate then AND with Mask
-    Rlwinm = 173,
+    Rlwinm = 248,
     /// rlwnm: Rotate Left Word then AND with Mask
-    Rlwnm = 174,
+    Rlwnm = 249,
     /// ori: OR Immediate
-    Ori = 175,
+    Ori = 250,
     /// oris: OR Immediate Shifted
-    Oris = 176,
+    Oris = 251,
     /// xori: XOR Immediate
-    Xori = 177,
+    Xori = 252,
     /// xoris: XOR Immediate Shifted
-    Xoris = 178,
+    Xoris = 253,
     /// andi.: AND Immediate
-    Andi_ = 179,
+    Andi_ = 254,
     /// andis.: AND Immediate Shifted
-    Andis_ = 180,
+    Andis_ = 255,
     /// rldcl: Rotate Left Double Word then Clear Left
-    Rldcl = 181,
+    Rldcl = 256,
     /// rldcr: Rotate Left Double Word then Clear Right
-    Rldcr = 182,
+    Rldcr = 257,
     /// rldic: Rotate Left Double Word Immediate then Clear
-    Rldic = 183,
+    Rldic = 258,
     /// rldicl: Rotate Left Double Word Immediate then Clear Left
-    Rldicl = 184,
+    Rldicl = 259,
     /// rldicr: Rotate Left Double Word Immediate then Clear Right
-    Rldicr = 185,
+    Rldicr = 260,
     /// rldimi: Rotate Left Double Word Immediate then Mask Insert
-    Rldimi = 186,
+    Rldimi = 261,
     /// add: Add
-    Add = 187,
+    Add = 262,
     /// addc: Add Carrying
-    Addc = 188,
+    Addc = 263,
     /// adde: Add Extended
-    Adde = 189,
+    Adde = 264,
     /// addme: Add to Minus One Extended
-    Addme = 190,
+    Addme = 265,
     /// addze: Add to Zero Extended
-    Addze = 191,
+    Addze = 266,
     /// and: AND
-    And = 192,
+    And = 267,
     /// andc: AND with Complement
-    Andc = 193,
+    Andc = 268,
     /// cmp: Compare
-    Cmp = 194,
+    Cmp = 269,
     /// cmpl: Compare Logical
-    Cmpl = 195,
+    Cmpl = 270,
     /// cntlzd: Count Leading Zeros Double Word
-    Cntlzd = 196,
+    Cntlzd = 271,
     /// cntlzw: Count Leading Zeros Word
-    Cntlzw = 197,
+    Cntlzw = 272,
     /// dcbf: Data Cache Block Flush
-    Dcbf = 198,
+    Dcbf = 273,
     /// dcbi: Data Cache Block Invalidate
-    Dcbi = 199,
+    Dcbi = 274,
     /// dcbst: Data Cache Block Store
-    Dcbst = 200,
+    Dcbst = 275,
     /// dcbt: Data Cache Block Touch
-    Dcbt = 201,
+    Dcbt = 276,
     /// dcbtst: Data Cache Block Touch for Store
-    Dcbtst = 202,
+    Dcbtst = 277,
     /// dcbz: Data Cache Block Clear to Zero
-    Dcbz = 203,
+    Dcbz = 278,
     /// divd: Divide Double Word
-    Divd = 204,
+    Divd = 279,
     /// divdu: Divide Double Word Unsigned
-    Divdu = 205,
+    Divdu = 280,
     /// divw: Divide Word
-    Divw = 206,
+    Divw = 281,
     /// divwu: Divide Word Unsigned
-    Divwu = 207,
+    Divwu = 282,
     /// eciwx: External Control In Word Indexed
-    Eciwx = 208,
+    Eciwx = 283,
     /// ecowx: External Control Out Word Indexed
-    Ecowx = 209,
+    Ecowx = 284,
     /// eieio: Enforce In-Order Execution of I/O
-    Eieio = 210,
+    Eieio = 285,
     /// eqv: Equivalent
-    Eqv = 211,
+    Eqv = 286,
     /// extsb: Extend Sign Byte
-    Extsb = 212,
+    Extsb = 287,
     /// extsh: Extend Sign Half Word
-    Extsh = 213,
+    Extsh = 288,
     /// extsw: Extend Sign Word
-    Extsw = 214,
+    Extsw = 289,
     /// icbi: Instruction Cache Block Invalidate
-    Icbi = 215,
+    Icbi = 290,
     /// lbzux: Load Byte and Zero with Update Indexed
-    Lbzux = 216,
+    Lbzux = 291,
     /// lbzx: Load Byte and Zero Indexed
-    Lbzx = 217,
+    Lbzx = 292,
     /// ldarx: Load Double Word and Reserve Indexed
-    Ldarx = 218,
+    Ldarx = 293,
     /// ldux: Load Double Word with Update Indexed
-    Ldux = 219,
+    Ldux = 294,
     /// ldx: Load Double Word Indexed
-    Ldx = 220,
+    Ldx = 295,
     /// lfdux: Load Floating-Point Double with Update Indexed
-    Lfdux = 221,
+    Lfdux = 296,
     /// lfdx: Load Floating-Point Double Indexed
-    Lfdx = 222,
+    Lfdx = 297,
     /// lfsux: Load Floating-Point Single with Update Indexed
-    Lfsux = 223,
+    Lfsux = 298,
     /// lfsx: Load Floating-Point Single Indexed
-    Lfsx = 224,
+    Lfsx = 299,
     /// lhaux: Load Half Word Algebraic with Update Indexed
-    Lhaux = 225,
+    Lhaux = 300,
     /// lhax: Load Half Word Algebraic Indexed
-    Lhax = 226,
+    Lhax = 301,
     /// lhbrx: Load Half Word Byte-Reverse Indexed
-    Lhbrx = 227,
+    Lhbrx = 302,
     /// lhzux: Load Half Word and Zero with Update Indexed
-    Lhzux = 228,
+    Lhzux = 303,
     /// lhzx: Load Half Word and Zero Indexed
-    Lhzx = 229,
+    Lhzx = 304,
     /// lswi: Load String Word Immediate
-    Lswi = 230,
+    Lswi = 305,
     /// lswx: Load String Word Indexed
-    Lswx = 231,
+    Lswx = 306,
     /// lwarx: Load String Word and Reverse Indexed
-    Lwarx = 232,
+    Lwarx = 307,
     /// lwaux: Load Word Algebraic with Update Indexed
-    Lwaux = 233,
+    Lwaux = 308,
     /// lwax: Load Word Algebraic Indexed
-    Lwax = 234,
+    Lwax = 309,
     /// lwbrx: Load String Word and Byte-Reverse Indexed
-    Lwbrx = 235,
+    Lwbrx = 310,
     /// lwzux: Load Word and Zero with Update Indexed
-    Lwzux = 236,
+    Lwzux = 311,
     /// lwzx: Load Word and Zero Indexed
-    Lwzx = 237,
+    Lwzx = 312,
     /// mcrxr: Move to Condition Register from XER
-    Mcrxr = 238,
+    Mcrxr = 313,
     /// mfcr: Move from Condition Register
-    Mfcr = 239,
+    Mfcr = 314,
     /// mfmsr: Move from Machine State Register
-    Mfmsr = 240,
+    Mfmsr = 315,
     /// mfspr: Move from Special-Purpose Register
-    Mfspr = 241,
+    Mfspr = 316,
     /// mfsr: Move from Segment Register
-    Mfsr = 242,
+    Mfsr = 317,
     /// mfsrin: Move from Segment Register Indirect
-    Mfsrin = 243,
+    Mfsrin = 318,
     /// mftb: Move from Time Base
-    Mftb = 244,
+    Mftb = 319,
     /// mtcrf: Move to Condition Register Fields
-    Mtcrf = 245,
+    Mtcrf = 320,
     /// mtmsr: Move to Machine State Register
-    Mtmsr = 246,
+    Mtmsr = 321,
     /// mtmsrd: Move to Machine State Register Double Word
-    Mtmsrd = 247,
+    Mtmsrd = 322,
     /// mtspr: Move to Special-Purpose Register
-    Mtspr = 248,
+    Mtspr = 323,
     /// mtsr: Move to Segment Register
-    Mtsr = 249,
+    Mtsr = 324,
     /// mtsrd: Move to Segment Register Double Word
-    Mtsrd = 250,
+    Mtsrd = 325,
     /// mtsrdin: Move to Segment Register Double Word Indirect
-    Mtsrdin = 251,
+    Mtsrdin = 326,
     /// mtsrin: Move to Segment Register Indirect
-    Mtsrin = 252,
+    Mtsrin = 327,
     /// mulhd: Multiply High Double Word
-    Mulhd = 253,
+    Mulhd = 328,
     /// mulhdu: Multiply High Double Word Unsigned
-    Mulhdu = 254,
+    Mulhdu = 329,
     /// mulhw: Multiply High Word
-    Mulhw = 255,
+    Mulhw = 330,
     /// mulhwu: Multiply High Word Unsigned
-    Mulhwu = 256,
+    Mulhwu = 331,
     /// mulld: Multiply Low Double Word
-    Mulld = 257,
+    Mulld = 332,
     /// mullw: Multiply Low Word
-    Mullw = 258,
+    Mullw = 333,
     /// nand: NAND
-    Nand = 259,
+    Nand = 334,
     /// neg: Negate
-    Neg = 260,
+    Neg = 335,
     /// nor: NOR
-    Nor = 261,
+    Nor = 336,
     /// or: OR
-    Or = 262,
+    Or = 337,
     /// orc: OR with Complement
-    Orc = 263,
+    Orc = 338,
     /// slbia: SLB Invalidate All
-    Slbia = 264,
+    Slbia = 339,
     /// slbie: SLB Invalidate Entry
-    Slbie = 265,
+    Slbie = 340,
     /// sld: Shift Left Double Word
-    Sld = 266,
+    Sld = 341,
     /// slw: Shift Left Word
-    Slw = 267,
+    Slw = 342,
     /// srad: Shift Right Algebraic Double Word
-    Srad = 268,
+    Srad = 343,
     /// sradi: Shift Right Algebraic Double Word Immediate
-    Sradi = 269,
+    Sradi = 344,
     /// sraw: Shift Right Algebraic Word
-    Sraw = 270,
+    Sraw = 345,
     /// srawi: Shift Right Algebraic Word Immediate
-    Srawi = 271,
+    Srawi = 346,
     /// srd: Shift Right Double Word
-    Srd = 272,
+    Srd = 347,
     /// srw: Shift Right Word
-    Srw = 273,
+    Srw = 348,
     /// stbux: Store Byte with Update Indexed
-    Stbux = 274,
+    Stbux = 349,
     /// stbx: Store Byte Indexed
-    Stbx = 275,
+    Stbx = 350,
     /// stdcx: Store Double Word Conditional Indexed
-    Stdcx = 276,
+    Stdcx = 351,
     /// stdux: Store Double Word with Update Indexed
-    Stdux = 277,
+    Stdux = 352,
     /// stdx: Store Double Word Indexed
-    Stdx = 278,
+    Stdx = 353,
     /// stfdux: Store Floating-Point Double with Update Indexed
-    Stfdux = 279,
+    Stfdux = 354,
     /// stfdx: Store Floating-Point Double Indexed
-    Stfdx = 280,
+    Stfdx = 355,
     /// stfiwx: Store Floating-Point as Integer Word Indexed
-    Stfiwx = 281,
+    Stfiwx = 356,
     /// stfsux: Store Floating-Point Single with Update Indexed
-    Stfsux = 282,
+    Stfsux = 357,
     /// stfsx: Store Floating-Point Single Indexed
-    Stfsx = 283,
+    Stfsx = 358,
     /// sthbrx: Store Half Word Byte-Reverse Indexed
-    Sthbrx = 284,
+    Sthbrx = 359,
     /// sthux: Store Half Word with Update Indexed
-    Sthux = 285,
+    Sthux = 360,
     /// sthx: Store Half Word Indexed
-    Sthx = 286,
+    Sthx = 361,
     /// stswi: Store String Word Immediate
-    Stswi = 287,
+    Stswi = 362,
     /// stswx: Store String Word Indexed
-    Stswx = 288,
+    Stswx = 363,
     /// stwbrx: Store Word Byte-Reverse Indexed
-    Stwbrx = 289,
+    Stwbrx = 364,
     /// stwcx.: Store Word Conditional Indexed
-    Stwcx_ = 290,
+    Stwcx_ = 365,
     /// stwux: Store Word Indexed
-    Stwux = 291,
+    Stwux = 366,
     /// stwx: Store Word Indexed
-    Stwx = 292,
+    Stwx = 367,
     /// subf: Subtract From Carrying
-    Subf = 293,
+    Subf = 368,
     /// subfc: Subtract from Carrying
-    Subfc = 294,
+    Subfc = 369,
     /// subfe: Subtract from Extended
-    Subfe = 295,
+    Subfe = 370,
     /// subfme: Subtract from Minus One Extended
-    Subfme = 296,
+    Subfme = 371,
     /// subfze: Subtract from Zero Extended
-    Subfze = 297,
+    Subfze = 372,
     /// sync: Synchronize
-    Sync = 298,
+    Sync = 373,
     /// td: Trap Double Word
-    Td = 299,
+    Td = 374,
     /// tlbie: Translation Lookaside Buffer Invalidate Entry
-    Tlbie = 300,
+    Tlbie = 375,
     /// tlbsync: TLB Synchronize
-    Tlbsync = 301,
+    Tlbsync = 376,
     /// tw: Trap Word
-    Tw = 302,
+    Tw = 377,
     /// xor: XOR
-    Xor = 303,
+    Xor = 378,
     /// dss: Data Stream Stop
-    Dss = 304,
+    Dss = 379,
     /// dst: Data Stream Touch
-    Dst = 305,
+    Dst = 380,
     /// dstst: Data Stream Touch for Store
-    Dstst = 306,
+    Dstst = 381,
     /// lvebx: Load Vector Element Byte Indexed
-    Lvebx = 307,
+    Lvebx = 382,
     /// lvehx: Load Vector Element Half Word Indexed
-    Lvehx = 308,
+    Lvehx = 383,
     /// lvewx: Load Vector Element Word Indexed
-    Lvewx = 309,
+    Lvewx = 384,
     /// lvsl: Load Vector for Shift Left
-    Lvsl = 310,
+    Lvsl = 385,
     /// lvsr: Load Vector for Shift Right
-    Lvsr = 311,
+    Lvsr = 386,
     /// lvx: Load Vector Indexed
-    Lvx = 312,
+    Lvx = 387,
     /// lvxl: Load Vector Indexed LRU
-    Lvxl = 313,
+    Lvxl = 388,
     /// stvebx: Store Vector Element Byte Indexed
-    Stvebx = 314,
+    Stvebx = 389,
     /// stvehx: Store Vector Element Half Word Indexed
-    Stvehx = 315,
+    Stvehx = 390,
     /// stvewx: Store Vector Element Word Indexed
-    Stvewx = 316,
+    Stvewx = 391,
     /// stvx: Store Vector Indexed
-    Stvx = 317,
+    Stvx = 392,
     /// stvxl: Store Vector Indexed LRU
-    Stvxl = 318,
+    Stvxl = 393,
     /// lwz: Load Word and Zero
-    Lwz = 319,
+    Lwz = 394,
     /// lwzu: Load Word and Zero with Update
-    Lwzu = 320,
+    Lwzu = 395,
     /// lbz: Load Byte and Zero
-    Lbz = 321,
+    Lbz = 396,
     /// lbzu: Load Byte and Zero with Update
-    Lbzu = 322,
+    Lbzu = 397,
     /// stw: Store Word
-    Stw = 323,
+    Stw = 398,
     /// stwu: Store Word with Update
-    Stwu = 324,
+    Stwu = 399,
     /// stb: Store Byte
-    Stb = 325,
+    Stb = 400,
     /// stbu: Store Byte with Update
-    Stbu = 326,
+    Stbu = 401,
     /// lhz: Load Half Word and Zero
-    Lhz = 327,
+    Lhz = 402,
     /// lhzu: Load Half Word and Zero with Update
-    Lhzu = 328,
+    Lhzu = 403,
     /// lha: Load Half Word Algebraic
-    Lha = 329,
+    Lha = 404,
     /// lhau: Load Half Word Algebraic with Update
-    Lhau = 330,
+    Lhau = 405,
     /// sth: Store Half Word
-    Sth = 331,
+    Sth = 406,
     /// sthu: Store Half Word with Update
-    Sthu = 332,
+    Sthu = 407,
     /// lmw: Load Multiple Word
-    Lmw = 333,
+    Lmw = 408,
     /// stmw: Store Multiple Word
-    Stmw = 334,
+    Stmw = 409,
     /// lfs: Load Floating-Point Single
-    Lfs = 335,
+    Lfs = 410,
     /// lfsu: Load Floating-Point Single with Update
-    Lfsu = 336,
+    Lfsu = 411,
     /// lfd: Load Floating-Point Double
-    Lfd = 337,
+    Lfd = 412,
     /// lfdu: Load Floating-Point Double with Update
-    Lfdu = 338,
+    Lfdu = 413,
     /// stfs: Store Floating-Point Single
-    Stfs = 339,
+    Stfs = 414,
     /// stfsu: Store Floating-Point Single with Update
-    Stfsu = 340,
+    Stfsu = 415,
     /// stfd: Store Floating-Point Double
-    Stfd = 341,
+    Stfd = 416,
     /// stfdu: Store Floating-Point Double with Update
-    Stfdu = 342,
+    Stfdu = 417,
     /// ld: Load Double Word
-    Ld = 343,
+    Ld = 418,
     /// ldu: Load Double Word with Update
-    Ldu = 344,
+    Ldu = 419,
     /// lwa: Load Word Algebraic
-    Lwa = 345,
+    Lwa = 420,
     /// fadds: Floating Add (Single-Precision)
-    Fadds = 346,
+    Fadds = 421,
     /// fdivs: Floating Divide (Single-Precision)
-    Fdivs = 347,
+    Fdivs = 422,
     /// fmadds: Floating Multiply-Add (Single-Precision)
-    Fmadds = 348,
+    Fmadds = 423,
     /// fmsubs: Floating Multiply-Subtract (Single-Precision)
-    Fmsubs = 349,
+    Fmsubs = 424,
     /// fmuls: Floating Multiply (Single-Precision)
-    Fmuls = 350,
+    Fmuls = 425,
     /// fnmadds: Floating Negative Multiply-Add (Single-Precision)
-    Fnmadds = 351,
+    Fnmadds = 426,
     /// fnmsubs: Floating Negative Multiply-Subtract (Single-Precision)
-    Fnmsubs = 352,
+    Fnmsubs = 427,
     /// fres: Floating Reciprocal Estimate Single
-    Fres = 353,
+    Fres = 428,
     /// fsubs: Floating Subtract (Single-Precision)
-    Fsubs = 354,
+    Fsubs = 429,
     /// std: Store Double Word
-    Std = 355,
+    Std = 430,
     /// stdu: Store Double Word with Update
-    Stdu = 356,
+    Stdu = 431,
     /// fabs: Floating Absolute Value
-    Fabs = 357,
+    Fabs = 432,
     /// fadd: Floating Add (Double-Precision)
-    Fadd = 358,
+    Fadd = 433,
     /// fcfid: Floating Convert from Integer Double Word
-    Fcfid = 359,
+    Fcfid = 434,
     /// fcmpo: Floating Compare Ordered
-    Fcmpo = 360,
+    Fcmpo = 435,
     /// fcmpu: Floating Compare Unordered
-    Fcmpu = 361,
+    Fcmpu = 436,
     /// fctid: Floating Convert to Integer Double Word
-    Fctid = 362,
+    Fctid = 437,
     /// fctidz: Floating Convert to Integer Double Word with Round toward Zero
-    Fctidz = 363,
+    Fctidz = 438,
     /// fctiw: Floating Convert to Integer Word
-    Fctiw = 364,
+    Fctiw = 439,
     /// fctiwz: Floating Convert to Integer Word with Round toward Zero
-    Fctiwz = 365,
+    Fctiwz = 440,
     /// fdiv: Floating Divide (Double-Precision)
-    Fdiv = 366,
+    Fdiv = 441,
     /// fmadd: Floating Multiply-Add (Double-Precision)
-    Fmadd = 367,
+    Fmadd = 442,
     /// fmr: Floating Move Register (Double-Precision)
-    Fmr = 368,
+    Fmr = 443,
     /// fmsub: Floating Multiply-Subtract (Double-Precision)
-    Fmsub = 369,
+    Fmsub = 444,
     /// fmul: Floating Multiply (Double-Precision)
-    Fmul = 370,
+    Fmul = 445,
     /// fnabs: Floating Negative Absolute Value
-    Fnabs = 371,
+    Fnabs = 446,
     /// fneg: Floating Negate
-    Fneg = 372,
+    Fneg = 447,
     /// fnmadd: Floating Negative Multiply-Add (Double-Precision)
-    Fnmadd = 373,
+    Fnmadd = 448,
     /// fnmsub: Floating Negative Multiply-Subtract (Double-Precision)
-    Fnmsub = 374,
+    Fnmsub = 449,
     /// frsp: Floating Round to Single
-    Frsp = 375,
+    Frsp = 450,
     /// frsqrte: Floating Reciprocal Square Root Estimate
-    Frsqrte = 376,
+    Frsqrte = 451,
     /// fsel: Floating Select
-    Fsel = 377,
+    Fsel = 452,
     /// fsub: Floating Subtract (Double-Precision)
-    Fsub = 378,
+    Fsub = 453,
     /// mcrfs: Move to Condition Register from FPSCR
-    Mcrfs = 379,
+    Mcrfs = 454,
     /// mffs: Move from FPSCR
-    Mffs = 380,
+    Mffs = 455,
     /// mtfsb0: Move to FPSCR Bit 0
-    Mtfsb0 = 381,
+    Mtfsb0 = 456,
     /// mtfsb1: Move to FPSCR Bit 1
-    Mtfsb1 = 382,
+    Mtfsb1 = 457,
     /// mtfsf: Move to FPSCR Fields
-    Mtfsf = 383,
+    Mtfsf = 458,
     /// mtfsfi: Move to FPSCR Field Immediate
-    Mtfsfi = 384,
+    Mtfsfi = 459,
 }
 impl Opcode {
     #[inline]
@@ -1899,7 +2049,7 @@ impl Opcode {
 impl From<u16> for Opcode {
     #[inline]
     fn from(value: u16) -> Self {
-        if value > 384 {
+        if value > 459 {
             Self::Illegal
         } else {
             // Safety: The enum is repr(u16) and the value is within the enum's range
@@ -4056,6 +4206,456 @@ fn basic_vxor(out: &mut ParsedIns, ins: Ins) {
             Argument::None,
             Argument::None,
         ],
+    };
+}
+fn basic_lvewx128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "lvewx128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_lvlx128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "lvlx128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_lvrx128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "lvrx128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_lvlxl128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "lvlxl128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_lvrxl128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "lvrxl128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_lvsl128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "lvsl128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_lvsr128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "lvsr128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_lvx128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "lvx128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_lvxl128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "lvxl128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_stvewx128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "stvewx128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_stvlx128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "stvlx128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_stvlxl128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "stvlxl128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_stvrx128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "stvrx128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_stvrxl128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "stvrxl128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_stvx128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "stvx128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_stvxl128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "stvxl128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vsldoi128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vsldoi128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vaddfp128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vaddfp128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vand128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vand128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vandc128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vandc128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vmaddcfp128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vmaddcfp128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vmaddfp128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vmaddfp128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vmsum3fp128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vmsum3fp128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vmsum4fp128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vmsum4fp128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vmulfp128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vmulfp128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vnmsubfp128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vnmsubfp128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vnor128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vnor128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vor128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vor128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vperm128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vperm128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vpkshss128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vpkshss128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vpkshus128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vpkshus128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vpkswss128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vpkswss128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vpkswus128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vpkswus128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vpkuhum128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vpkuhum128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vpkuhus128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vpkuhus128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vpkuwum128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vpkuwum128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vpkuwus128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vpkuwus128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vrlw128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vrlw128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vsel128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vsel128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vslo128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vslo128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vsubfp128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vsubfp128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vxor128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vxor128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vcfpsxws128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vcfpsxws128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vcfpuxws128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vcfpuxws128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vcmpbfp128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vcmpbfp128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vcmpeqfp128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vcmpeqfp128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vcmpequw128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vcmpequw128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vcmpgefp128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vcmpgefp128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vcmpgtfp128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vcmpgtfp128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vcsxwfp128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vcsxwfp128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vcuxwfp128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vcuxwfp128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vexptefp128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vexptefp128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vlogefp128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vlogefp128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vmaxfp128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vmaxfp128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vminfp128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vminfp128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vmrghw128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vmrghw128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vmrglw128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vmrglw128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vpertmwi128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vpertmwi128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vpkd3d128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vpkd3d128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vrefp128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vrefp128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vrfim128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vrfim128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vrfin128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vrfin128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vrfip128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vrfip128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vrfiz128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vrfiz128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vrlimi128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vrlimi128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vrsqrtefp128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vrsqrtefp128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vslw128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vslw128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vspltisw128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vspltisw128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vspltw128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vspltw128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vsraw128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vsraw128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vsro128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vsro128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vsrw128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vsrw128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vupkd3d128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vupkd3d128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vupkhsb128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vupkhsb128",
+        args: EMPTY_ARGS,
+    };
+}
+fn basic_vupklsb128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vupklsb128",
+        args: EMPTY_ARGS,
     };
 }
 fn basic_mulli(out: &mut ParsedIns, ins: Ins) {
@@ -9710,6 +10310,81 @@ static BASIC_MNEMONICS: [MnemonicFunction; 512] = [
     basic_vupklsb,
     basic_vupklsh,
     basic_vxor,
+    basic_lvewx128,
+    basic_lvlx128,
+    basic_lvrx128,
+    basic_lvlxl128,
+    basic_lvrxl128,
+    basic_lvsl128,
+    basic_lvsr128,
+    basic_lvx128,
+    basic_lvxl128,
+    basic_stvewx128,
+    basic_stvlx128,
+    basic_stvlxl128,
+    basic_stvrx128,
+    basic_stvrxl128,
+    basic_stvx128,
+    basic_stvxl128,
+    basic_vsldoi128,
+    basic_vaddfp128,
+    basic_vand128,
+    basic_vandc128,
+    basic_vmaddcfp128,
+    basic_vmaddfp128,
+    basic_vmsum3fp128,
+    basic_vmsum4fp128,
+    basic_vmulfp128,
+    basic_vnmsubfp128,
+    basic_vnor128,
+    basic_vor128,
+    basic_vperm128,
+    basic_vpkshss128,
+    basic_vpkshus128,
+    basic_vpkswss128,
+    basic_vpkswus128,
+    basic_vpkuhum128,
+    basic_vpkuhus128,
+    basic_vpkuwum128,
+    basic_vpkuwus128,
+    basic_vrlw128,
+    basic_vsel128,
+    basic_vslo128,
+    basic_vsubfp128,
+    basic_vxor128,
+    basic_vcfpsxws128,
+    basic_vcfpuxws128,
+    basic_vcmpbfp128,
+    basic_vcmpeqfp128,
+    basic_vcmpequw128,
+    basic_vcmpgefp128,
+    basic_vcmpgtfp128,
+    basic_vcsxwfp128,
+    basic_vcuxwfp128,
+    basic_vexptefp128,
+    basic_vlogefp128,
+    basic_vmaxfp128,
+    basic_vminfp128,
+    basic_vmrghw128,
+    basic_vmrglw128,
+    basic_vpertmwi128,
+    basic_vpkd3d128,
+    basic_vrefp128,
+    basic_vrfim128,
+    basic_vrfin128,
+    basic_vrfip128,
+    basic_vrfiz128,
+    basic_vrlimi128,
+    basic_vrsqrtefp128,
+    basic_vslw128,
+    basic_vspltisw128,
+    basic_vspltw128,
+    basic_vsraw128,
+    basic_vsro128,
+    basic_vsrw128,
+    basic_vupkd3d128,
+    basic_vupkhsb128,
+    basic_vupklsb128,
     basic_mulli,
     basic_subfic,
     basic_cmpli,
@@ -10000,81 +10675,6 @@ static BASIC_MNEMONICS: [MnemonicFunction; 512] = [
     mnemonic_illegal,
     mnemonic_illegal,
     mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
 ];
 #[inline]
 pub fn parse_basic(out: &mut ParsedIns, ins: Ins) {
@@ -10228,6 +10828,81 @@ static SIMPLIFIED_MNEMONICS: [MnemonicFunction; 512] = [
     basic_vupklsb,
     basic_vupklsh,
     basic_vxor,
+    basic_lvewx128,
+    basic_lvlx128,
+    basic_lvrx128,
+    basic_lvlxl128,
+    basic_lvrxl128,
+    basic_lvsl128,
+    basic_lvsr128,
+    basic_lvx128,
+    basic_lvxl128,
+    basic_stvewx128,
+    basic_stvlx128,
+    basic_stvlxl128,
+    basic_stvrx128,
+    basic_stvrxl128,
+    basic_stvx128,
+    basic_stvxl128,
+    basic_vsldoi128,
+    basic_vaddfp128,
+    basic_vand128,
+    basic_vandc128,
+    basic_vmaddcfp128,
+    basic_vmaddfp128,
+    basic_vmsum3fp128,
+    basic_vmsum4fp128,
+    basic_vmulfp128,
+    basic_vnmsubfp128,
+    basic_vnor128,
+    basic_vor128,
+    basic_vperm128,
+    basic_vpkshss128,
+    basic_vpkshus128,
+    basic_vpkswss128,
+    basic_vpkswus128,
+    basic_vpkuhum128,
+    basic_vpkuhus128,
+    basic_vpkuwum128,
+    basic_vpkuwus128,
+    basic_vrlw128,
+    basic_vsel128,
+    basic_vslo128,
+    basic_vsubfp128,
+    basic_vxor128,
+    basic_vcfpsxws128,
+    basic_vcfpuxws128,
+    basic_vcmpbfp128,
+    basic_vcmpeqfp128,
+    basic_vcmpequw128,
+    basic_vcmpgefp128,
+    basic_vcmpgtfp128,
+    basic_vcsxwfp128,
+    basic_vcuxwfp128,
+    basic_vexptefp128,
+    basic_vlogefp128,
+    basic_vmaxfp128,
+    basic_vminfp128,
+    basic_vmrghw128,
+    basic_vmrglw128,
+    basic_vpertmwi128,
+    basic_vpkd3d128,
+    basic_vrefp128,
+    basic_vrfim128,
+    basic_vrfin128,
+    basic_vrfip128,
+    basic_vrfiz128,
+    basic_vrlimi128,
+    basic_vrsqrtefp128,
+    basic_vslw128,
+    basic_vspltisw128,
+    basic_vspltw128,
+    basic_vsraw128,
+    basic_vsro128,
+    basic_vsrw128,
+    basic_vupkd3d128,
+    basic_vupkhsb128,
+    basic_vupklsb128,
     basic_mulli,
     basic_subfic,
     simplified_cmpli,
@@ -10466,81 +11141,6 @@ static SIMPLIFIED_MNEMONICS: [MnemonicFunction; 512] = [
     basic_mtfsb1,
     basic_mtfsf,
     basic_mtfsfi,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
-    mnemonic_illegal,
     mnemonic_illegal,
     mnemonic_illegal,
     mnemonic_illegal,
@@ -17161,6 +17761,81 @@ static DEFS_FUNCTIONS: [DefsUsesFunction; 512] = [
     defs_vupklsb,
     defs_vupklsh,
     defs_vxor,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
     defs_mulli,
     defs_subfic,
     defs_cmpli,
@@ -17451,81 +18126,6 @@ static DEFS_FUNCTIONS: [DefsUsesFunction; 512] = [
     defs_uses_empty,
     defs_uses_empty,
     defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
 ];
 #[inline]
 pub fn parse_defs(out: &mut Arguments, ins: Ins) {
@@ -17679,6 +18279,81 @@ static USES_FUNCTIONS: [DefsUsesFunction; 512] = [
     uses_vupklsb,
     uses_vupklsh,
     uses_vxor,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
     uses_mulli,
     uses_subfic,
     uses_cmpli,
@@ -17916,81 +18591,6 @@ static USES_FUNCTIONS: [DefsUsesFunction; 512] = [
     defs_uses_empty,
     defs_uses_empty,
     uses_mtfsf,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
-    defs_uses_empty,
     defs_uses_empty,
     defs_uses_empty,
     defs_uses_empty,

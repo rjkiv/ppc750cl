@@ -3419,6 +3419,384 @@ opcodes:
     defs: [ vD ]
     uses: [ vA, vB ]
 
+# VMX128 exclusives
+# TODO: fill out the args/defs/uses
+# found here: https://github.com/xenia-project/xenia/blob/master/docs/ppc/vmx128.txt
+  - name: lvewx128
+    desc: Load Vector128 Element Word Indexed
+    bitmask: 0xfc0007f3
+    pattern: 0x10000083
+    
+  - name: lvlx128
+    desc: Load Vector128 Left Indexed
+    bitmask: 0xfc0007f3
+    pattern: 0x10000403
+
+  - name: lvrx128
+    desc: Load Vector128 Right Indexed
+    bitmask: 0xfc0007f3
+    pattern: 0x10000443
+
+  - name: lvlxl128
+    desc: Load Vector128 Left Indexed LRU
+    bitmask: 0xfc0007f3
+    pattern: 0x10000603
+
+  - name: lvrxl128
+    desc: Load Vector128 Right Indexed LRU
+    bitmask: 0xfc0007f3
+    pattern: 0x10000643
+
+  - name: lvsl128
+    desc: Load Vector128 for Shift Left
+    bitmask: 0xfc0007f3
+    pattern: 0x10000003
+
+  - name: lvsr128
+    desc: Load Vector128 for Shift Right
+    bitmask: 0xfc0007f3
+    pattern: 0x10000043
+
+  - name: lvx128
+    desc: Load Vector128 Indexed
+    bitmask: 0xfc0007f3
+    pattern: 0x100000C3
+
+  - name: lvxl128
+    desc: Load Vector128 Indexed LRU
+    bitmask: 0xfc0007f3
+    pattern: 0x100002C3
+
+  - name: stvewx128
+    desc: Store Vector128 Element Word Indexed
+    bitmask: 0xfc0007f3
+    pattern: 0x10000303
+
+  - name: stvlx128
+    desc: Store Vector128 Left Indexed
+    bitmask: 0xfc0007f3
+    pattern: 0x10000503
+
+  - name: stvlxl128
+    desc: Store Vector128 Left Indexed LRU
+    bitmask: 0xfc0007f3
+    pattern: 0x10000703
+
+  - name: stvrx128
+    desc: Store Vector128 Right Indexed
+    bitmask: 0xfc0007f3
+    pattern: 0x10000543
+
+  - name: stvrxl128
+    desc: Store Vector128 Right Indexed LRU
+    bitmask: 0xfc0007f3
+    pattern: 0x10000743
+
+  - name: stvx128
+    desc: Store Vector128 Indexed
+    bitmask: 0xfc0007f3
+    pattern: 0x100001C3
+
+  - name: stvxl128
+    desc: Store Vector128 Indexed LRU
+    bitmask: 0xfc0007f3
+    pattern: 0x100003C3
+
+  - name: vaddfp128
+    desc: Vector128 Add Floating Point
+    bitmask: 0xfc0003d0
+    pattern: 0x14000010
+
+  - name: vand128
+    desc: Vector128 Logical AND
+    bitmask: 0xfc0003d0
+    pattern: 0x14000210
+
+  - name: vandc128
+    desc: Vector128 Logical AND with Complement
+    bitmask: 0xfc0003d0
+    pattern: 0x14000290
+
+  - name: vcfpsxws128
+    desc: Vector128 Convert From Floating-Point to Signed Fixed-Point Word Saturate
+    bitmask: 0xfc0007f0
+    pattern: 0x18000230
+
+  - name: vcfpuxws128
+    desc: Vector128 Convert From Floating-Point to Unsigned Fixed-Point Word Saturate
+    bitmask: 0xfc0007f0
+    pattern: 0x18000270
+
+  - name: vcmpbfp128
+    desc: Vector128 Compare Bounds Floating Point
+    bitmask: 0xfc000390
+    pattern: 0x18000180
+
+  - name: vcmpeqfp128
+    desc: Vector128 Compare Equal-to Floating Point
+    bitmask: 0xfc000390
+    pattern: 0x18000000
+
+  - name: vcmpequw128
+    desc: Vector128 Compare Equal-to Unsigned Word
+    bitmask: 0xfc000390
+    pattern: 0x18000200
+
+  - name: vcmpgefp128
+    desc: Vector128 Compare Greater-Than-or-Equal-to Floating Point
+    bitmask: 0xfc000390
+    pattern: 0x18000080
+
+  - name: vcmpgtfp128
+    desc: Vector128 Compare Greater-Than Floating-Point
+    bitmask: 0xfc000390
+    pattern: 0x18000100
+
+  - name: vcsxwfp128
+    desc: Vector128 Convert From Signed Fixed-Point Word to Floating-Point
+    bitmask: 0xfc0007f0
+    pattern: 0x180002b0
+
+  - name: vcuxwfp128
+    desc: Vector128 Convert From Unsigned Fixed-Point Word to Floating-Point
+    bitmask: 0xfc0007f0
+    pattern: 0x180002f0
+    
+  - name: vexptefp128
+    desc: Vector128 2 Raised to the Exponent Estimate Floating Point
+    bitmask: 0xfc1f07f0
+    pattern: 0x180006b0
+
+  - name: vlogefp128
+    desc: Vector128 Log2 Estimate Floating Point
+    bitmask: 0xfc1f07f0
+    pattern: 0x180006f0
+
+  - name: vmaddcfp128
+    desc: Vector128 Multiply Add Carryout Floating Point
+    bitmask: 0xfc0003d0
+    pattern: 0x14000110
+
+  - name: vmaddfp128
+    desc: Vector128 Multiply Add Floating Point
+    bitmask: 0xfc0003d0
+    pattern: 0x140000d0
+
+  - name: vmaxfp128
+    desc: Vector128 Maximum Floating Point
+    bitmask: 0xfc0003d0
+    pattern: 0x18000280
+
+  - name: vminfp128
+    desc: Vector128 Minimum Floating Point
+    bitmask: 0xfc0003d0
+    pattern: 0x180002c0
+
+  - name: vmrghw128
+    desc: Vector128 Merge High Word
+    bitmask: 0xfc0003d0
+    pattern: 0x18000300
+
+  - name: vmrglw128
+    desc: Vector128 Merge Low Word
+    bitmask: 0xfc0003d0
+    pattern: 0x18000340
+    
+  - name: vmsum3fp128
+    desc: Vector128 Multiply Sum 3-way Floating Point
+    bitmask: 0xfc0003d0
+    pattern: 0x14000190
+    
+  - name: vmsum4fp128
+    desc: Vector128 Multiply Sum 4-way Floating Point
+    bitmask: 0xfc0003d0
+    pattern: 0x140001d0
+
+  - name: vmulfp128
+    desc: Vector128 Multiply Floating-Point
+    bitmask: 0xfc0003d0
+    pattern: 0x14000090
+
+  - name: vnmsubfp128
+    desc: Vector128 Negative Multiply-Subtract Floating Point
+    bitmask: 0xfc0003d0
+    pattern: 0x14000150
+
+  - name: vnor128
+    desc: Vector128 Logical NOR
+    bitmask: 0xfc0003d0
+    pattern: 0x14000290
+
+  - name: vor128
+    desc: Vector128 Logical OR
+    bitmask: 0xfc0003d0
+    pattern: 0x140002d0
+
+  - name: vperm128
+    desc: Vector128 Permutation
+    bitmask: 0xfc000210
+    pattern: 0x14000000
+
+  - name: vpertmwi128
+    desc: Vector128 Permutate Word Immediate
+    bitmask: 0xfc000630
+    pattern: 0x18000210
+
+  - name: vpkd3d128
+    desc: Vector128 Pack D3Dtype, Rotate Left Immediate and Mask Insert
+    bitmask: 0xfc000730
+    pattern: 0x18000610
+
+  - name: vpkshss128
+    desc: Vector128 Pack Signed Half Word Signed Saturate
+    bitmask: 0xfc0003d0
+    pattern: 0x14000200
+
+  - name: vpkshus128
+    desc: Vector128 Pack Signed Half Word Unsigned Saturate
+    bitmask: 0xfc0003d0
+    pattern: 0x14000240
+
+  - name: vpkswss128
+    desc: Vector128 Pack Signed Word Signed Saturate
+    bitmask: 0xfc0003d0
+    pattern: 0x14000280
+
+  - name: vpkswus128
+    desc: Vector128 Pack Signed Word Unsigned Saturate
+    bitmask: 0xfc0003d0
+    pattern: 0x140002c0
+    
+  - name: vpkuhum128
+    desc: Vector128 Pack Unsigned Half Word Unsigned Modulo
+    bitmask: 0xfc0003d0
+    pattern: 0x14000300
+
+  - name: vpkuhus128
+    desc: Vector128 Pack Unsigned Half Word Unsigned Saturate
+    bitmask: 0xfc0003d0
+    pattern: 0x14000340
+
+  - name: vpkuwum128
+    desc: Vector128 Pack Unsigned Word Unsigned Modulo
+    bitmask: 0xfc0003d0
+    pattern: 0x14000380
+
+  - name: vpkuwus128
+    desc: Vector128 Pack Unsigned Word Unsigned Saturate
+    bitmask: 0xfc0003d0
+    pattern: 0x140003c0
+
+  - name: vrefp128
+    desc: Vector128 Reciprocal Estimate Floating Point
+    bitmask: 0xfc1f07f0
+    pattern: 0x18000630
+
+  - name: vrfim128
+    desc: Vector128 Round to Floating-Point Integer toward -oo
+    bitmask: 0xfc1f07f0
+    pattern: 0x18000330
+
+  - name: vrfin128
+    desc: Vector128 Round to Floating-Point Integer toward Nearest
+    bitmask: 0xfc1f07f0
+    pattern: 0x18000370
+
+  - name: vrfip128
+    desc: Vector128 Round to Floating-Point Integer toward +oo
+    bitmask: 0xfc1f07f0
+    pattern: 0x180003b0
+
+  - name: vrfiz128
+    desc: Vector128 Round to Floating-Point Integer toward Zero
+    bitmask: 0xfc1f07f0
+    pattern: 0x180003f0
+
+  - name: vrlimi128
+    desc: Vector128 Rotate Left Immediate and Mask Insert
+    bitmask: 0xfc000730
+    pattern: 0x18000710
+
+  - name: vrlw128
+    desc: Vector128 Rotate Left Word
+    bitmask: 0xfc0003d0
+    pattern: 0x14000050
+
+  - name: vrsqrtefp128
+    desc: Vector128 Reciprocal Square Root Estimate Floating Point
+    bitmask: 0xfc1f07f0
+    pattern: 0x18000670
+
+  - name: vsel128
+    desc: Vector128 Select
+    bitmask: 0xfc0003d0
+    pattern: 0x14000350
+
+  - name: vsldoi128
+    desc: Vector128 Shift Left Double by Octet Immediate
+    bitmask: 0xfc000010
+    pattern: 0x10000010
+
+  - name: vslo128
+    desc: Vector128 Shift Left Octet
+    bitmask: 0xfc0003d0
+    pattern: 0x14000390
+
+  - name: vslw128
+    desc: Vector128 Shift Left Word
+    bitmask: 0xfc0003d0
+    pattern: 0x180000d0
+    
+  - name: vspltisw128
+    desc: Vector128 Splat Immediate Signed Word
+    bitmask: 0xfc0007f0
+    pattern: 0x18000770
+    
+  - name: vspltw128
+    desc: Vector128 Splat Word
+    bitmask: 0xfc0007f0
+    pattern: 0x18000730
+
+  - name: vsraw128
+    desc: Vector128 Shift Right Arithmetic Word
+    bitmask: 0xfc0003d0
+    pattern: 0x18000150
+
+  - name: vsro128
+    desc: Vector128 Shift Right Octet
+    bitmask: 0xfc0003d0
+    pattern: 0x180003d0
+
+  - name: vsrw128
+    desc: Vector128 Shift Right Word
+    bitmask: 0xfc0003d0
+    pattern: 0x180001d0
+
+  - name: vsubfp128
+    desc: Vector128 Subtract Floating Point
+    bitmask: 0xfc0003d0
+    pattern: 0x14000050
+
+  - name: vupkd3d128
+    desc: Vector128 Unpack D3Dtype
+    bitmask: 0xfc0007f0
+    pattern: 0x180007f0
+
+  - name: vupkhsb128
+    desc: Vector128 Unpack High Signed Byte
+    bitmask: 0xfc1f07f0
+    pattern: 0x18000380
+
+  - name: vupklsb128
+    desc: Vector128 Unpack Low Signed Byte
+    bitmask: 0xfc1f07f0
+    pattern: 0x180003c0
+
+  - name: vxor128
+    desc: Vector128 Logical XOR
+    bitmask: 0xfc0003d0
+    pattern: 0x14000310
+
 mnemonics:
   # Arithmetic
   - name: lis
