@@ -23,6 +23,11 @@ fields:
     desc: Branch Offset
     bits: 16..32
     signed: true
+  - name: offset64
+    arg: Offset
+    desc: Branch Offset for 64 bit instructions
+    bits: 16..30
+    signed: true
   # Branch fields
   - name: BO
     arg: OpaqueU
@@ -225,6 +230,68 @@ fields:
   - name: SHB
     arg: OpaqueU
     bits: 22..26
+  # VMX128 exclusive
+  # VD128
+  - name: VD128
+    arg: GPR
+    desc: VMX128 Dest Register, lower 5 bits
+    bits: 6..11
+  - name: VDh
+    arg: GPR
+    desc: VMX128 Dest Register, upper 2 bits
+    bits: 28..30
+  # VS128
+  - name: VS128
+    arg: GPR
+    desc: VMX128 Source Register, lower 5 bits
+    bits: 6..11
+  - name: VSh
+    arg: GPR
+    desc: VMX128 Source Register, upper 2 bits
+    bits: 28..30
+  # VA128
+  - name: VA128
+    arg: GPR
+    desc: VMX128 Register A, lower 5 bits
+    bits: 11..16
+  - name: VA128_5
+    arg: GPR
+    desc: VMX128 Register A, bit 6
+    bits: 26..27
+  - name: VA128_6
+    arg: GPR
+    desc: VMX128 Register A, bit 7
+    bits: 21..22
+  # VB128
+  - name: VB128
+    arg: GPR
+    desc: VMX128 Register B, lower 5 bits
+    bits: 6..11
+  - name: VB128h
+    arg: GPR
+    desc: VMX128 Register B, upper 2 bits
+    bits: 28..30
+
+  - name: PERMh
+    arg: OpaqueU
+    desc: upper 3 bits of a permutation
+    bits: 23..26
+  - name: PERMl
+    arg: OpaqueU
+    desc: lower 5 bits of a permutation
+    bits: 6..11
+  - name: Ximm
+    arg: OpaqueU
+    desc: unknown immediate
+    bits: 11..14
+  - name: Yimm
+    arg: OpaqueU
+    desc: unknown immediate
+    bits: 14..16
+  - name: Zimm
+    arg: OpaqueU
+    desc: unknown immediate
+    bits: 24..26
 
 modifiers:
   - name: OE
@@ -265,14 +332,6 @@ modifiers:
     desc: All bit
     suffix: a
     bit: 6
-  # - name: NJ
-  #   desc: non-Java mode bit
-  #   # TODO: suffix?
-  #   bit: 15
-  # - name: SAT
-  #   desc: Saturation bit
-  #   # TODO: suffix?
-  #   bit: 31
   - name: T
     desc: Transient bit
     suffix: t
@@ -1013,9 +1072,9 @@ opcodes:
     desc: Load Double Word
     bitmask: 0xfc000003
     pattern: 0xe8000000
-    args: [ rD, offset, rA ]
+    args: [ rD, offset64, rA ]
     defs: [ rD ]
-    uses: [ offset, rA.nz ]
+    uses: [ offset64, rA.nz ]
   
   # 64-bit only
   - name: ldarx
@@ -1031,9 +1090,9 @@ opcodes:
     desc: Load Double Word with Update
     bitmask: 0xfc000003
     pattern: 0xe8000001
-    args: [ rD, offset, rA ]
+    args: [ rD, offset64, rA ]
     defs: [ rD, rA ]
-    uses: [ offset, rA ]
+    uses: [ offset64, rA ]
   
   # 64-bit only
   - name: ldux
@@ -1219,9 +1278,9 @@ opcodes:
     desc: Load Word Algebraic
     bitmask: 0xfc000003
     pattern: 0xe8000002
-    args: [ rD, offset, rA ]
+    args: [ rD, offset64, rA ]
     defs: [ rD ]
-    uses: [ offset, rA.nz ]
+    uses: [ offset64, rA.nz ]
 
   - name: lwarx
     desc: Load String Word and Reverse Indexed
@@ -1808,7 +1867,7 @@ opcodes:
     desc: Store Double Word
     bitmask: 0xfc000003
     pattern: 0xf8000000
-    args: [ rS, offset, rA ]
+    args: [ rS, offset64, rA ]
     uses: [ rS, rA.nz ]
 
   # 64-bit only
@@ -1824,7 +1883,7 @@ opcodes:
     desc: Store Double Word with Update
     bitmask: 0xfc000003
     pattern: 0xf8000001
-    args: [ rS, offset, rA ]
+    args: [ rS, offset64, rA ]
     defs: [ rA ]
     uses: [ rS, rA ]
 
@@ -2082,7 +2141,7 @@ opcodes:
     uses: [ rA, rB ]
 
   # 64-bit only
-  - name: tdwi
+  - name: tdi
     desc: Trap Double Word Immediate
     bitmask: 0xfc000000
     pattern: 0x08000000
@@ -3852,8 +3911,13 @@ mnemonics:
     opcode: rlwnm
     args: [ rA, rS, rB ]
     condition: MB == 0 && ME == 31
+  - name: rotld
+    opcode: rldcl
+    args: [ rA, rS, rB ]
+    condition: MB == 0
 
   # TODO rlwimi: inslwi/insrwi
+  # TODO: the mnemonics for rldic, rldicl, rldicr, and rldimi
 
   # Rotates/Shifts Immediate
   - name: clrrwi

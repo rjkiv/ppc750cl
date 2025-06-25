@@ -490,9 +490,9 @@ static OPCODE_PATTERNS: [(u32, u32); 512] = [
     (0xfc000000, 0xd4000000),
     (0xfc000000, 0xd8000000),
     (0xfc000000, 0xdc000000),
-    (0xfc000000, 0xe8000000),
-    (0xfc000000, 0xe8000001),
-    (0xfc000000, 0xe8000002),
+    (0xfc000003, 0xe8000000),
+    (0xfc000003, 0xe8000001),
+    (0xfc000003, 0xe8000002),
     (0xfc0007fe, 0xec00002a),
     (0xfc0007fe, 0xec000024),
     (0xfc00003e, 0xec00003a),
@@ -502,8 +502,8 @@ static OPCODE_PATTERNS: [(u32, u32); 512] = [
     (0xfc00003e, 0xec00003c),
     (0xfc1f07fe, 0xec000030),
     (0xfc0007fe, 0xec000028),
-    (0xfc000000, 0xf8000000),
-    (0xfc000000, 0xf8000001),
+    (0xfc000003, 0xf8000000),
+    (0xfc000003, 0xf8000001),
     (0xfc1f07fe, 0xfc000210),
     (0xfc0007fe, 0xfc00002a),
     (0xfc1f07fe, 0xfc00069c),
@@ -587,7 +587,7 @@ static OPCODE_PATTERNS: [(u32, u32); 512] = [
 ];
 /// The name of each opcode.
 static OPCODE_NAMES: [&str; 512] = [
-    "tdwi",
+    "tdi",
     "twi",
     "dcbz_l",
     "mfvscr",
@@ -1107,8 +1107,8 @@ pub enum Opcode {
     /// An illegal or unknown opcode
     #[default]
     Illegal = u16::MAX,
-    /// tdwi: Trap Double Word Immediate
-    Tdwi = 0,
+    /// tdi: Trap Double Word Immediate
+    Tdi = 0,
     /// twi: Trap Word Immediate
     Twi = 1,
     /// dcbz_l: Data Cache Block Set to Zero Locked
@@ -2089,6 +2089,11 @@ impl Ins {
     pub const fn field_offset(&self) -> i16 {
         (self.code & 0xffff) as i16
     }
+    /// offset64: Branch Offset for 64 bit instructions
+    #[inline(always)]
+    pub const fn field_offset64(&self) -> i16 {
+        ((((self.code >> 2) & 0x3fff) << 2) as i16) >> 2
+    }
     /// BO: Branch Options
     #[inline(always)]
     pub const fn field_bo(&self) -> u8 {
@@ -2133,7 +2138,7 @@ impl Ins {
     #[inline(always)]
     pub const fn field_mb64(&self) -> u8 {
         let value = ((self.code >> 5) & 0x3f) as u8;
-        ((value & 0b11111_00000) >> 5) | ((value & 0b00000_11111) << 5)
+        ((value ) >> 5) | ((value & 0b00000_11111) << 5)
     }
     /// ME: Mask End
     #[inline(always)]
@@ -2144,7 +2149,7 @@ impl Ins {
     #[inline(always)]
     pub const fn field_me64(&self) -> u8 {
         let value = ((self.code >> 5) & 0x3f) as u8;
-        ((value & 0b11111_00000) >> 5) | ((value & 0b00000_11111) << 5)
+        ((value ) >> 5) | ((value & 0b00000_11111) << 5)
     }
     /// rS: Source Register
     #[inline(always)]
@@ -2308,6 +2313,76 @@ impl Ins {
     pub const fn field_shb(&self) -> u8 {
         ((self.code >> 6) & 0xf) as u8
     }
+    /// VD128: VMX128 Dest Register, lower 5 bits
+    #[inline(always)]
+    pub const fn field_vd128(&self) -> u8 {
+        ((self.code >> 21) & 0x1f) as u8
+    }
+    /// VDh: VMX128 Dest Register, upper 2 bits
+    #[inline(always)]
+    pub const fn field_vdh(&self) -> u8 {
+        ((self.code >> 2) & 0x3) as u8
+    }
+    /// VS128: VMX128 Source Register, lower 5 bits
+    #[inline(always)]
+    pub const fn field_vs128(&self) -> u8 {
+        ((self.code >> 21) & 0x1f) as u8
+    }
+    /// VSh: VMX128 Source Register, upper 2 bits
+    #[inline(always)]
+    pub const fn field_vsh(&self) -> u8 {
+        ((self.code >> 2) & 0x3) as u8
+    }
+    /// VA128: VMX128 Register A, lower 5 bits
+    #[inline(always)]
+    pub const fn field_va128(&self) -> u8 {
+        ((self.code >> 16) & 0x1f) as u8
+    }
+    /// VA128_5: VMX128 Register A, bit 6
+    #[inline(always)]
+    pub const fn field_va128_5(&self) -> u8 {
+        ((self.code >> 5) & 0x1) as u8
+    }
+    /// VA128_6: VMX128 Register A, bit 7
+    #[inline(always)]
+    pub const fn field_va128_6(&self) -> u8 {
+        ((self.code >> 10) & 0x1) as u8
+    }
+    /// VB128: VMX128 Register B, lower 5 bits
+    #[inline(always)]
+    pub const fn field_vb128(&self) -> u8 {
+        ((self.code >> 21) & 0x1f) as u8
+    }
+    /// VB128h: VMX128 Register B, upper 2 bits
+    #[inline(always)]
+    pub const fn field_vb128h(&self) -> u8 {
+        ((self.code >> 2) & 0x3) as u8
+    }
+    /// PERMh: upper 3 bits of a permutation
+    #[inline(always)]
+    pub const fn field_permh(&self) -> u8 {
+        ((self.code >> 6) & 0x7) as u8
+    }
+    /// PERMl: lower 5 bits of a permutation
+    #[inline(always)]
+    pub const fn field_perml(&self) -> u8 {
+        ((self.code >> 21) & 0x1f) as u8
+    }
+    /// Ximm: unknown immediate
+    #[inline(always)]
+    pub const fn field_ximm(&self) -> u8 {
+        ((self.code >> 18) & 0x7) as u8
+    }
+    /// Yimm: unknown immediate
+    #[inline(always)]
+    pub const fn field_yimm(&self) -> u8 {
+        ((self.code >> 16) & 0x3) as u8
+    }
+    /// Zimm: unknown immediate
+    #[inline(always)]
+    pub const fn field_zimm(&self) -> u8 {
+        ((self.code >> 6) & 0x3) as u8
+    }
     /// OE: Field used by XO-form instructions to enable setting OV and SO in the XER.
     #[inline(always)]
     pub const fn field_oe(&self) -> bool {
@@ -2363,9 +2438,9 @@ pub const EMPTY_ARGS: Arguments = [
     Argument::None,
 ];
 type MnemonicFunction = fn(&mut ParsedIns, Ins);
-fn basic_tdwi(out: &mut ParsedIns, ins: Ins) {
+fn basic_tdi(out: &mut ParsedIns, ins: Ins) {
     *out = ParsedIns {
-        mnemonic: "tdwi",
+        mnemonic: "tdi",
         args: [
             Argument::OpaqueU(OpaqueU(ins.field_to() as _)),
             Argument::GPR(GPR(ins.field_ra() as _)),
@@ -6888,6 +6963,25 @@ fn basic_rldcl(out: &mut ParsedIns, ins: Ins) {
         }
     };
 }
+fn simplified_rldcl(out: &mut ParsedIns, ins: Ins) {
+    if ins.field_mb() == 0x0 {
+        *out = {
+            const MODIFIERS: [&str; 2] = ["rotld", "rotld."];
+            ParsedIns {
+                mnemonic: MODIFIERS[ins.field_rc() as usize],
+                args: [
+                    Argument::GPR(GPR(ins.field_ra() as _)),
+                    Argument::GPR(GPR(ins.field_rs() as _)),
+                    Argument::GPR(GPR(ins.field_rb() as _)),
+                    Argument::None,
+                    Argument::None,
+                ],
+            }
+        };
+        return;
+    }
+    basic_rldcl(out, ins)
+}
 fn basic_rldcr(out: &mut ParsedIns, ins: Ins) {
     *out = {
         const MODIFIERS: [&str; 2] = ["rldcr", "rldcr."];
@@ -9558,7 +9652,7 @@ fn basic_ld(out: &mut ParsedIns, ins: Ins) {
         mnemonic: "ld",
         args: [
             Argument::GPR(GPR(ins.field_rd() as _)),
-            Argument::Offset(Offset(ins.field_offset() as _)),
+            Argument::Offset(Offset(ins.field_offset64() as _)),
             Argument::GPR(GPR(ins.field_ra() as _)),
             Argument::None,
             Argument::None,
@@ -9570,7 +9664,7 @@ fn basic_ldu(out: &mut ParsedIns, ins: Ins) {
         mnemonic: "ldu",
         args: [
             Argument::GPR(GPR(ins.field_rd() as _)),
-            Argument::Offset(Offset(ins.field_offset() as _)),
+            Argument::Offset(Offset(ins.field_offset64() as _)),
             Argument::GPR(GPR(ins.field_ra() as _)),
             Argument::None,
             Argument::None,
@@ -9582,7 +9676,7 @@ fn basic_lwa(out: &mut ParsedIns, ins: Ins) {
         mnemonic: "lwa",
         args: [
             Argument::GPR(GPR(ins.field_rd() as _)),
-            Argument::Offset(Offset(ins.field_offset() as _)),
+            Argument::Offset(Offset(ins.field_offset64() as _)),
             Argument::GPR(GPR(ins.field_ra() as _)),
             Argument::None,
             Argument::None,
@@ -9729,7 +9823,7 @@ fn basic_std(out: &mut ParsedIns, ins: Ins) {
         mnemonic: "std",
         args: [
             Argument::GPR(GPR(ins.field_rs() as _)),
-            Argument::Offset(Offset(ins.field_offset() as _)),
+            Argument::Offset(Offset(ins.field_offset64() as _)),
             Argument::GPR(GPR(ins.field_ra() as _)),
             Argument::None,
             Argument::None,
@@ -9741,7 +9835,7 @@ fn basic_stdu(out: &mut ParsedIns, ins: Ins) {
         mnemonic: "stdu",
         args: [
             Argument::GPR(GPR(ins.field_rs() as _)),
-            Argument::Offset(Offset(ins.field_offset() as _)),
+            Argument::Offset(Offset(ins.field_offset64() as _)),
             Argument::GPR(GPR(ins.field_ra() as _)),
             Argument::None,
             Argument::None,
@@ -10163,7 +10257,7 @@ fn mnemonic_illegal(out: &mut ParsedIns, _ins: Ins) {
     *out = ParsedIns::new();
 }
 static BASIC_MNEMONICS: [MnemonicFunction; 512] = [
-    basic_tdwi,
+    basic_tdi,
     basic_twi,
     basic_dcbz_l,
     basic_mfvscr,
@@ -10681,7 +10775,7 @@ pub fn parse_basic(out: &mut ParsedIns, ins: Ins) {
     BASIC_MNEMONICS[ins.op as usize](out, ins)
 }
 static SIMPLIFIED_MNEMONICS: [MnemonicFunction; 512] = [
-    basic_tdwi,
+    basic_tdi,
     simplified_twi,
     basic_dcbz_l,
     basic_mfvscr,
@@ -10937,7 +11031,7 @@ static SIMPLIFIED_MNEMONICS: [MnemonicFunction; 512] = [
     basic_xoris,
     basic_andi_,
     basic_andis_,
-    basic_rldcl,
+    simplified_rldcl,
     basic_rldcr,
     basic_rldic,
     basic_rldicl,
@@ -11199,7 +11293,7 @@ pub fn parse_simplified(out: &mut ParsedIns, ins: Ins) {
     SIMPLIFIED_MNEMONICS[ins.op as usize](out, ins)
 }
 type DefsUsesFunction = fn(&mut Arguments, Ins);
-fn uses_tdwi(out: &mut Arguments, ins: Ins) {
+fn uses_tdi(out: &mut Arguments, ins: Ins) {
     *out = [
         Argument::GPR(GPR(ins.field_ra() as _)),
         Argument::None,
@@ -16907,7 +17001,7 @@ fn defs_ld(out: &mut Arguments, ins: Ins) {
 }
 fn uses_ld(out: &mut Arguments, ins: Ins) {
     *out = [
-        Argument::Offset(Offset(ins.field_offset() as _)),
+        Argument::Offset(Offset(ins.field_offset64() as _)),
         if ins.field_ra() != 0 {
             Argument::GPR(GPR(ins.field_ra() as _))
         } else {
@@ -16929,7 +17023,7 @@ fn defs_ldu(out: &mut Arguments, ins: Ins) {
 }
 fn uses_ldu(out: &mut Arguments, ins: Ins) {
     *out = [
-        Argument::Offset(Offset(ins.field_offset() as _)),
+        Argument::Offset(Offset(ins.field_offset64() as _)),
         Argument::GPR(GPR(ins.field_ra() as _)),
         Argument::None,
         Argument::None,
@@ -16947,7 +17041,7 @@ fn defs_lwa(out: &mut Arguments, ins: Ins) {
 }
 fn uses_lwa(out: &mut Arguments, ins: Ins) {
     *out = [
-        Argument::Offset(Offset(ins.field_offset() as _)),
+        Argument::Offset(Offset(ins.field_offset64() as _)),
         if ins.field_ra() != 0 {
             Argument::GPR(GPR(ins.field_ra() as _))
         } else {
@@ -18132,7 +18226,7 @@ pub fn parse_defs(out: &mut Arguments, ins: Ins) {
     DEFS_FUNCTIONS[ins.op as usize](out, ins)
 }
 static USES_FUNCTIONS: [DefsUsesFunction; 512] = [
-    uses_tdwi,
+    uses_tdi,
     uses_twi,
     uses_dcbz_l,
     defs_uses_empty,
