@@ -50,11 +50,11 @@ fn test_ins_addi() {
     // );
     assert_eq!(
         ins.defs(),
-        [Argument::GPR(GPR(0)), Argument::None, Argument::None, Argument::None, Argument::None]
+        [Argument::GPR(GPR(0)), Argument::None, Argument::None, Argument::None, Argument::None, Argument::None, Argument::None, Argument::None]
     );
     assert_eq!(
         ins.uses(),
-        [Argument::GPR(GPR(1)), Argument::None, Argument::None, Argument::None, Argument::None]
+        [Argument::GPR(GPR(1)), Argument::None, Argument::None, Argument::None, Argument::None, Argument::None, Argument::None, Argument::None]
     );
     assert_asm!(ins, "addi r0, r1, 0x140");
 
