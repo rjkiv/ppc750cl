@@ -1416,10 +1416,12 @@ fn gen_mtmsr(args: &Arguments, modifiers: u32) -> Result<u32, ArgumentError> {
     Ok(code)
 }
 fn gen_mtmsrd(args: &Arguments, modifiers: u32) -> Result<u32, ArgumentError> {
-    check_arg_count(args, 1)?;
+    check_arg_count(args, 2)?;
     let mut code = 0x7c000164 | modifiers;
     // rS
     code |= (parse_unsigned(args, 0, 0x0, 0x1f)? & 0x1f) << 21;
+    // mtmsrd_L
+    code |= (parse_unsigned(args, 1, 0x0, 0x1)? & 0x1) << 16;
     Ok(code)
 }
 fn gen_mtspr(args: &Arguments, modifiers: u32) -> Result<u32, ArgumentError> {

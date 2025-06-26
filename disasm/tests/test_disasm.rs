@@ -716,7 +716,8 @@ fn test_ins_mtmsr() {
 
 #[test]
 fn test_ins_mtmsrd() {
-    assert_asm!(0x7C000164, "mtmsrd r0");
+    assert_asm!(0x7C000164, "mtmsrd r0, 0");
+    assert_asm!(0x7D210164, "mtmsrd r9, 1");
 }
 
 #[test]

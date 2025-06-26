@@ -394,7 +394,7 @@ static OPCODE_PATTERNS: [(u32, u32); 512] = [
     (0xfc0007ff, 0x7c0002e6),
     (0xfc100fff, 0x7c000120),
     (0xfc1fffff, 0x7c000124),
-    (0xfc1fffff, 0x7c000164),
+    (0xfc1effff, 0x7c000164),
     (0xfc0007ff, 0x7c0003a6),
     (0xfc10ffff, 0x7c0001a4),
     (0xfc10ffff, 0x7c0000a4),
@@ -2138,7 +2138,7 @@ impl Ins {
     #[inline(always)]
     pub const fn field_mb64(&self) -> u8 {
         let value = ((self.code >> 5) & 0x3f) as u8;
-        ((value & 0b11111_00000) >> 5) | ((value & 0b00000_11111) << 5)
+        ((value ) >> 5) | ((value & 0b00000_11111) << 5)
     }
     /// ME: Mask End
     #[inline(always)]
@@ -2149,7 +2149,7 @@ impl Ins {
     #[inline(always)]
     pub const fn field_me64(&self) -> u8 {
         let value = ((self.code >> 5) & 0x3f) as u8;
-        ((value & 0b11111_00000) >> 5) | ((value & 0b00000_11111) << 5)
+        ((value ) >> 5) | ((value & 0b00000_11111) << 5)
     }
     /// rS: Source Register
     #[inline(always)]
@@ -2302,6 +2302,11 @@ impl Ins {
     #[inline(always)]
     pub const fn field_l(&self) -> u8 {
         ((self.code >> 21) & 0x1) as u8
+    }
+    /// mtmsrd_L: L field for mtmsrd
+    #[inline(always)]
+    pub const fn field_mtmsrd_l(&self) -> u8 {
+        ((self.code >> 16) & 0x1) as u8
     }
     /// STRM: Stream ID
     #[inline(always)]
@@ -9872,7 +9877,7 @@ fn basic_mtmsrd(out: &mut ParsedIns, ins: Ins) {
         mnemonic: "mtmsrd",
         args: [
             Argument::GPR(GPR(ins.field_rs() as _)),
-            Argument::None,
+            Argument::OpaqueU(OpaqueU(ins.field_mtmsrd_l() as _)),
             Argument::None,
             Argument::None,
             Argument::None,
@@ -20846,7 +20851,7 @@ fn uses_mtmsr(out: &mut Arguments, ins: Ins) {
 fn uses_mtmsrd(out: &mut Arguments, ins: Ins) {
     *out = [
         Argument::GPR(GPR(ins.field_rs() as _)),
-        Argument::None,
+        Argument::OpaqueU(OpaqueU(ins.field_mtmsrd_l() as _)),
         Argument::None,
         Argument::None,
         Argument::None,

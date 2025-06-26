@@ -222,6 +222,10 @@ fields:
     desc: Count Register
   - name: lr
     desc: Link Register
+  - name: mtmsrd_L
+    arg: OpaqueU
+    desc: L field for mtmsrd
+    bits: 15..16
   # AltiVec exclusive
   - name: STRM
     arg: OpaqueU
@@ -1484,10 +1488,10 @@ opcodes:
   # 64-bit only
   - name: mtmsrd
     desc: Move to Machine State Register Double Word
-    bitmask: 0xfc1fffff
+    bitmask: 0xFC1E07FF
     pattern: 0x7c000164
-    args: [ rS ]
-    uses: [ rS ]
+    args: [ rS, mtmsrd_L ]
+    uses: [ rS, mtmsrd_L ]
 
   - name: mtspr
     desc: Move to Special-Purpose Register
