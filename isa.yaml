@@ -226,6 +226,10 @@ fields:
     arg: OpaqueU
     desc: L field for mtmsrd
     bits: 15..16
+  - name: sync_L
+    arg: OpaqueU
+    desc: L field for sync
+    bits: 9..11
   # AltiVec exclusive
   - name: STRM
     arg: OpaqueU
@@ -2146,8 +2150,10 @@ opcodes:
 
   - name: sync
     desc: Synchronize
-    bitmask: 0xffffffff
+    bitmask: 0xFF9FFFFF
     pattern: 0x7c0004ac
+    args: [ sync_L ]
+    uses: [ sync_L ]
     
   # 64-bit only
   - name: td
@@ -4336,6 +4342,13 @@ mnemonics:
     opcode: twi
     args: [ rA, simm ]
     condition: TO == 31
+
+  - name: lwsync
+    opcode: sync
+    condition: sync_L == 1
+  - name: ptesync
+    opcode: sync
+    condition: sync_L == 2
 
   # Move to special-purpose register
   - name: mtxer

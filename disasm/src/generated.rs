@@ -445,7 +445,7 @@ static OPCODE_PATTERNS: [(u32, u32); 512] = [
     (0xfc0003fe, 0x7c000110),
     (0xfc00fbfe, 0x7c0001d0),
     (0xfc00fbfe, 0x7c000190),
-    (0xffffffff, 0x7c0004ac),
+    (0xff9fffff, 0x7c0004ac),
     (0xfc0007ff, 0x7c000088),
     (0xffff07ff, 0x7c000264),
     (0xffffffff, 0x7c00046c),
@@ -2307,6 +2307,11 @@ impl Ins {
     #[inline(always)]
     pub const fn field_mtmsrd_l(&self) -> u8 {
         ((self.code >> 16) & 0x1) as u8
+    }
+    /// sync_L: L field for sync
+    #[inline(always)]
+    pub const fn field_sync_l(&self) -> u8 {
+        ((self.code >> 21) & 0x3) as u8
     }
     /// STRM: Stream ID
     #[inline(always)]
@@ -11008,8 +11013,34 @@ fn basic_subfze(out: &mut ParsedIns, ins: Ins) {
 fn basic_sync(out: &mut ParsedIns, ins: Ins) {
     *out = ParsedIns {
         mnemonic: "sync",
-        args: EMPTY_ARGS,
+        args: [
+            Argument::OpaqueU(OpaqueU(ins.field_sync_l() as _)),
+            Argument::None,
+            Argument::None,
+            Argument::None,
+            Argument::None,
+            Argument::None,
+            Argument::None,
+            Argument::None,
+        ],
     };
+}
+fn simplified_sync(out: &mut ParsedIns, ins: Ins) {
+    if ins.field_sync_l() == 0x1 {
+        *out = ParsedIns {
+            mnemonic: "lwsync",
+            args: EMPTY_ARGS,
+        };
+        return;
+    }
+    if ins.field_sync_l() == 0x2 {
+        *out = ParsedIns {
+            mnemonic: "ptesync",
+            args: EMPTY_ARGS,
+        };
+        return;
+    }
+    basic_sync(out, ins)
 }
 fn basic_td(out: &mut ParsedIns, ins: Ins) {
     *out = ParsedIns {
@@ -13343,7 +13374,7 @@ static SIMPLIFIED_MNEMONICS: [MnemonicFunction; 512] = [
     basic_subfe,
     basic_subfme,
     basic_subfze,
-    basic_sync,
+    simplified_sync,
     basic_td,
     basic_tlbie,
     basic_tlbsync,
@@ -21872,6 +21903,18 @@ fn uses_subfze(out: &mut Arguments, ins: Ins) {
         Argument::None,
     ];
 }
+fn uses_sync(out: &mut Arguments, ins: Ins) {
+    *out = [
+        Argument::OpaqueU(OpaqueU(ins.field_sync_l() as _)),
+        Argument::None,
+        Argument::None,
+        Argument::None,
+        Argument::None,
+        Argument::None,
+        Argument::None,
+        Argument::None,
+    ];
+}
 fn uses_td(out: &mut Arguments, ins: Ins) {
     *out = [
         Argument::GPR(GPR(ins.field_ra() as _)),
@@ -24643,7 +24686,7 @@ static USES_FUNCTIONS: [DefsUsesFunction; 512] = [
     uses_subfe,
     uses_subfme,
     uses_subfze,
-    defs_uses_empty,
+    uses_sync,
     uses_td,
     uses_tlbie,
     defs_uses_empty,

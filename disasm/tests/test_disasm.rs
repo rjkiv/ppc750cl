@@ -1292,7 +1292,7 @@ fn test_ins_subfze() {
 
 #[test]
 fn test_ins_sync() {
-    assert_asm!(0x7C0004AC, "sync");
+    assert_asm!(0x7C0004AC, "sync 0");
 }
 
 #[test]
