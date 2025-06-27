@@ -1016,6 +1016,7 @@ fn test_ins_rfid() {
 #[test]
 fn test_ins_rldcl() {
     assert_asm!(0x780336D0, "rldcl r3, r0, r6, 27");
+    assert_asm!(0x78033010, "rotld r3, r0, r6");
 }
 
 #[test]
