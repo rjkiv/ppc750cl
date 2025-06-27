@@ -1492,7 +1492,7 @@ opcodes:
   # 64-bit only
   - name: mtmsrd
     desc: Move to Machine State Register Double Word
-    bitmask: 0xFC1E07FF
+    bitmask: 0xFC1EFFFF
     pattern: 0x7c000164
     args: [ rS, mtmsrd_L ]
     uses: [ rS, mtmsrd_L ]
@@ -1809,7 +1809,7 @@ opcodes:
   # 64-bit only
   - name: sradi
     desc: Shift Right Algebraic Double Word Immediate
-    bitmask: 0xfc0007fe
+    bitmask: 0xFC0007FC
     pattern: 0x7c000674
     modifiers: [ Rc ]
     args: [ rA, rS, SH1, SH2 ]
