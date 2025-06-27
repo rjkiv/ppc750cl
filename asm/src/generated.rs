@@ -1848,14 +1848,16 @@ fn gen_srad(args: &Arguments, modifiers: u32) -> Result<u32, ArgumentError> {
     Ok(code)
 }
 fn gen_sradi(args: &Arguments, modifiers: u32) -> Result<u32, ArgumentError> {
-    check_arg_count(args, 3)?;
+    check_arg_count(args, 4)?;
     let mut code = 0x7c000674 | modifiers;
     // rA
     code |= (parse_unsigned(args, 0, 0x0, 0x1f)? & 0x1f) << 16;
     // rS
     code |= (parse_unsigned(args, 1, 0x0, 0x1f)? & 0x1f) << 21;
-    // SH
+    // SH1
     code |= (parse_unsigned(args, 2, 0x0, 0x1f)? & 0x1f) << 11;
+    // SH2
+    code |= (parse_unsigned(args, 3, 0x0, 0x1)? & 0x1) << 1;
     Ok(code)
 }
 fn gen_sraw(args: &Arguments, modifiers: u32) -> Result<u32, ArgumentError> {

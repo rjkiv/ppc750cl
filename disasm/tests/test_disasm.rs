@@ -1107,6 +1107,7 @@ fn test_ins_srad() {
 
 #[test]
 fn test_ins_sradi() {
+    assert_asm!(0x7D070676, "sradi r7, r8, 0x20");
     assert_asm!(0, "srad r3, r7, 17");
 }
 
