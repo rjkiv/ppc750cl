@@ -1892,7 +1892,7 @@ opcodes:
     uses: [ rS, rA.nz ]
 
   # 64-bit only
-  - name: stdcx
+  - name: stdcx.
     desc: Store Double Word Conditional Indexed
     bitmask: 0xfc0007ff
     pattern: 0x7c0001ad
@@ -4342,7 +4342,22 @@ mnemonics:
     opcode: twi
     args: [ rA, simm ]
     condition: TO == 31
-
+  - name: tdge
+    opcode: td
+    args: [ rA, rB ]
+    condition: TO == 12
+  - name: tdlnl
+    opcode: td
+    args: [ rA, rB ]
+    condition: TO == 5
+  - name: tdlti
+    opcode: tdi
+    args: [ rA, simm ]
+    condition: TO == 16
+  - name: tdnei
+    opcode: tdi
+    args: [ rA, simm ]
+    condition: TO == 24
   - name: lwsync
     opcode: sync
     condition: sync_L == 1

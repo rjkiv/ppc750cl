@@ -1022,22 +1022,24 @@ fn test_ins_rldcr() {
 
 #[test]
 fn test_ins_rldic() {
-    assert_asm!(0, "rldic r5, r6, 3, 36");
+    assert_asm!(0x78C51928, "rldic r5, r6, 3, 36");
 }
 
 #[test]
 fn test_ins_rldicl() {
-    assert_asm!(0, "rldicl r7, r8, 7, 24");
+    assert_asm!(0x78c50020, "rldicl r5, r6, 0, 32");
+    assert_asm!(0x79073980, "rldicl r7, r8, 7, 24");
 }
 
 #[test]
 fn test_ins_rldicr() {
-    assert_asm!(0, "rldicr r8, r9, 12, 42");
+    assert_asm!(0x7883ffe6, "rldicr r3, r4, 63, 63");
+    assert_asm!(0x7883ffe6, "rldicr r8, r9, 12, 42"); // fix
 }
 
 #[test]
 fn test_ins_rldimi() {
-    assert_asm!(0, "rldimi r3, r0, 6, 7");
+    assert_asm!(0x780331CC, "rldimi r3, r0, 6, 7");
 }
 
 #[test]
@@ -1092,7 +1094,7 @@ fn test_ins_slbie() {
 
 #[test]
 fn test_ins_sld() {
-    assert_asm!(0, "sld r3, r8, r9");
+    assert_asm!(0x7D034836, "sld r3, r8, r9");
 }
 
 #[test]
@@ -1102,7 +1104,7 @@ fn test_ins_slw() {
 
 #[test]
 fn test_ins_srad() {
-    assert_asm!(0, "srad r3, r0, r6");
+    assert_asm!(0x7C033634, "srad r3, r0, r6");
 }
 
 #[test]
@@ -1124,8 +1126,8 @@ fn test_ins_srawi() {
 
 #[test]
 fn test_ins_srd() {
-    assert_asm!(0, "srd r0, r0, r3");
-    assert_asm!(0, "srd r0, r3, r0");
+    assert_asm!(0x7C001C36, "srd r0, r0, r3");
+    assert_asm!(0x7C600436, "srd r0, r3, r0");
 }
 
 #[test]
@@ -1158,27 +1160,27 @@ fn test_ins_stbx() {
 
 #[test]
 fn test_ins_std() {
-    assert_asm!(0, "std r0, 0x420(r3)");
+    assert_asm!(0xF8031080, "std r0, 0x420(r3)");
 }
 
 #[test]
 fn test_ins_stdcx() {
-    assert_asm!(0, "stdcx. r5, r7, r9");
+    assert_asm!(0x7CA749AD, "stdcx. r5, r7, r9");
 }
 
 #[test]
 fn test_ins_stdu() {
-    assert_asm!(0, "stdu r3, 0x50c(r0)");
+    assert_asm!(0xF8601431, "stdu r3, 0x50c(r0)");
 }
 
 #[test]
 fn test_ins_stdux() {
-    assert_asm!(0, "stdux r0, r3, r6");
+    assert_asm!(0x7C03316A, "stdux r0, r3, r6");
 }
 
 #[test]
 fn test_ins_stdx() {
-    assert_asm!(0, "stdx r5, r7, r31");
+    assert_asm!(0x7CA7F92A, "stdx r5, r7, r31");
 }
 
 #[test]
@@ -1298,12 +1300,12 @@ fn test_ins_sync() {
 
 #[test]
 fn test_ins_td() {
-    assert_asm!(0, "td 14, r3, r0");
+    assert_asm!(0x7DC30088, "td 14, r3, r0");
 }
 
 #[test]
 fn test_ins_tdi() {
-    assert_asm!(0, "tdi 12 r3, r8");
+    assert_asm!(0x09830058, "tdi 12, r3, 0x58");
 }
 
 #[test]

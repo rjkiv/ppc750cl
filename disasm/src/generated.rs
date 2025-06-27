@@ -938,7 +938,7 @@ static OPCODE_NAMES: [&str; 512] = [
     "srw",
     "stbux",
     "stbx",
-    "stdcx",
+    "stdcx.",
     "stdux",
     "stdx",
     "stfdux",
@@ -1809,8 +1809,8 @@ pub enum Opcode {
     Stbux = 349,
     /// stbx: Store Byte Indexed
     Stbx = 350,
-    /// stdcx: Store Double Word Conditional Indexed
-    Stdcx = 351,
+    /// stdcx.: Store Double Word Conditional Indexed
+    Stdcx_ = 351,
     /// stdux: Store Double Word with Update Indexed
     Stdux = 352,
     /// stdx: Store Double Word Indexed
@@ -2480,6 +2480,41 @@ fn basic_tdi(out: &mut ParsedIns, ins: Ins) {
             Argument::None,
         ],
     };
+}
+fn simplified_tdi(out: &mut ParsedIns, ins: Ins) {
+    if ins.field_to() == 0x10 {
+        *out = ParsedIns {
+            mnemonic: "tdlti",
+            args: [
+                Argument::GPR(GPR(ins.field_ra() as _)),
+                Argument::Simm(Simm(ins.field_simm() as _)),
+                Argument::None,
+                Argument::None,
+                Argument::None,
+                Argument::None,
+                Argument::None,
+                Argument::None,
+            ],
+        };
+        return;
+    }
+    if ins.field_to() == 0x18 {
+        *out = ParsedIns {
+            mnemonic: "tdnei",
+            args: [
+                Argument::GPR(GPR(ins.field_ra() as _)),
+                Argument::Simm(Simm(ins.field_simm() as _)),
+                Argument::None,
+                Argument::None,
+                Argument::None,
+                Argument::None,
+                Argument::None,
+                Argument::None,
+            ],
+        };
+        return;
+    }
+    basic_tdi(out, ins)
 }
 fn basic_twi(out: &mut ParsedIns, ins: Ins) {
     *out = ParsedIns {
@@ -10660,9 +10695,9 @@ fn basic_stbx(out: &mut ParsedIns, ins: Ins) {
         ],
     };
 }
-fn basic_stdcx(out: &mut ParsedIns, ins: Ins) {
+fn basic_stdcx_(out: &mut ParsedIns, ins: Ins) {
     *out = ParsedIns {
-        mnemonic: "stdcx",
+        mnemonic: "stdcx.",
         args: [
             Argument::GPR(GPR(ins.field_rs() as _)),
             Argument::GPR(GPR(ins.field_ra() as _)),
@@ -11056,6 +11091,41 @@ fn basic_td(out: &mut ParsedIns, ins: Ins) {
             Argument::None,
         ],
     };
+}
+fn simplified_td(out: &mut ParsedIns, ins: Ins) {
+    if ins.field_to() == 0xc {
+        *out = ParsedIns {
+            mnemonic: "tdge",
+            args: [
+                Argument::GPR(GPR(ins.field_ra() as _)),
+                Argument::GPR(GPR(ins.field_rb() as _)),
+                Argument::None,
+                Argument::None,
+                Argument::None,
+                Argument::None,
+                Argument::None,
+                Argument::None,
+            ],
+        };
+        return;
+    }
+    if ins.field_to() == 0x5 {
+        *out = ParsedIns {
+            mnemonic: "tdlnl",
+            args: [
+                Argument::GPR(GPR(ins.field_ra() as _)),
+                Argument::GPR(GPR(ins.field_rb() as _)),
+                Argument::None,
+                Argument::None,
+                Argument::None,
+                Argument::None,
+                Argument::None,
+                Argument::None,
+            ],
+        };
+        return;
+    }
+    basic_td(out, ins)
 }
 fn basic_tlbie(out: &mut ParsedIns, ins: Ins) {
     *out = ParsedIns {
@@ -12834,7 +12904,7 @@ static BASIC_MNEMONICS: [MnemonicFunction; 512] = [
     basic_srw,
     basic_stbux,
     basic_stbx,
-    basic_stdcx,
+    basic_stdcx_,
     basic_stdux,
     basic_stdx,
     basic_stfdux,
@@ -13001,7 +13071,7 @@ pub fn parse_basic(out: &mut ParsedIns, ins: Ins) {
     BASIC_MNEMONICS[ins.op as usize](out, ins)
 }
 static SIMPLIFIED_MNEMONICS: [MnemonicFunction; 512] = [
-    basic_tdi,
+    simplified_tdi,
     simplified_twi,
     basic_dcbz_l,
     basic_mfvscr,
@@ -13352,7 +13422,7 @@ static SIMPLIFIED_MNEMONICS: [MnemonicFunction; 512] = [
     basic_srw,
     basic_stbux,
     basic_stbx,
-    basic_stdcx,
+    basic_stdcx_,
     basic_stdux,
     basic_stdx,
     basic_stfdux,
@@ -13375,7 +13445,7 @@ static SIMPLIFIED_MNEMONICS: [MnemonicFunction; 512] = [
     basic_subfme,
     basic_subfze,
     simplified_sync,
-    basic_td,
+    simplified_td,
     basic_tlbie,
     basic_tlbsync,
     simplified_tw,
@@ -21459,7 +21529,7 @@ fn uses_stbx(out: &mut Arguments, ins: Ins) {
         Argument::None,
     ];
 }
-fn uses_stdcx(out: &mut Arguments, ins: Ins) {
+fn uses_stdcx_(out: &mut Arguments, ins: Ins) {
     *out = [
         Argument::GPR(GPR(ins.field_rs() as _)),
         if ins.field_ra() != 0 {
@@ -24664,7 +24734,7 @@ static USES_FUNCTIONS: [DefsUsesFunction; 512] = [
     uses_srw,
     uses_stbux,
     uses_stbx,
-    uses_stdcx,
+    uses_stdcx_,
     uses_stdux,
     uses_stdx,
     uses_stfdux,
