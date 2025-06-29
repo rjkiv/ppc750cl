@@ -3466,6 +3466,7 @@ opcodes:
 
 # VMX128 exclusives
 # found here: https://github.com/xenia-project/xenia/blob/master/docs/ppc/vmx128.txt
+# and here: https://github.com/kakaroto/ps3ida/blob/master/plugins/PPCAltivec/src/main.cpp
   - name: lvewx128
     desc: Load Vector128 Element Word Indexed
     bitmask: 0xfc0007f3
@@ -3541,7 +3542,7 @@ opcodes:
   - name: stvewx128
     desc: Store Vector128 Element Word Indexed
     bitmask: 0xfc0007f3
-    pattern: 0x10000303
+    pattern: 0x10000183
     args: [ VDS128, rA, rB ]
     uses: [ VDS128, rA, rB ]
 

@@ -6189,7 +6189,7 @@ fn gen_stvewx(args: &Arguments, modifiers: u32) -> Result<u32, ArgumentError> {
 }
 fn gen_stvewx128(args: &Arguments, modifiers: u32) -> Result<u32, ArgumentError> {
     check_arg_count(args, 3)?;
-    let mut code = 0x10000303 | modifiers;
+    let mut code = 0x10000183 | modifiers;
     // VDS128
     {
         let arg = parse_unsigned(args, 0, 0x0, 0x7f)?;

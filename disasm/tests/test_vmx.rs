@@ -67,7 +67,7 @@ fn test_vmx_lvxl128(){
 
 #[test]
 fn test_vmx_stvewx128(){
-    assert_asm!(0x131BFB0F, "stvewx128 vr120, r27, r31");
+    assert_asm!(0x131BF98F, "stvewx128 vr120, r27, r31");
 }
 
 #[test]
