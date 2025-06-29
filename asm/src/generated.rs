@@ -7252,7 +7252,7 @@ fn gen_vandc(args: &Arguments, modifiers: u32) -> Result<u32, ArgumentError> {
 }
 fn gen_vandc128(args: &Arguments, modifiers: u32) -> Result<u32, ArgumentError> {
     check_arg_count(args, 3)?;
-    let mut code = 0x14000290 | modifiers;
+    let mut code = 0x14000250 | modifiers;
     // VDS128
     {
         let arg = parse_unsigned(args, 0, 0x0, 0x7f)?;
@@ -9939,7 +9939,7 @@ fn gen_vrlw(args: &Arguments, modifiers: u32) -> Result<u32, ArgumentError> {
 }
 fn gen_vrlw128(args: &Arguments, modifiers: u32) -> Result<u32, ArgumentError> {
     check_arg_count(args, 3)?;
-    let mut code = 0x14000050 | modifiers;
+    let mut code = 0x18000050 | modifiers;
     // VDS128
     {
         let arg = parse_unsigned(args, 0, 0x0, 0x7f)?;
@@ -10559,7 +10559,7 @@ fn gen_vsro(args: &Arguments, modifiers: u32) -> Result<u32, ArgumentError> {
 }
 fn gen_vsro128(args: &Arguments, modifiers: u32) -> Result<u32, ArgumentError> {
     check_arg_count(args, 3)?;
-    let mut code = 0x180003d0 | modifiers;
+    let mut code = 0x140003d0 | modifiers;
     // VDS128
     {
         let arg = parse_unsigned(args, 0, 0x0, 0x7f)?;
@@ -10978,16 +10978,16 @@ fn gen_vupkd3d128(args: &Arguments, modifiers: u32) -> Result<u32, ArgumentError
         code |= (arg & 0x1f) << 21;
         code |= (arg >> 3) & 0xc;
     }
-    // vuimm
-    {
-        let arg = parse_unsigned(args, 1, 0x0, 0x1f)?;
-        code |= (arg & 0x1f) << 16;
-    }
     // VB128
     {
-        let arg = parse_unsigned(args, 2, 0x0, 0x7f)?;
+        let arg = parse_unsigned(args, 1, 0x0, 0x7f)?;
         code |= (arg & 0x1f) << 11;
         code |= (arg >> 5) & 0x3;
+    }
+    // vuimm
+    {
+        let arg = parse_unsigned(args, 2, 0x0, 0x1f)?;
+        code |= (arg & 0x1f) << 16;
     }
     Ok(code)
 }

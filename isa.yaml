@@ -3606,7 +3606,7 @@ opcodes:
   - name: vandc128
     desc: Vector128 Logical AND with Complement
     bitmask: 0xfc0003d0
-    pattern: 0x14000290
+    pattern: 0x14000250
     args: [ VDS128, VA128, VB128 ]
     defs: [ VDS128 ]
     uses: [ VA128, VB128 ]
@@ -3939,7 +3939,7 @@ opcodes:
   - name: vrlw128
     desc: Vector128 Rotate Left Word
     bitmask: 0xfc0003d0
-    pattern: 0x14000050
+    pattern: 0x18000050
     args: [ VDS128, VA128, VB128 ]
     defs: [ VDS128 ]
     uses: [ VA128, VB128 ]
@@ -4011,7 +4011,7 @@ opcodes:
   - name: vsro128
     desc: Vector128 Shift Right Octet
     bitmask: 0xfc0003d0
-    pattern: 0x180003d0
+    pattern: 0x140003d0
     args: [ VDS128, VA128, VB128 ]
     defs: [ VDS128 ]
     uses: [ VA128, VB128 ]
@@ -4036,9 +4036,9 @@ opcodes:
     desc: Vector128 Unpack D3Dtype
     bitmask: 0xfc0007f0
     pattern: 0x180007f0
-    args: [ VDS128, vuimm, VB128 ]
+    args: [ VDS128, VB128, vuimm ]
     defs: [ VDS128 ]
-    uses: [ vuimm, VB128 ]
+    uses: [ VB128, vuimm ]
 
   - name: vupkhsb128
     desc: Vector128 Unpack High Signed Byte

@@ -238,7 +238,7 @@ static OPCODE_PATTERNS: [(u32, u32); 460] = [
     (0xfc000010, 0x10000010),
     (0xfc0003d0, 0x14000010),
     (0xfc0003d0, 0x14000210),
-    (0xfc0003d0, 0x14000290),
+    (0xfc0003d0, 0x14000250),
     (0xfc0003d0, 0x14000110),
     (0xfc0003d0, 0x140000d0),
     (0xfc0003d0, 0x14000190),
@@ -256,9 +256,9 @@ static OPCODE_PATTERNS: [(u32, u32); 460] = [
     (0xfc0003d0, 0x14000340),
     (0xfc0003d0, 0x14000380),
     (0xfc0003d0, 0x140003c0),
-    (0xfc0003d0, 0x14000050),
     (0xfc0003d0, 0x14000350),
     (0xfc0003d0, 0x14000390),
+    (0xfc0003d0, 0x140003d0),
     (0xfc0003d0, 0x14000050),
     (0xfc0003d0, 0x14000310),
     (0xfc0007f0, 0x18000230),
@@ -284,12 +284,12 @@ static OPCODE_PATTERNS: [(u32, u32); 460] = [
     (0xfc1f07f0, 0x180003b0),
     (0xfc1f07f0, 0x180003f0),
     (0xfc000730, 0x18000710),
+    (0xfc0003d0, 0x18000050),
     (0xfc1f07f0, 0x18000670),
     (0xfc0003d0, 0x180000d0),
     (0xfc0007f0, 0x18000770),
     (0xfc0007f0, 0x18000730),
     (0xfc0003d0, 0x18000150),
-    (0xfc0003d0, 0x180003d0),
     (0xfc0003d0, 0x180001d0),
     (0xfc0007f0, 0x180007f0),
     (0xfc1f07f0, 0x18000380),
@@ -719,9 +719,9 @@ static OPCODE_NAMES: [&str; 460] = [
     "vpkuhus128",
     "vpkuwum128",
     "vpkuwus128",
-    "vrlw128",
     "vsel128",
     "vslo128",
+    "vsro128",
     "vsubfp128",
     "vxor128",
     "vcfpsxws128",
@@ -747,12 +747,12 @@ static OPCODE_NAMES: [&str; 460] = [
     "vrfip128",
     "vrfiz128",
     "vrlimi128",
+    "vrlw128",
     "vrsqrtefp128",
     "vslw128",
     "vspltisw128",
     "vspltw128",
     "vsraw128",
-    "vsro128",
     "vsrw128",
     "vupkd3d128",
     "vupkhsb128",
@@ -1371,12 +1371,12 @@ pub enum Opcode {
     Vpkuwum128 = 182,
     /// vpkuwus128: Vector128 Pack Unsigned Word Unsigned Saturate
     Vpkuwus128 = 183,
-    /// vrlw128: Vector128 Rotate Left Word
-    Vrlw128 = 184,
     /// vsel128: Vector128 Select
-    Vsel128 = 185,
+    Vsel128 = 184,
     /// vslo128: Vector128 Shift Left Octet
-    Vslo128 = 186,
+    Vslo128 = 185,
+    /// vsro128: Vector128 Shift Right Octet
+    Vsro128 = 186,
     /// vsubfp128: Vector128 Subtract Floating Point
     Vsubfp128 = 187,
     /// vxor128: Vector128 Logical XOR
@@ -1427,18 +1427,18 @@ pub enum Opcode {
     Vrfiz128 = 210,
     /// vrlimi128: Vector128 Rotate Left Immediate and Mask Insert
     Vrlimi128 = 211,
+    /// vrlw128: Vector128 Rotate Left Word
+    Vrlw128 = 212,
     /// vrsqrtefp128: Vector128 Reciprocal Square Root Estimate Floating Point
-    Vrsqrtefp128 = 212,
+    Vrsqrtefp128 = 213,
     /// vslw128: Vector128 Shift Left Word
-    Vslw128 = 213,
+    Vslw128 = 214,
     /// vspltisw128: Vector128 Splat Immediate Signed Word
-    Vspltisw128 = 214,
+    Vspltisw128 = 215,
     /// vspltw128: Vector128 Splat Word
-    Vspltw128 = 215,
+    Vspltw128 = 216,
     /// vsraw128: Vector128 Shift Right Arithmetic Word
-    Vsraw128 = 216,
-    /// vsro128: Vector128 Shift Right Octet
-    Vsro128 = 217,
+    Vsraw128 = 217,
     /// vsrw128: Vector128 Shift Right Word
     Vsrw128 = 218,
     /// vupkd3d128: Vector128 Unpack D3Dtype
@@ -4666,18 +4666,6 @@ fn basic_vpkuwus128(out: &mut ParsedIns, ins: Ins) {
         ],
     };
 }
-fn basic_vrlw128(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: "vrlw128",
-        args: [
-            Argument::VR(VR(ins.field_vds128() as _)),
-            Argument::VR(VR(ins.field_va128() as _)),
-            Argument::VR(VR(ins.field_vb128() as _)),
-            Argument::None,
-            Argument::None,
-        ],
-    };
-}
 fn basic_vsel128(out: &mut ParsedIns, ins: Ins) {
     *out = ParsedIns {
         mnemonic: "vsel128",
@@ -4693,6 +4681,18 @@ fn basic_vsel128(out: &mut ParsedIns, ins: Ins) {
 fn basic_vslo128(out: &mut ParsedIns, ins: Ins) {
     *out = ParsedIns {
         mnemonic: "vslo128",
+        args: [
+            Argument::VR(VR(ins.field_vds128() as _)),
+            Argument::VR(VR(ins.field_va128() as _)),
+            Argument::VR(VR(ins.field_vb128() as _)),
+            Argument::None,
+            Argument::None,
+        ],
+    };
+}
+fn basic_vsro128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vsro128",
         args: [
             Argument::VR(VR(ins.field_vds128() as _)),
             Argument::VR(VR(ins.field_va128() as _)),
@@ -5017,6 +5017,18 @@ fn basic_vrlimi128(out: &mut ParsedIns, ins: Ins) {
         ],
     };
 }
+fn basic_vrlw128(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "vrlw128",
+        args: [
+            Argument::VR(VR(ins.field_vds128() as _)),
+            Argument::VR(VR(ins.field_va128() as _)),
+            Argument::VR(VR(ins.field_vb128() as _)),
+            Argument::None,
+            Argument::None,
+        ],
+    };
+}
 fn basic_vrsqrtefp128(out: &mut ParsedIns, ins: Ins) {
     *out = ParsedIns {
         mnemonic: "vrsqrtefp128",
@@ -5077,18 +5089,6 @@ fn basic_vsraw128(out: &mut ParsedIns, ins: Ins) {
         ],
     };
 }
-fn basic_vsro128(out: &mut ParsedIns, ins: Ins) {
-    *out = ParsedIns {
-        mnemonic: "vsro128",
-        args: [
-            Argument::VR(VR(ins.field_vds128() as _)),
-            Argument::VR(VR(ins.field_va128() as _)),
-            Argument::VR(VR(ins.field_vb128() as _)),
-            Argument::None,
-            Argument::None,
-        ],
-    };
-}
 fn basic_vsrw128(out: &mut ParsedIns, ins: Ins) {
     *out = ParsedIns {
         mnemonic: "vsrw128",
@@ -5106,8 +5106,8 @@ fn basic_vupkd3d128(out: &mut ParsedIns, ins: Ins) {
         mnemonic: "vupkd3d128",
         args: [
             Argument::VR(VR(ins.field_vds128() as _)),
-            Argument::Uimm(Uimm(ins.field_vuimm() as _)),
             Argument::VR(VR(ins.field_vb128() as _)),
+            Argument::Uimm(Uimm(ins.field_vuimm() as _)),
             Argument::None,
             Argument::None,
         ],
@@ -10924,9 +10924,9 @@ static BASIC_MNEMONICS: [MnemonicFunction; 460] = [
     basic_vpkuhus128,
     basic_vpkuwum128,
     basic_vpkuwus128,
-    basic_vrlw128,
     basic_vsel128,
     basic_vslo128,
+    basic_vsro128,
     basic_vsubfp128,
     basic_vxor128,
     basic_vcfpsxws128,
@@ -10952,12 +10952,12 @@ static BASIC_MNEMONICS: [MnemonicFunction; 460] = [
     basic_vrfip128,
     basic_vrfiz128,
     basic_vrlimi128,
+    basic_vrlw128,
     basic_vrsqrtefp128,
     basic_vslw128,
     basic_vspltisw128,
     basic_vspltw128,
     basic_vsraw128,
-    basic_vsro128,
     basic_vsrw128,
     basic_vupkd3d128,
     basic_vupkhsb128,
@@ -11390,9 +11390,9 @@ static SIMPLIFIED_MNEMONICS: [MnemonicFunction; 460] = [
     basic_vpkuhus128,
     basic_vpkuwum128,
     basic_vpkuwus128,
-    basic_vrlw128,
     basic_vsel128,
     basic_vslo128,
+    basic_vsro128,
     basic_vsubfp128,
     basic_vxor128,
     basic_vcfpsxws128,
@@ -11418,12 +11418,12 @@ static SIMPLIFIED_MNEMONICS: [MnemonicFunction; 460] = [
     basic_vrfip128,
     basic_vrfiz128,
     basic_vrlimi128,
+    basic_vrlw128,
     basic_vrsqrtefp128,
     basic_vslw128,
     basic_vspltisw128,
     basic_vspltw128,
     basic_vsraw128,
-    basic_vsro128,
     basic_vsrw128,
     basic_vupkd3d128,
     basic_vupkhsb128,
@@ -14883,24 +14883,6 @@ fn uses_vpkuwus128(out: &mut Arguments, ins: Ins) {
         Argument::None,
     ];
 }
-fn defs_vrlw128(out: &mut Arguments, ins: Ins) {
-    *out = [
-        Argument::VR(VR(ins.field_vds128() as _)),
-        Argument::None,
-        Argument::None,
-        Argument::None,
-        Argument::None,
-    ];
-}
-fn uses_vrlw128(out: &mut Arguments, ins: Ins) {
-    *out = [
-        Argument::VR(VR(ins.field_va128() as _)),
-        Argument::VR(VR(ins.field_vb128() as _)),
-        Argument::None,
-        Argument::None,
-        Argument::None,
-    ];
-}
 fn defs_vsel128(out: &mut Arguments, ins: Ins) {
     *out = [
         Argument::VR(VR(ins.field_vds128() as _)),
@@ -14929,6 +14911,24 @@ fn defs_vslo128(out: &mut Arguments, ins: Ins) {
     ];
 }
 fn uses_vslo128(out: &mut Arguments, ins: Ins) {
+    *out = [
+        Argument::VR(VR(ins.field_va128() as _)),
+        Argument::VR(VR(ins.field_vb128() as _)),
+        Argument::None,
+        Argument::None,
+        Argument::None,
+    ];
+}
+fn defs_vsro128(out: &mut Arguments, ins: Ins) {
+    *out = [
+        Argument::VR(VR(ins.field_vds128() as _)),
+        Argument::None,
+        Argument::None,
+        Argument::None,
+        Argument::None,
+    ];
+}
+fn uses_vsro128(out: &mut Arguments, ins: Ins) {
     *out = [
         Argument::VR(VR(ins.field_va128() as _)),
         Argument::VR(VR(ins.field_vb128() as _)),
@@ -15387,6 +15387,24 @@ fn uses_vrlimi128(out: &mut Arguments, ins: Ins) {
         Argument::None,
     ];
 }
+fn defs_vrlw128(out: &mut Arguments, ins: Ins) {
+    *out = [
+        Argument::VR(VR(ins.field_vds128() as _)),
+        Argument::None,
+        Argument::None,
+        Argument::None,
+        Argument::None,
+    ];
+}
+fn uses_vrlw128(out: &mut Arguments, ins: Ins) {
+    *out = [
+        Argument::VR(VR(ins.field_va128() as _)),
+        Argument::VR(VR(ins.field_vb128() as _)),
+        Argument::None,
+        Argument::None,
+        Argument::None,
+    ];
+}
 fn defs_vrsqrtefp128(out: &mut Arguments, ins: Ins) {
     *out = [
         Argument::VR(VR(ins.field_vds128() as _)),
@@ -15477,24 +15495,6 @@ fn uses_vsraw128(out: &mut Arguments, ins: Ins) {
         Argument::None,
     ];
 }
-fn defs_vsro128(out: &mut Arguments, ins: Ins) {
-    *out = [
-        Argument::VR(VR(ins.field_vds128() as _)),
-        Argument::None,
-        Argument::None,
-        Argument::None,
-        Argument::None,
-    ];
-}
-fn uses_vsro128(out: &mut Arguments, ins: Ins) {
-    *out = [
-        Argument::VR(VR(ins.field_va128() as _)),
-        Argument::VR(VR(ins.field_vb128() as _)),
-        Argument::None,
-        Argument::None,
-        Argument::None,
-    ];
-}
 fn defs_vsrw128(out: &mut Arguments, ins: Ins) {
     *out = [
         Argument::VR(VR(ins.field_vds128() as _)),
@@ -15524,8 +15524,8 @@ fn defs_vupkd3d128(out: &mut Arguments, ins: Ins) {
 }
 fn uses_vupkd3d128(out: &mut Arguments, ins: Ins) {
     *out = [
-        Argument::Uimm(Uimm(ins.field_vuimm() as _)),
         Argument::VR(VR(ins.field_vb128() as _)),
+        Argument::Uimm(Uimm(ins.field_vuimm() as _)),
         Argument::None,
         Argument::None,
         Argument::None,
@@ -19570,9 +19570,9 @@ static DEFS_FUNCTIONS: [DefsUsesFunction; 460] = [
     defs_vpkuhus128,
     defs_vpkuwum128,
     defs_vpkuwus128,
-    defs_vrlw128,
     defs_vsel128,
     defs_vslo128,
+    defs_vsro128,
     defs_vsubfp128,
     defs_vxor128,
     defs_vcfpsxws128,
@@ -19598,12 +19598,12 @@ static DEFS_FUNCTIONS: [DefsUsesFunction; 460] = [
     defs_vrfip128,
     defs_vrfiz128,
     defs_vrlimi128,
+    defs_vrlw128,
     defs_vrsqrtefp128,
     defs_vslw128,
     defs_vspltisw128,
     defs_vspltw128,
     defs_vsraw128,
-    defs_vsro128,
     defs_vsrw128,
     defs_vupkd3d128,
     defs_vupkhsb128,
@@ -20036,9 +20036,9 @@ static USES_FUNCTIONS: [DefsUsesFunction; 460] = [
     uses_vpkuhus128,
     uses_vpkuwum128,
     uses_vpkuwus128,
-    uses_vrlw128,
     uses_vsel128,
     uses_vslo128,
+    uses_vsro128,
     uses_vsubfp128,
     uses_vxor128,
     uses_vcfpsxws128,
@@ -20064,12 +20064,12 @@ static USES_FUNCTIONS: [DefsUsesFunction; 460] = [
     uses_vrfip128,
     uses_vrfiz128,
     uses_vrlimi128,
+    uses_vrlw128,
     uses_vrsqrtefp128,
     uses_vslw128,
     uses_vspltisw128,
     uses_vspltw128,
     uses_vsraw128,
-    uses_vsro128,
     uses_vsrw128,
     uses_vupkd3d128,
     uses_vupkhsb128,
