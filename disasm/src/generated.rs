@@ -9659,7 +9659,7 @@ fn simplified_dss(out: &mut ParsedIns, ins: Ins) {
         };
         return;
     }
-    if ins.field_ds_a() == 0x1 && ins.field_strm() == 0x0 {
+    if ins.field_ds_a() == 0x1 {
         *out = ParsedIns {
             mnemonic: "dssall",
             args: EMPTY_ARGS,

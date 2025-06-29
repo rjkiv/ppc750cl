@@ -4738,7 +4738,7 @@ mnemonics:
     condition: ds_A == 0
   - name: dssall
     opcode: dss
-    condition: ds_A == 1 && STRM == 0
+    condition: ds_A == 1
   - name: vnot
     opcode: vnor
     args: [ vD, vA ]
