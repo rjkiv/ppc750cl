@@ -2273,17 +2273,17 @@ impl Ins {
     pub const fn field_perm(&self) -> u8 {
         (((self.code >> 16) & 0x1f) | ((self.code >> 1) & 0xe0)) as u8
     }
-    /// Ximm: unknown immediate
+    /// D3DType: the packed data type
     #[inline(always)]
-    pub const fn field_ximm(&self) -> u8 {
+    pub const fn field_d3dtype(&self) -> u8 {
         ((self.code >> 18) & 0x7) as u8
     }
-    /// Yimm: unknown immediate
+    /// VMASK: the pack mask
     #[inline(always)]
-    pub const fn field_yimm(&self) -> u8 {
+    pub const fn field_vmask(&self) -> u8 {
         ((self.code >> 16) & 0x3) as u8
     }
-    /// Zimm: unknown immediate
+    /// Zimm: amount to rotate/shift left
     #[inline(always)]
     pub const fn field_zimm(&self) -> u8 {
         ((self.code >> 6) & 0x3) as u8
@@ -4971,8 +4971,8 @@ fn basic_vpkd3d128(out: &mut ParsedIns, ins: Ins) {
         args: [
             Argument::VR(VR(ins.field_vds128() as _)),
             Argument::VR(VR(ins.field_vb128() as _)),
-            Argument::OpaqueU(OpaqueU(ins.field_ximm() as _)),
-            Argument::OpaqueU(OpaqueU(ins.field_yimm() as _)),
+            Argument::OpaqueU(OpaqueU(ins.field_d3dtype() as _)),
+            Argument::OpaqueU(OpaqueU(ins.field_vmask() as _)),
             Argument::OpaqueU(OpaqueU(ins.field_zimm() as _)),
         ],
     };
@@ -15481,8 +15481,8 @@ fn defs_vpkd3d128(out: &mut Arguments, ins: Ins) {
 fn uses_vpkd3d128(out: &mut Arguments, ins: Ins) {
     *out = [
         Argument::VR(VR(ins.field_vb128() as _)),
-        Argument::OpaqueU(OpaqueU(ins.field_ximm() as _)),
-        Argument::OpaqueU(OpaqueU(ins.field_yimm() as _)),
+        Argument::OpaqueU(OpaqueU(ins.field_d3dtype() as _)),
+        Argument::OpaqueU(OpaqueU(ins.field_vmask() as _)),
         Argument::OpaqueU(OpaqueU(ins.field_zimm() as _)),
         Argument::None,
     ];

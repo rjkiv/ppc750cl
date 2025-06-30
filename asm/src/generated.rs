@@ -9461,12 +9461,12 @@ fn gen_vpkd3d128(args: &Arguments, modifiers: u32) -> Result<u32, ArgumentError>
         code |= (arg & 0x1f) << 11;
         code |= (arg >> 5) & 0x3;
     }
-    // Ximm
+    // D3DType
     {
         let arg = parse_unsigned(args, 2, 0x0, 0x7)?;
         code |= (arg & 0x7) << 18;
     }
-    // Yimm
+    // VMASK
     {
         let arg = parse_unsigned(args, 3, 0x0, 0x3)?;
         code |= (arg & 0x3) << 16;

@@ -258,17 +258,17 @@ fields:
     arg: OpaqueU
     desc: VMX128 Permutation
     bits: 23..26,11..16
-  - name: Ximm
+  - name: D3DType
     arg: OpaqueU
-    desc: unknown immediate
+    desc: the packed data type
     bits: 11..14
-  - name: Yimm
+  - name: VMASK
     arg: OpaqueU
-    desc: unknown immediate
+    desc: the pack mask
     bits: 14..16
   - name: Zimm
     arg: OpaqueU
-    desc: unknown immediate
+    desc: amount to rotate/shift left
     bits: 24..26
 
 modifiers:
@@ -3881,9 +3881,9 @@ opcodes:
     desc: Vector128 Pack D3Dtype, Rotate Left Immediate and Mask Insert
     bitmask: 0xfc000730
     pattern: 0x18000610
-    args: [ VDS128, VB128, Ximm, Yimm, Zimm ]
+    args: [ VDS128, VB128, D3DType, VMASK, Zimm ]
     defs: [ VDS128 ]
-    uses: [ VB128, Ximm, Yimm, Zimm ]
+    uses: [ VB128, D3DType, VMASK, Zimm ]
 
   - name: vpkshss128
     desc: Vector128 Pack Signed Half Word Signed Saturate
