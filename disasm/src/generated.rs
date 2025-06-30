@@ -2733,7 +2733,7 @@ fn basic_vcfux(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_vcmpbfp(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["vcmpbfp", "vcmpbfp."];
+        static MODIFIERS: [&str; 2] = ["vcmpbfp", "vcmpbfp."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rcav() as usize],
             args: [
@@ -2748,7 +2748,7 @@ fn basic_vcmpbfp(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_vcmpeqfp(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["vcmpeqfp", "vcmpeqfp."];
+        static MODIFIERS: [&str; 2] = ["vcmpeqfp", "vcmpeqfp."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rcav() as usize],
             args: [
@@ -2763,7 +2763,7 @@ fn basic_vcmpeqfp(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_vcmpequb(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["vcmpequb", "vcmpequb."];
+        static MODIFIERS: [&str; 2] = ["vcmpequb", "vcmpequb."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rcav() as usize],
             args: [
@@ -2778,7 +2778,7 @@ fn basic_vcmpequb(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_vcmpequh(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["vcmpequh", "vcmpequh."];
+        static MODIFIERS: [&str; 2] = ["vcmpequh", "vcmpequh."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rcav() as usize],
             args: [
@@ -2793,7 +2793,7 @@ fn basic_vcmpequh(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_vcmpequw(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["vcmpequw", "vcmpequw."];
+        static MODIFIERS: [&str; 2] = ["vcmpequw", "vcmpequw."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rcav() as usize],
             args: [
@@ -2808,7 +2808,7 @@ fn basic_vcmpequw(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_vcmpgefp(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["vcmpgefp", "vcmpgefp."];
+        static MODIFIERS: [&str; 2] = ["vcmpgefp", "vcmpgefp."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rcav() as usize],
             args: [
@@ -2823,7 +2823,7 @@ fn basic_vcmpgefp(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_vcmpgtfp(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["vcmpgtfp", "vcmpgtfp."];
+        static MODIFIERS: [&str; 2] = ["vcmpgtfp", "vcmpgtfp."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rcav() as usize],
             args: [
@@ -2838,7 +2838,7 @@ fn basic_vcmpgtfp(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_vcmpgtsb(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["vcmpgtsb", "vcmpgtsb."];
+        static MODIFIERS: [&str; 2] = ["vcmpgtsb", "vcmpgtsb."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rcav() as usize],
             args: [
@@ -2853,7 +2853,7 @@ fn basic_vcmpgtsb(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_vcmpgtsh(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["vcmpgtsh", "vcmpgtsh."];
+        static MODIFIERS: [&str; 2] = ["vcmpgtsh", "vcmpgtsh."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rcav() as usize],
             args: [
@@ -2868,7 +2868,7 @@ fn basic_vcmpgtsh(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_vcmpgtsw(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["vcmpgtsw", "vcmpgtsw."];
+        static MODIFIERS: [&str; 2] = ["vcmpgtsw", "vcmpgtsw."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rcav() as usize],
             args: [
@@ -2883,7 +2883,7 @@ fn basic_vcmpgtsw(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_vcmpgtub(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["vcmpgtub", "vcmpgtub."];
+        static MODIFIERS: [&str; 2] = ["vcmpgtub", "vcmpgtub."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rcav() as usize],
             args: [
@@ -2898,7 +2898,7 @@ fn basic_vcmpgtub(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_vcmpgtuh(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["vcmpgtuh", "vcmpgtuh."];
+        static MODIFIERS: [&str; 2] = ["vcmpgtuh", "vcmpgtuh."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rcav() as usize],
             args: [
@@ -2913,7 +2913,7 @@ fn basic_vcmpgtuh(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_vcmpgtuw(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["vcmpgtuw", "vcmpgtuw."];
+        static MODIFIERS: [&str; 2] = ["vcmpgtuw", "vcmpgtuw."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rcav() as usize],
             args: [
@@ -4784,7 +4784,7 @@ fn basic_vcfpuxws128(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_vcmpbfp128(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["vcmpbfp128", "vcmpbfp128."];
+        static MODIFIERS: [&str; 2] = ["vcmpbfp128", "vcmpbfp128."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc128() as usize],
             args: [
@@ -4799,7 +4799,7 @@ fn basic_vcmpbfp128(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_vcmpeqfp128(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["vcmpeqfp128", "vcmpeqfp128."];
+        static MODIFIERS: [&str; 2] = ["vcmpeqfp128", "vcmpeqfp128."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc128() as usize],
             args: [
@@ -4814,7 +4814,7 @@ fn basic_vcmpeqfp128(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_vcmpequw128(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["vcmpequw128", "vcmpequw128."];
+        static MODIFIERS: [&str; 2] = ["vcmpequw128", "vcmpequw128."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc128() as usize],
             args: [
@@ -4829,7 +4829,7 @@ fn basic_vcmpequw128(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_vcmpgefp128(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["vcmpgefp128", "vcmpgefp128."];
+        static MODIFIERS: [&str; 2] = ["vcmpgefp128", "vcmpgefp128."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc128() as usize],
             args: [
@@ -4844,7 +4844,7 @@ fn basic_vcmpgefp128(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_vcmpgtfp128(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["vcmpgtfp128", "vcmpgtfp128."];
+        static MODIFIERS: [&str; 2] = ["vcmpgtfp128", "vcmpgtfp128."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc128() as usize],
             args: [
@@ -5467,7 +5467,7 @@ fn simplified_addis(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_bc(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 16] = [
+        static MODIFIERS: [&str; 16] = [
             "bc",
             "bcl",
             "bca",
@@ -5501,7 +5501,7 @@ fn basic_bc(out: &mut ParsedIns, ins: Ins) {
 fn simplified_bc(out: &mut ParsedIns, ins: Ins) {
     if (ins.field_bo() & 0x1e) == 0xc && ins.field_bi() == 0x0 {
         *out = {
-            const MODIFIERS: [&str; 16] = [
+            static MODIFIERS: [&str; 16] = [
                 "blt",
                 "bltl",
                 "blta",
@@ -5536,7 +5536,7 @@ fn simplified_bc(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0xc && (ins.field_bi() & 0x3) == 0x0 {
         *out = {
-            const MODIFIERS: [&str; 16] = [
+            static MODIFIERS: [&str; 16] = [
                 "blt",
                 "bltl",
                 "blta",
@@ -5571,7 +5571,7 @@ fn simplified_bc(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0x4 && ins.field_bi() == 0x1 {
         *out = {
-            const MODIFIERS: [&str; 16] = [
+            static MODIFIERS: [&str; 16] = [
                 "ble",
                 "blel",
                 "blea",
@@ -5606,7 +5606,7 @@ fn simplified_bc(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0x4 && (ins.field_bi() & 0x3) == 0x1 {
         *out = {
-            const MODIFIERS: [&str; 16] = [
+            static MODIFIERS: [&str; 16] = [
                 "ble",
                 "blel",
                 "blea",
@@ -5641,7 +5641,7 @@ fn simplified_bc(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0xc && ins.field_bi() == 0x2 {
         *out = {
-            const MODIFIERS: [&str; 16] = [
+            static MODIFIERS: [&str; 16] = [
                 "beq",
                 "beql",
                 "beqa",
@@ -5676,7 +5676,7 @@ fn simplified_bc(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0xc && (ins.field_bi() & 0x3) == 0x2 {
         *out = {
-            const MODIFIERS: [&str; 16] = [
+            static MODIFIERS: [&str; 16] = [
                 "beq",
                 "beql",
                 "beqa",
@@ -5711,7 +5711,7 @@ fn simplified_bc(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0x4 && ins.field_bi() == 0x0 {
         *out = {
-            const MODIFIERS: [&str; 16] = [
+            static MODIFIERS: [&str; 16] = [
                 "bge",
                 "bgel",
                 "bgea",
@@ -5746,7 +5746,7 @@ fn simplified_bc(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0x4 && (ins.field_bi() & 0x3) == 0x0 {
         *out = {
-            const MODIFIERS: [&str; 16] = [
+            static MODIFIERS: [&str; 16] = [
                 "bge",
                 "bgel",
                 "bgea",
@@ -5781,7 +5781,7 @@ fn simplified_bc(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0xc && ins.field_bi() == 0x1 {
         *out = {
-            const MODIFIERS: [&str; 16] = [
+            static MODIFIERS: [&str; 16] = [
                 "bgt",
                 "bgtl",
                 "bgta",
@@ -5816,7 +5816,7 @@ fn simplified_bc(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0xc && (ins.field_bi() & 0x3) == 0x1 {
         *out = {
-            const MODIFIERS: [&str; 16] = [
+            static MODIFIERS: [&str; 16] = [
                 "bgt",
                 "bgtl",
                 "bgta",
@@ -5851,7 +5851,7 @@ fn simplified_bc(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0x4 && ins.field_bi() == 0x2 {
         *out = {
-            const MODIFIERS: [&str; 16] = [
+            static MODIFIERS: [&str; 16] = [
                 "bne",
                 "bnel",
                 "bnea",
@@ -5886,7 +5886,7 @@ fn simplified_bc(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0x4 && (ins.field_bi() & 0x3) == 0x2 {
         *out = {
-            const MODIFIERS: [&str; 16] = [
+            static MODIFIERS: [&str; 16] = [
                 "bne",
                 "bnel",
                 "bnea",
@@ -5921,7 +5921,7 @@ fn simplified_bc(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0xc && ins.field_bi() == 0x3 {
         *out = {
-            const MODIFIERS: [&str; 16] = [
+            static MODIFIERS: [&str; 16] = [
                 "bso",
                 "bsol",
                 "bsoa",
@@ -5956,7 +5956,7 @@ fn simplified_bc(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0xc && (ins.field_bi() & 0x3) == 0x3 {
         *out = {
-            const MODIFIERS: [&str; 16] = [
+            static MODIFIERS: [&str; 16] = [
                 "bso",
                 "bsol",
                 "bsoa",
@@ -5991,7 +5991,7 @@ fn simplified_bc(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0x4 && ins.field_bi() == 0x3 {
         *out = {
-            const MODIFIERS: [&str; 16] = [
+            static MODIFIERS: [&str; 16] = [
                 "bns",
                 "bnsl",
                 "bnsa",
@@ -6026,7 +6026,7 @@ fn simplified_bc(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0x4 && (ins.field_bi() & 0x3) == 0x3 {
         *out = {
-            const MODIFIERS: [&str; 16] = [
+            static MODIFIERS: [&str; 16] = [
                 "bns",
                 "bnsl",
                 "bnsa",
@@ -6061,7 +6061,7 @@ fn simplified_bc(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0x10 && ins.field_bi() == 0x0 {
         *out = {
-            const MODIFIERS: [&str; 16] = [
+            static MODIFIERS: [&str; 16] = [
                 "bdnz",
                 "bdnzl",
                 "bdnza",
@@ -6096,7 +6096,7 @@ fn simplified_bc(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0x8 {
         *out = {
-            const MODIFIERS: [&str; 16] = [
+            static MODIFIERS: [&str; 16] = [
                 "bdnzt",
                 "bdnztl",
                 "bdnzta",
@@ -6131,7 +6131,7 @@ fn simplified_bc(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0x0 {
         *out = {
-            const MODIFIERS: [&str; 16] = [
+            static MODIFIERS: [&str; 16] = [
                 "bdnzf",
                 "bdnzfl",
                 "bdnzfa",
@@ -6166,7 +6166,7 @@ fn simplified_bc(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0x12 && ins.field_bi() == 0x0 {
         *out = {
-            const MODIFIERS: [&str; 16] = [
+            static MODIFIERS: [&str; 16] = [
                 "bdz",
                 "bdzl",
                 "bdza",
@@ -6201,7 +6201,7 @@ fn simplified_bc(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0xa {
         *out = {
-            const MODIFIERS: [&str; 16] = [
+            static MODIFIERS: [&str; 16] = [
                 "bdzt",
                 "bdztl",
                 "bdzta",
@@ -6236,7 +6236,7 @@ fn simplified_bc(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0x2 {
         *out = {
-            const MODIFIERS: [&str; 16] = [
+            static MODIFIERS: [&str; 16] = [
                 "bdzf",
                 "bdzfl",
                 "bdzfa",
@@ -6279,7 +6279,7 @@ fn basic_sc(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_b(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 4] = ["b", "bl", "ba", "bla"];
+        static MODIFIERS: [&str; 4] = ["b", "bl", "ba", "bla"];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_lk() as usize
                 | (ins.field_aa() as usize) << 1],
@@ -6295,7 +6295,7 @@ fn basic_b(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_bcctr(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 4] = ["bcctr", "bcctrl", "bcctr+", "bcctrl+"];
+        static MODIFIERS: [&str; 4] = ["bcctr", "bcctrl", "bcctr+", "bcctrl+"];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_lk() as usize
                 | (ins.field_bp_nd() as usize) << 1],
@@ -6312,7 +6312,7 @@ fn basic_bcctr(out: &mut ParsedIns, ins: Ins) {
 fn simplified_bcctr(out: &mut ParsedIns, ins: Ins) {
     if ins.field_bo() == 0x14 && ins.field_bi() == 0x0 {
         *out = {
-            const MODIFIERS: [&str; 2] = ["bctr", "bctrl"];
+            static MODIFIERS: [&str; 2] = ["bctr", "bctrl"];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_lk() as usize],
                 args: EMPTY_ARGS,
@@ -6322,7 +6322,7 @@ fn simplified_bcctr(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0xc && ins.field_bi() == 0x0 {
         *out = {
-            const MODIFIERS: [&str; 4] = ["bltctr", "bltctrl", "bltctr+", "bltctrl+"];
+            static MODIFIERS: [&str; 4] = ["bltctr", "bltctrl", "bltctr+", "bltctrl+"];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_lk() as usize
                     | (ins.field_bp_nd() as usize) << 1],
@@ -6333,7 +6333,7 @@ fn simplified_bcctr(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0xc && (ins.field_bi() & 0x3) == 0x0 {
         *out = {
-            const MODIFIERS: [&str; 4] = ["bltctr", "bltctrl", "bltctr+", "bltctrl+"];
+            static MODIFIERS: [&str; 4] = ["bltctr", "bltctrl", "bltctr+", "bltctrl+"];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_lk() as usize
                     | (ins.field_bp_nd() as usize) << 1],
@@ -6350,7 +6350,7 @@ fn simplified_bcctr(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0x4 && ins.field_bi() == 0x1 {
         *out = {
-            const MODIFIERS: [&str; 4] = ["blectr", "blectrl", "blectr+", "blectrl+"];
+            static MODIFIERS: [&str; 4] = ["blectr", "blectrl", "blectr+", "blectrl+"];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_lk() as usize
                     | (ins.field_bp_nd() as usize) << 1],
@@ -6361,7 +6361,7 @@ fn simplified_bcctr(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0x4 && (ins.field_bi() & 0x3) == 0x1 {
         *out = {
-            const MODIFIERS: [&str; 4] = ["blectr", "blectrl", "blectr+", "blectrl+"];
+            static MODIFIERS: [&str; 4] = ["blectr", "blectrl", "blectr+", "blectrl+"];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_lk() as usize
                     | (ins.field_bp_nd() as usize) << 1],
@@ -6378,7 +6378,7 @@ fn simplified_bcctr(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0xc && ins.field_bi() == 0x2 {
         *out = {
-            const MODIFIERS: [&str; 4] = ["beqctr", "beqctrl", "beqctr+", "beqctrl+"];
+            static MODIFIERS: [&str; 4] = ["beqctr", "beqctrl", "beqctr+", "beqctrl+"];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_lk() as usize
                     | (ins.field_bp_nd() as usize) << 1],
@@ -6389,7 +6389,7 @@ fn simplified_bcctr(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0xc && (ins.field_bi() & 0x3) == 0x2 {
         *out = {
-            const MODIFIERS: [&str; 4] = ["beqctr", "beqctrl", "beqctr+", "beqctrl+"];
+            static MODIFIERS: [&str; 4] = ["beqctr", "beqctrl", "beqctr+", "beqctrl+"];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_lk() as usize
                     | (ins.field_bp_nd() as usize) << 1],
@@ -6406,7 +6406,7 @@ fn simplified_bcctr(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0x4 && ins.field_bi() == 0x0 {
         *out = {
-            const MODIFIERS: [&str; 4] = ["bgectr", "bgectrl", "bgectr+", "bgectrl+"];
+            static MODIFIERS: [&str; 4] = ["bgectr", "bgectrl", "bgectr+", "bgectrl+"];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_lk() as usize
                     | (ins.field_bp_nd() as usize) << 1],
@@ -6417,7 +6417,7 @@ fn simplified_bcctr(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0x4 && (ins.field_bi() & 0x3) == 0x0 {
         *out = {
-            const MODIFIERS: [&str; 4] = ["bgectr", "bgectrl", "bgectr+", "bgectrl+"];
+            static MODIFIERS: [&str; 4] = ["bgectr", "bgectrl", "bgectr+", "bgectrl+"];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_lk() as usize
                     | (ins.field_bp_nd() as usize) << 1],
@@ -6434,7 +6434,7 @@ fn simplified_bcctr(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0xc && ins.field_bi() == 0x1 {
         *out = {
-            const MODIFIERS: [&str; 4] = ["bgtctr", "bgtctrl", "bgtctr+", "bgtctrl+"];
+            static MODIFIERS: [&str; 4] = ["bgtctr", "bgtctrl", "bgtctr+", "bgtctrl+"];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_lk() as usize
                     | (ins.field_bp_nd() as usize) << 1],
@@ -6445,7 +6445,7 @@ fn simplified_bcctr(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0xc && (ins.field_bi() & 0x3) == 0x1 {
         *out = {
-            const MODIFIERS: [&str; 4] = ["bgtctr", "bgtctrl", "bgtctr+", "bgtctrl+"];
+            static MODIFIERS: [&str; 4] = ["bgtctr", "bgtctrl", "bgtctr+", "bgtctrl+"];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_lk() as usize
                     | (ins.field_bp_nd() as usize) << 1],
@@ -6462,7 +6462,7 @@ fn simplified_bcctr(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0x4 && ins.field_bi() == 0x2 {
         *out = {
-            const MODIFIERS: [&str; 4] = ["bnectr", "bnectrl", "bnectr+", "bnectrl+"];
+            static MODIFIERS: [&str; 4] = ["bnectr", "bnectrl", "bnectr+", "bnectrl+"];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_lk() as usize
                     | (ins.field_bp_nd() as usize) << 1],
@@ -6473,7 +6473,7 @@ fn simplified_bcctr(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0x4 && (ins.field_bi() & 0x3) == 0x2 {
         *out = {
-            const MODIFIERS: [&str; 4] = ["bnectr", "bnectrl", "bnectr+", "bnectrl+"];
+            static MODIFIERS: [&str; 4] = ["bnectr", "bnectrl", "bnectr+", "bnectrl+"];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_lk() as usize
                     | (ins.field_bp_nd() as usize) << 1],
@@ -6490,7 +6490,7 @@ fn simplified_bcctr(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0xc && ins.field_bi() == 0x3 {
         *out = {
-            const MODIFIERS: [&str; 4] = ["bsoctr", "bsoctrl", "bsoctr+", "bsoctrl+"];
+            static MODIFIERS: [&str; 4] = ["bsoctr", "bsoctrl", "bsoctr+", "bsoctrl+"];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_lk() as usize
                     | (ins.field_bp_nd() as usize) << 1],
@@ -6501,7 +6501,7 @@ fn simplified_bcctr(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0xc && (ins.field_bi() & 0x3) == 0x3 {
         *out = {
-            const MODIFIERS: [&str; 4] = ["bsoctr", "bsoctrl", "bsoctr+", "bsoctrl+"];
+            static MODIFIERS: [&str; 4] = ["bsoctr", "bsoctrl", "bsoctr+", "bsoctrl+"];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_lk() as usize
                     | (ins.field_bp_nd() as usize) << 1],
@@ -6518,7 +6518,7 @@ fn simplified_bcctr(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0x4 && ins.field_bi() == 0x3 {
         *out = {
-            const MODIFIERS: [&str; 4] = ["bnsctr", "bnsctrl", "bnsctr+", "bnsctrl+"];
+            static MODIFIERS: [&str; 4] = ["bnsctr", "bnsctrl", "bnsctr+", "bnsctrl+"];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_lk() as usize
                     | (ins.field_bp_nd() as usize) << 1],
@@ -6529,7 +6529,7 @@ fn simplified_bcctr(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0x4 && (ins.field_bi() & 0x3) == 0x3 {
         *out = {
-            const MODIFIERS: [&str; 4] = ["bnsctr", "bnsctrl", "bnsctr+", "bnsctrl+"];
+            static MODIFIERS: [&str; 4] = ["bnsctr", "bnsctrl", "bnsctr+", "bnsctrl+"];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_lk() as usize
                     | (ins.field_bp_nd() as usize) << 1],
@@ -6548,7 +6548,7 @@ fn simplified_bcctr(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_bclr(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 4] = ["bclr", "bclrl", "bclr+", "bclrl+"];
+        static MODIFIERS: [&str; 4] = ["bclr", "bclrl", "bclr+", "bclrl+"];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_lk() as usize
                 | (ins.field_bp_nd() as usize) << 1],
@@ -6565,7 +6565,7 @@ fn basic_bclr(out: &mut ParsedIns, ins: Ins) {
 fn simplified_bclr(out: &mut ParsedIns, ins: Ins) {
     if ins.field_bo() == 0x14 && ins.field_bi() == 0x0 {
         *out = {
-            const MODIFIERS: [&str; 2] = ["blr", "blrl"];
+            static MODIFIERS: [&str; 2] = ["blr", "blrl"];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_lk() as usize],
                 args: EMPTY_ARGS,
@@ -6575,7 +6575,7 @@ fn simplified_bclr(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0xc && ins.field_bi() == 0x0 {
         *out = {
-            const MODIFIERS: [&str; 4] = ["bltlr", "bltlrl", "bltlr+", "bltlrl+"];
+            static MODIFIERS: [&str; 4] = ["bltlr", "bltlrl", "bltlr+", "bltlrl+"];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_lk() as usize
                     | (ins.field_bp_nd() as usize) << 1],
@@ -6586,7 +6586,7 @@ fn simplified_bclr(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0xc && (ins.field_bi() & 0x3) == 0x0 {
         *out = {
-            const MODIFIERS: [&str; 4] = ["bltlr", "bltlrl", "bltlr+", "bltlrl+"];
+            static MODIFIERS: [&str; 4] = ["bltlr", "bltlrl", "bltlr+", "bltlrl+"];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_lk() as usize
                     | (ins.field_bp_nd() as usize) << 1],
@@ -6603,7 +6603,7 @@ fn simplified_bclr(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0x4 && ins.field_bi() == 0x1 {
         *out = {
-            const MODIFIERS: [&str; 4] = ["blelr", "blelrl", "blelr+", "blelrl+"];
+            static MODIFIERS: [&str; 4] = ["blelr", "blelrl", "blelr+", "blelrl+"];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_lk() as usize
                     | (ins.field_bp_nd() as usize) << 1],
@@ -6614,7 +6614,7 @@ fn simplified_bclr(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0x4 && (ins.field_bi() & 0x3) == 0x1 {
         *out = {
-            const MODIFIERS: [&str; 4] = ["blelr", "blelrl", "blelr+", "blelrl+"];
+            static MODIFIERS: [&str; 4] = ["blelr", "blelrl", "blelr+", "blelrl+"];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_lk() as usize
                     | (ins.field_bp_nd() as usize) << 1],
@@ -6631,7 +6631,7 @@ fn simplified_bclr(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0xc && ins.field_bi() == 0x2 {
         *out = {
-            const MODIFIERS: [&str; 4] = ["beqlr", "beqlrl", "beqlr+", "beqlrl+"];
+            static MODIFIERS: [&str; 4] = ["beqlr", "beqlrl", "beqlr+", "beqlrl+"];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_lk() as usize
                     | (ins.field_bp_nd() as usize) << 1],
@@ -6642,7 +6642,7 @@ fn simplified_bclr(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0xc && (ins.field_bi() & 0x3) == 0x2 {
         *out = {
-            const MODIFIERS: [&str; 4] = ["beqlr", "beqlrl", "beqlr+", "beqlrl+"];
+            static MODIFIERS: [&str; 4] = ["beqlr", "beqlrl", "beqlr+", "beqlrl+"];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_lk() as usize
                     | (ins.field_bp_nd() as usize) << 1],
@@ -6659,7 +6659,7 @@ fn simplified_bclr(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0x4 && ins.field_bi() == 0x0 {
         *out = {
-            const MODIFIERS: [&str; 4] = ["bgelr", "bgelrl", "bgelr+", "bgelrl+"];
+            static MODIFIERS: [&str; 4] = ["bgelr", "bgelrl", "bgelr+", "bgelrl+"];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_lk() as usize
                     | (ins.field_bp_nd() as usize) << 1],
@@ -6670,7 +6670,7 @@ fn simplified_bclr(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0x4 && (ins.field_bi() & 0x3) == 0x0 {
         *out = {
-            const MODIFIERS: [&str; 4] = ["bgelr", "bgelrl", "bgelr+", "bgelrl+"];
+            static MODIFIERS: [&str; 4] = ["bgelr", "bgelrl", "bgelr+", "bgelrl+"];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_lk() as usize
                     | (ins.field_bp_nd() as usize) << 1],
@@ -6687,7 +6687,7 @@ fn simplified_bclr(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0xc && ins.field_bi() == 0x1 {
         *out = {
-            const MODIFIERS: [&str; 4] = ["bgtlr", "bgtlrl", "bgtlr+", "bgtlrl+"];
+            static MODIFIERS: [&str; 4] = ["bgtlr", "bgtlrl", "bgtlr+", "bgtlrl+"];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_lk() as usize
                     | (ins.field_bp_nd() as usize) << 1],
@@ -6698,7 +6698,7 @@ fn simplified_bclr(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0xc && (ins.field_bi() & 0x3) == 0x1 {
         *out = {
-            const MODIFIERS: [&str; 4] = ["bgtlr", "bgtlrl", "bgtlr+", "bgtlrl+"];
+            static MODIFIERS: [&str; 4] = ["bgtlr", "bgtlrl", "bgtlr+", "bgtlrl+"];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_lk() as usize
                     | (ins.field_bp_nd() as usize) << 1],
@@ -6715,7 +6715,7 @@ fn simplified_bclr(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0x4 && ins.field_bi() == 0x2 {
         *out = {
-            const MODIFIERS: [&str; 4] = ["bnelr", "bnelrl", "bnelr+", "bnelrl+"];
+            static MODIFIERS: [&str; 4] = ["bnelr", "bnelrl", "bnelr+", "bnelrl+"];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_lk() as usize
                     | (ins.field_bp_nd() as usize) << 1],
@@ -6726,7 +6726,7 @@ fn simplified_bclr(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0x4 && (ins.field_bi() & 0x3) == 0x2 {
         *out = {
-            const MODIFIERS: [&str; 4] = ["bnelr", "bnelrl", "bnelr+", "bnelrl+"];
+            static MODIFIERS: [&str; 4] = ["bnelr", "bnelrl", "bnelr+", "bnelrl+"];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_lk() as usize
                     | (ins.field_bp_nd() as usize) << 1],
@@ -6743,7 +6743,7 @@ fn simplified_bclr(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0xc && ins.field_bi() == 0x3 {
         *out = {
-            const MODIFIERS: [&str; 4] = ["bsolr", "bsolrl", "bsolr+", "bsolrl+"];
+            static MODIFIERS: [&str; 4] = ["bsolr", "bsolrl", "bsolr+", "bsolrl+"];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_lk() as usize
                     | (ins.field_bp_nd() as usize) << 1],
@@ -6754,7 +6754,7 @@ fn simplified_bclr(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0xc && (ins.field_bi() & 0x3) == 0x3 {
         *out = {
-            const MODIFIERS: [&str; 4] = ["bsolr", "bsolrl", "bsolr+", "bsolrl+"];
+            static MODIFIERS: [&str; 4] = ["bsolr", "bsolrl", "bsolr+", "bsolrl+"];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_lk() as usize
                     | (ins.field_bp_nd() as usize) << 1],
@@ -6771,7 +6771,7 @@ fn simplified_bclr(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0x4 && ins.field_bi() == 0x3 {
         *out = {
-            const MODIFIERS: [&str; 4] = ["bnslr", "bnslrl", "bnslr+", "bnslrl+"];
+            static MODIFIERS: [&str; 4] = ["bnslr", "bnslrl", "bnslr+", "bnslrl+"];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_lk() as usize
                     | (ins.field_bp_nd() as usize) << 1],
@@ -6782,7 +6782,7 @@ fn simplified_bclr(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0x4 && (ins.field_bi() & 0x3) == 0x3 {
         *out = {
-            const MODIFIERS: [&str; 4] = ["bnslr", "bnslrl", "bnslr+", "bnslrl+"];
+            static MODIFIERS: [&str; 4] = ["bnslr", "bnslrl", "bnslr+", "bnslrl+"];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_lk() as usize
                     | (ins.field_bp_nd() as usize) << 1],
@@ -6799,7 +6799,7 @@ fn simplified_bclr(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0x10 && ins.field_bi() == 0x0 {
         *out = {
-            const MODIFIERS: [&str; 4] = ["bdnzlr", "bdnzlrl", "bdnzlr+", "bdnzlrl+"];
+            static MODIFIERS: [&str; 4] = ["bdnzlr", "bdnzlrl", "bdnzlr+", "bdnzlrl+"];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_lk() as usize
                     | (ins.field_bp_nd() as usize) << 1],
@@ -6810,7 +6810,7 @@ fn simplified_bclr(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0x8 {
         *out = {
-            const MODIFIERS: [&str; 4] = [
+            static MODIFIERS: [&str; 4] = [
                 "bdnztlr",
                 "bdnztlrl",
                 "bdnztlr+",
@@ -6832,7 +6832,7 @@ fn simplified_bclr(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0x0 {
         *out = {
-            const MODIFIERS: [&str; 4] = [
+            static MODIFIERS: [&str; 4] = [
                 "bdnzflr",
                 "bdnzflrl",
                 "bdnzflr+",
@@ -6854,7 +6854,7 @@ fn simplified_bclr(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0x12 && ins.field_bi() == 0x0 {
         *out = {
-            const MODIFIERS: [&str; 4] = ["bdzlr", "bdzlrl", "bdzlr+", "bdzlrl+"];
+            static MODIFIERS: [&str; 4] = ["bdzlr", "bdzlrl", "bdzlr+", "bdzlrl+"];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_lk() as usize
                     | (ins.field_bp_nd() as usize) << 1],
@@ -6865,7 +6865,7 @@ fn simplified_bclr(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0xa {
         *out = {
-            const MODIFIERS: [&str; 4] = ["bdztlr", "bdztlrl", "bdztlr+", "bdztlrl+"];
+            static MODIFIERS: [&str; 4] = ["bdztlr", "bdztlrl", "bdztlr+", "bdztlrl+"];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_lk() as usize
                     | (ins.field_bp_nd() as usize) << 1],
@@ -6882,7 +6882,7 @@ fn simplified_bclr(out: &mut ParsedIns, ins: Ins) {
     }
     if (ins.field_bo() & 0x1e) == 0x0 {
         *out = {
-            const MODIFIERS: [&str; 4] = ["bdzflr", "bdzflrl", "bdzflr+", "bdzflrl+"];
+            static MODIFIERS: [&str; 4] = ["bdzflr", "bdzflrl", "bdzflr+", "bdzflrl+"];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_lk() as usize
                     | (ins.field_bp_nd() as usize) << 1],
@@ -7091,7 +7091,7 @@ fn basic_rfid(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_rlwimi(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["rlwimi", "rlwimi."];
+        static MODIFIERS: [&str; 2] = ["rlwimi", "rlwimi."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -7106,7 +7106,7 @@ fn basic_rlwimi(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_rlwinm(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["rlwinm", "rlwinm."];
+        static MODIFIERS: [&str; 2] = ["rlwinm", "rlwinm."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -7122,7 +7122,7 @@ fn basic_rlwinm(out: &mut ParsedIns, ins: Ins) {
 fn simplified_rlwinm(out: &mut ParsedIns, ins: Ins) {
     if ins.field_sh() == 0x0 && ins.field_mb() == 0x0 {
         *out = {
-            const MODIFIERS: [&str; 2] = ["clrrwi", "clrrwi."];
+            static MODIFIERS: [&str; 2] = ["clrrwi", "clrrwi."];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_rc() as usize],
                 args: [
@@ -7138,7 +7138,7 @@ fn simplified_rlwinm(out: &mut ParsedIns, ins: Ins) {
     }
     if ins.field_sh() == 0x0 && ins.field_me() == 0x1f {
         *out = {
-            const MODIFIERS: [&str; 2] = ["clrlwi", "clrlwi."];
+            static MODIFIERS: [&str; 2] = ["clrlwi", "clrlwi."];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_rc() as usize],
                 args: [
@@ -7154,7 +7154,7 @@ fn simplified_rlwinm(out: &mut ParsedIns, ins: Ins) {
     }
     if ins.field_mb() == 0x0 && ins.field_me() == 0x1f && ins.field_sh() <= 0x10 {
         *out = {
-            const MODIFIERS: [&str; 2] = ["rotlwi", "rotlwi."];
+            static MODIFIERS: [&str; 2] = ["rotlwi", "rotlwi."];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_rc() as usize],
                 args: [
@@ -7170,7 +7170,7 @@ fn simplified_rlwinm(out: &mut ParsedIns, ins: Ins) {
     }
     if ins.field_mb() == 0x0 && ins.field_me() == 0x1f && ins.field_sh() > 0x10 {
         *out = {
-            const MODIFIERS: [&str; 2] = ["rotrwi", "rotrwi."];
+            static MODIFIERS: [&str; 2] = ["rotrwi", "rotrwi."];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_rc() as usize],
                 args: [
@@ -7186,7 +7186,7 @@ fn simplified_rlwinm(out: &mut ParsedIns, ins: Ins) {
     }
     if ins.field_mb() == 0x0 && ins.field_me() == 31 - ins.field_sh() {
         *out = {
-            const MODIFIERS: [&str; 2] = ["slwi", "slwi."];
+            static MODIFIERS: [&str; 2] = ["slwi", "slwi."];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_rc() as usize],
                 args: [
@@ -7202,7 +7202,7 @@ fn simplified_rlwinm(out: &mut ParsedIns, ins: Ins) {
     }
     if ins.field_me() == 0x1f && ins.field_sh() == 32 - ins.field_mb() {
         *out = {
-            const MODIFIERS: [&str; 2] = ["srwi", "srwi."];
+            static MODIFIERS: [&str; 2] = ["srwi", "srwi."];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_rc() as usize],
                 args: [
@@ -7218,7 +7218,7 @@ fn simplified_rlwinm(out: &mut ParsedIns, ins: Ins) {
     }
     if ins.field_sh() < 0x20 && ins.field_me() == 31 - ins.field_sh() {
         *out = {
-            const MODIFIERS: [&str; 2] = ["clrlslwi", "clrlslwi."];
+            static MODIFIERS: [&str; 2] = ["clrlslwi", "clrlslwi."];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_rc() as usize],
                 args: [
@@ -7234,7 +7234,7 @@ fn simplified_rlwinm(out: &mut ParsedIns, ins: Ins) {
     }
     if ins.field_mb() == 0x0 {
         *out = {
-            const MODIFIERS: [&str; 2] = ["extlwi", "extlwi."];
+            static MODIFIERS: [&str; 2] = ["extlwi", "extlwi."];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_rc() as usize],
                 args: [
@@ -7250,7 +7250,7 @@ fn simplified_rlwinm(out: &mut ParsedIns, ins: Ins) {
     }
     if ins.field_me() == 0x1f && ins.field_sh() >= 32 - ins.field_mb() {
         *out = {
-            const MODIFIERS: [&str; 2] = ["extrwi", "extrwi."];
+            static MODIFIERS: [&str; 2] = ["extrwi", "extrwi."];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_rc() as usize],
                 args: [
@@ -7270,7 +7270,7 @@ fn simplified_rlwinm(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_rlwnm(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["rlwnm", "rlwnm."];
+        static MODIFIERS: [&str; 2] = ["rlwnm", "rlwnm."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -7286,7 +7286,7 @@ fn basic_rlwnm(out: &mut ParsedIns, ins: Ins) {
 fn simplified_rlwnm(out: &mut ParsedIns, ins: Ins) {
     if ins.field_mb() == 0x0 && ins.field_me() == 0x1f {
         *out = {
-            const MODIFIERS: [&str; 2] = ["rotlw", "rotlw."];
+            static MODIFIERS: [&str; 2] = ["rotlw", "rotlw."];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_rc() as usize],
                 args: [
@@ -7386,7 +7386,7 @@ fn basic_andis_(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_rldcl(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["rldcl", "rldcl."];
+        static MODIFIERS: [&str; 2] = ["rldcl", "rldcl."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -7402,7 +7402,7 @@ fn basic_rldcl(out: &mut ParsedIns, ins: Ins) {
 fn simplified_rldcl(out: &mut ParsedIns, ins: Ins) {
     if ins.field_mb64() == 0x0 {
         *out = {
-            const MODIFIERS: [&str; 2] = ["rotld", "rotld."];
+            static MODIFIERS: [&str; 2] = ["rotld", "rotld."];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_rc() as usize],
                 args: [
@@ -7420,7 +7420,7 @@ fn simplified_rldcl(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_rldcr(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["rldcr", "rldcr."];
+        static MODIFIERS: [&str; 2] = ["rldcr", "rldcr."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -7435,7 +7435,7 @@ fn basic_rldcr(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_rldic(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["rldic", "rldic."];
+        static MODIFIERS: [&str; 2] = ["rldic", "rldic."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -7450,7 +7450,7 @@ fn basic_rldic(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_rldicl(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["rldicl", "rldicl."];
+        static MODIFIERS: [&str; 2] = ["rldicl", "rldicl."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -7465,7 +7465,7 @@ fn basic_rldicl(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_rldicr(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["rldicr", "rldicr."];
+        static MODIFIERS: [&str; 2] = ["rldicr", "rldicr."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -7480,7 +7480,7 @@ fn basic_rldicr(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_rldimi(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["rldimi", "rldimi."];
+        static MODIFIERS: [&str; 2] = ["rldimi", "rldimi."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -7495,7 +7495,7 @@ fn basic_rldimi(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_add(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 4] = ["add", "addo", "add.", "addo."];
+        static MODIFIERS: [&str; 4] = ["add", "addo", "add.", "addo."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_oe() as usize
                 | (ins.field_rc() as usize) << 1],
@@ -7511,7 +7511,7 @@ fn basic_add(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_addc(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 4] = ["addc", "addco", "addc.", "addco."];
+        static MODIFIERS: [&str; 4] = ["addc", "addco", "addc.", "addco."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_oe() as usize
                 | (ins.field_rc() as usize) << 1],
@@ -7527,7 +7527,7 @@ fn basic_addc(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_adde(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 4] = ["adde", "addeo", "adde.", "addeo."];
+        static MODIFIERS: [&str; 4] = ["adde", "addeo", "adde.", "addeo."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_oe() as usize
                 | (ins.field_rc() as usize) << 1],
@@ -7543,7 +7543,7 @@ fn basic_adde(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_addme(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 4] = ["addme", "addmeo", "addme.", "addmeo."];
+        static MODIFIERS: [&str; 4] = ["addme", "addmeo", "addme.", "addmeo."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_oe() as usize
                 | (ins.field_rc() as usize) << 1],
@@ -7559,7 +7559,7 @@ fn basic_addme(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_addze(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 4] = ["addze", "addzeo", "addze.", "addzeo."];
+        static MODIFIERS: [&str; 4] = ["addze", "addzeo", "addze.", "addzeo."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_oe() as usize
                 | (ins.field_rc() as usize) << 1],
@@ -7575,7 +7575,7 @@ fn basic_addze(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_and(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["and", "and."];
+        static MODIFIERS: [&str; 2] = ["and", "and."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -7590,7 +7590,7 @@ fn basic_and(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_andc(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["andc", "andc."];
+        static MODIFIERS: [&str; 2] = ["andc", "andc."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -7739,7 +7739,7 @@ fn simplified_cmpl(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_cntlzd(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["cntlzd", "cntlzd."];
+        static MODIFIERS: [&str; 2] = ["cntlzd", "cntlzd."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -7754,7 +7754,7 @@ fn basic_cntlzd(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_cntlzw(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["cntlzw", "cntlzw."];
+        static MODIFIERS: [&str; 2] = ["cntlzw", "cntlzw."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -7841,7 +7841,7 @@ fn basic_dcbz(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_divd(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 4] = ["divd", "divdo", "divd.", "divdo."];
+        static MODIFIERS: [&str; 4] = ["divd", "divdo", "divd.", "divdo."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_oe() as usize
                 | (ins.field_rc() as usize) << 1],
@@ -7857,7 +7857,7 @@ fn basic_divd(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_divdu(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 4] = ["divdu", "divduo", "divdu.", "divduo."];
+        static MODIFIERS: [&str; 4] = ["divdu", "divduo", "divdu.", "divduo."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_oe() as usize
                 | (ins.field_rc() as usize) << 1],
@@ -7873,7 +7873,7 @@ fn basic_divdu(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_divw(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 4] = ["divw", "divwo", "divw.", "divwo."];
+        static MODIFIERS: [&str; 4] = ["divw", "divwo", "divw.", "divwo."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_oe() as usize
                 | (ins.field_rc() as usize) << 1],
@@ -7889,7 +7889,7 @@ fn basic_divw(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_divwu(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 4] = ["divwu", "divwuo", "divwu.", "divwuo."];
+        static MODIFIERS: [&str; 4] = ["divwu", "divwuo", "divwu.", "divwuo."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_oe() as usize
                 | (ins.field_rc() as usize) << 1],
@@ -7935,7 +7935,7 @@ fn basic_eieio(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_eqv(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["eqv", "eqv."];
+        static MODIFIERS: [&str; 2] = ["eqv", "eqv."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -7950,7 +7950,7 @@ fn basic_eqv(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_extsb(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["extsb", "extsb."];
+        static MODIFIERS: [&str; 2] = ["extsb", "extsb."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -7965,7 +7965,7 @@ fn basic_extsb(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_extsh(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["extsh", "extsh."];
+        static MODIFIERS: [&str; 2] = ["extsh", "extsh."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -7980,7 +7980,7 @@ fn basic_extsh(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_extsw(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["extsw", "extsw."];
+        static MODIFIERS: [&str; 2] = ["extsw", "extsw."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -7995,7 +7995,7 @@ fn basic_extsw(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_icbi(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["icbi", "icbi."];
+        static MODIFIERS: [&str; 2] = ["icbi", "icbi."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -8876,7 +8876,7 @@ fn basic_mtsrin(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_mulhd(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["mulhd", "mulhd."];
+        static MODIFIERS: [&str; 2] = ["mulhd", "mulhd."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -8891,7 +8891,7 @@ fn basic_mulhd(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_mulhdu(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["mulhdu", "mulhdu."];
+        static MODIFIERS: [&str; 2] = ["mulhdu", "mulhdu."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -8906,7 +8906,7 @@ fn basic_mulhdu(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_mulhw(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["mulhw", "mulhw."];
+        static MODIFIERS: [&str; 2] = ["mulhw", "mulhw."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -8921,7 +8921,7 @@ fn basic_mulhw(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_mulhwu(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["mulhwu", "mulhwu."];
+        static MODIFIERS: [&str; 2] = ["mulhwu", "mulhwu."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -8936,7 +8936,7 @@ fn basic_mulhwu(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_mulld(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 4] = ["mulld", "mulldo", "mulld.", "mulldo."];
+        static MODIFIERS: [&str; 4] = ["mulld", "mulldo", "mulld.", "mulldo."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_oe() as usize
                 | (ins.field_rc() as usize) << 1],
@@ -8952,7 +8952,7 @@ fn basic_mulld(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_mullw(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 4] = ["mullw", "mullwo", "mullw.", "mullwo."];
+        static MODIFIERS: [&str; 4] = ["mullw", "mullwo", "mullw.", "mullwo."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_oe() as usize
                 | (ins.field_rc() as usize) << 1],
@@ -8968,7 +8968,7 @@ fn basic_mullw(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_nand(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["nand", "nand."];
+        static MODIFIERS: [&str; 2] = ["nand", "nand."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -8983,7 +8983,7 @@ fn basic_nand(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_neg(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 4] = ["neg", "nego", "neg.", "nego."];
+        static MODIFIERS: [&str; 4] = ["neg", "nego", "neg.", "nego."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_oe() as usize
                 | (ins.field_rc() as usize) << 1],
@@ -8999,7 +8999,7 @@ fn basic_neg(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_nor(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["nor", "nor."];
+        static MODIFIERS: [&str; 2] = ["nor", "nor."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -9014,7 +9014,7 @@ fn basic_nor(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_or(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["or", "or."];
+        static MODIFIERS: [&str; 2] = ["or", "or."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -9030,7 +9030,7 @@ fn basic_or(out: &mut ParsedIns, ins: Ins) {
 fn simplified_or(out: &mut ParsedIns, ins: Ins) {
     if ins.field_rb() == ins.field_rs() {
         *out = {
-            const MODIFIERS: [&str; 2] = ["mr", "mr."];
+            static MODIFIERS: [&str; 2] = ["mr", "mr."];
             ParsedIns {
                 mnemonic: MODIFIERS[ins.field_rc() as usize],
                 args: [
@@ -9048,7 +9048,7 @@ fn simplified_or(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_orc(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["orc", "orc."];
+        static MODIFIERS: [&str; 2] = ["orc", "orc."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -9081,7 +9081,7 @@ fn basic_slbie(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_sld(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["sld", "sld."];
+        static MODIFIERS: [&str; 2] = ["sld", "sld."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -9096,7 +9096,7 @@ fn basic_sld(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_slw(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["slw", "slw."];
+        static MODIFIERS: [&str; 2] = ["slw", "slw."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -9111,7 +9111,7 @@ fn basic_slw(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_srad(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["srad", "srad."];
+        static MODIFIERS: [&str; 2] = ["srad", "srad."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -9126,7 +9126,7 @@ fn basic_srad(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_sradi(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["sradi", "sradi."];
+        static MODIFIERS: [&str; 2] = ["sradi", "sradi."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -9141,7 +9141,7 @@ fn basic_sradi(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_sraw(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["sraw", "sraw."];
+        static MODIFIERS: [&str; 2] = ["sraw", "sraw."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -9156,7 +9156,7 @@ fn basic_sraw(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_srawi(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["srawi", "srawi."];
+        static MODIFIERS: [&str; 2] = ["srawi", "srawi."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -9171,7 +9171,7 @@ fn basic_srawi(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_srd(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["srd", "srd."];
+        static MODIFIERS: [&str; 2] = ["srd", "srd."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -9186,7 +9186,7 @@ fn basic_srd(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_srw(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["srw", "srw."];
+        static MODIFIERS: [&str; 2] = ["srw", "srw."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -9429,7 +9429,7 @@ fn basic_stwx(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_subf(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 4] = ["subf", "subfo", "subf.", "subfo."];
+        static MODIFIERS: [&str; 4] = ["subf", "subfo", "subf.", "subfo."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_oe() as usize
                 | (ins.field_rc() as usize) << 1],
@@ -9445,7 +9445,7 @@ fn basic_subf(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_subfc(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 4] = ["subfc", "subfco", "subfc.", "subfco."];
+        static MODIFIERS: [&str; 4] = ["subfc", "subfco", "subfc.", "subfco."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_oe() as usize
                 | (ins.field_rc() as usize) << 1],
@@ -9461,7 +9461,7 @@ fn basic_subfc(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_subfe(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 4] = ["subfe", "subfeo", "subfe.", "subfeo."];
+        static MODIFIERS: [&str; 4] = ["subfe", "subfeo", "subfe.", "subfeo."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_oe() as usize
                 | (ins.field_rc() as usize) << 1],
@@ -9477,7 +9477,7 @@ fn basic_subfe(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_subfme(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 4] = ["subfme", "subfmeo", "subfme.", "subfmeo."];
+        static MODIFIERS: [&str; 4] = ["subfme", "subfmeo", "subfme.", "subfmeo."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_oe() as usize
                 | (ins.field_rc() as usize) << 1],
@@ -9493,7 +9493,7 @@ fn basic_subfme(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_subfze(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 4] = ["subfze", "subfzeo", "subfze.", "subfzeo."];
+        static MODIFIERS: [&str; 4] = ["subfze", "subfzeo", "subfze.", "subfzeo."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_oe() as usize
                 | (ins.field_rc() as usize) << 1],
@@ -9652,7 +9652,7 @@ fn simplified_tw(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_xor(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["xor", "xor."];
+        static MODIFIERS: [&str; 2] = ["xor", "xor."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -9702,7 +9702,7 @@ fn simplified_dss(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_dst(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["dst", "dstt"];
+        static MODIFIERS: [&str; 2] = ["dst", "dstt"];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_t() as usize],
             args: [
@@ -9717,7 +9717,7 @@ fn basic_dst(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_dstst(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["dstst", "dststt"];
+        static MODIFIERS: [&str; 2] = ["dstst", "dststt"];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_t() as usize],
             args: [
@@ -10296,7 +10296,7 @@ fn basic_lwa(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_fadds(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["fadds", "fadds."];
+        static MODIFIERS: [&str; 2] = ["fadds", "fadds."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -10311,7 +10311,7 @@ fn basic_fadds(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_fdivs(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["fdivs", "fdivs."];
+        static MODIFIERS: [&str; 2] = ["fdivs", "fdivs."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -10326,7 +10326,7 @@ fn basic_fdivs(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_fmadds(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["fmadds", "fmadds."];
+        static MODIFIERS: [&str; 2] = ["fmadds", "fmadds."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -10341,7 +10341,7 @@ fn basic_fmadds(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_fmsubs(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["fmsubs", "fmsubs."];
+        static MODIFIERS: [&str; 2] = ["fmsubs", "fmsubs."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -10356,7 +10356,7 @@ fn basic_fmsubs(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_fmuls(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["fmuls", "fmuls."];
+        static MODIFIERS: [&str; 2] = ["fmuls", "fmuls."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -10371,7 +10371,7 @@ fn basic_fmuls(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_fnmadds(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["fnmadds", "fnmadds."];
+        static MODIFIERS: [&str; 2] = ["fnmadds", "fnmadds."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -10386,7 +10386,7 @@ fn basic_fnmadds(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_fnmsubs(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["fnmsubs", "fnmsubs."];
+        static MODIFIERS: [&str; 2] = ["fnmsubs", "fnmsubs."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -10401,7 +10401,7 @@ fn basic_fnmsubs(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_fres(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["fres", "fres."];
+        static MODIFIERS: [&str; 2] = ["fres", "fres."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -10416,7 +10416,7 @@ fn basic_fres(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_fsubs(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["fsubs", "fsubs."];
+        static MODIFIERS: [&str; 2] = ["fsubs", "fsubs."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -10455,7 +10455,7 @@ fn basic_stdu(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_fabs(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["fabs", "fabs."];
+        static MODIFIERS: [&str; 2] = ["fabs", "fabs."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -10470,7 +10470,7 @@ fn basic_fabs(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_fadd(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["fadd", "fadd."];
+        static MODIFIERS: [&str; 2] = ["fadd", "fadd."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -10485,7 +10485,7 @@ fn basic_fadd(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_fcfid(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["fcfid", "fcfid."];
+        static MODIFIERS: [&str; 2] = ["fcfid", "fcfid."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -10524,7 +10524,7 @@ fn basic_fcmpu(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_fctid(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["fctid", "fctid."];
+        static MODIFIERS: [&str; 2] = ["fctid", "fctid."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -10539,7 +10539,7 @@ fn basic_fctid(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_fctidz(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["fctidz", "fctidz."];
+        static MODIFIERS: [&str; 2] = ["fctidz", "fctidz."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -10554,7 +10554,7 @@ fn basic_fctidz(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_fctiw(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["fctiw", "fctiw."];
+        static MODIFIERS: [&str; 2] = ["fctiw", "fctiw."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -10569,7 +10569,7 @@ fn basic_fctiw(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_fctiwz(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["fctiwz", "fctiwz."];
+        static MODIFIERS: [&str; 2] = ["fctiwz", "fctiwz."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -10584,7 +10584,7 @@ fn basic_fctiwz(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_fdiv(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["fdiv", "fdiv."];
+        static MODIFIERS: [&str; 2] = ["fdiv", "fdiv."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -10599,7 +10599,7 @@ fn basic_fdiv(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_fmadd(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["fmadd", "fmadd."];
+        static MODIFIERS: [&str; 2] = ["fmadd", "fmadd."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -10614,7 +10614,7 @@ fn basic_fmadd(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_fmr(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["fmr", "fmr."];
+        static MODIFIERS: [&str; 2] = ["fmr", "fmr."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -10629,7 +10629,7 @@ fn basic_fmr(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_fmsub(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["fmsub", "fmsub."];
+        static MODIFIERS: [&str; 2] = ["fmsub", "fmsub."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -10644,7 +10644,7 @@ fn basic_fmsub(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_fmul(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["fmul", "fmul."];
+        static MODIFIERS: [&str; 2] = ["fmul", "fmul."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -10659,7 +10659,7 @@ fn basic_fmul(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_fnabs(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["fnabs", "fnabs."];
+        static MODIFIERS: [&str; 2] = ["fnabs", "fnabs."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -10674,7 +10674,7 @@ fn basic_fnabs(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_fneg(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["fneg", "fneg."];
+        static MODIFIERS: [&str; 2] = ["fneg", "fneg."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -10689,7 +10689,7 @@ fn basic_fneg(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_fnmadd(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["fnmadd", "fnmadd."];
+        static MODIFIERS: [&str; 2] = ["fnmadd", "fnmadd."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -10704,7 +10704,7 @@ fn basic_fnmadd(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_fnmsub(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["fnmsub", "fnmsub."];
+        static MODIFIERS: [&str; 2] = ["fnmsub", "fnmsub."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -10719,7 +10719,7 @@ fn basic_fnmsub(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_frsp(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["frsp", "frsp."];
+        static MODIFIERS: [&str; 2] = ["frsp", "frsp."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -10734,7 +10734,7 @@ fn basic_frsp(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_frsqrte(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["frsqrte", "frsqrte."];
+        static MODIFIERS: [&str; 2] = ["frsqrte", "frsqrte."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -10749,7 +10749,7 @@ fn basic_frsqrte(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_fsel(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["fsel", "fsel."];
+        static MODIFIERS: [&str; 2] = ["fsel", "fsel."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -10764,7 +10764,7 @@ fn basic_fsel(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_fsub(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["fsub", "fsub."];
+        static MODIFIERS: [&str; 2] = ["fsub", "fsub."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -10791,7 +10791,7 @@ fn basic_mcrfs(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_mffs(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["mffs", "mffs."];
+        static MODIFIERS: [&str; 2] = ["mffs", "mffs."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -10806,7 +10806,7 @@ fn basic_mffs(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_mtfsb0(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["mtfsb0", "mtfsb0."];
+        static MODIFIERS: [&str; 2] = ["mtfsb0", "mtfsb0."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -10821,7 +10821,7 @@ fn basic_mtfsb0(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_mtfsb1(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["mtfsb1", "mtfsb1."];
+        static MODIFIERS: [&str; 2] = ["mtfsb1", "mtfsb1."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -10836,7 +10836,7 @@ fn basic_mtfsb1(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_mtfsf(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["mtfsf", "mtfsf."];
+        static MODIFIERS: [&str; 2] = ["mtfsf", "mtfsf."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -10851,7 +10851,7 @@ fn basic_mtfsf(out: &mut ParsedIns, ins: Ins) {
 }
 fn basic_mtfsfi(out: &mut ParsedIns, ins: Ins) {
     *out = {
-        const MODIFIERS: [&str; 2] = ["mtfsfi", "mtfsfi."];
+        static MODIFIERS: [&str; 2] = ["mtfsfi", "mtfsfi."];
         ParsedIns {
             mnemonic: MODIFIERS[ins.field_rc() as usize],
             args: [
@@ -11339,7 +11339,10 @@ static BASIC_MNEMONICS: [MnemonicFunction; 468] = [
 ];
 #[inline]
 pub fn parse_basic(out: &mut ParsedIns, ins: Ins) {
-    BASIC_MNEMONICS.get(ins.op as usize).copied().unwrap_or(mnemonic_illegal)(out, ins)
+    match BASIC_MNEMONICS.get(ins.op as usize) {
+        Some(f) => f(out, ins),
+        None => mnemonic_illegal(out, ins),
+    }
 }
 static SIMPLIFIED_MNEMONICS: [MnemonicFunction; 468] = [
     simplified_tdi,
@@ -11813,10 +11816,10 @@ static SIMPLIFIED_MNEMONICS: [MnemonicFunction; 468] = [
 ];
 #[inline]
 pub fn parse_simplified(out: &mut ParsedIns, ins: Ins) {
-    SIMPLIFIED_MNEMONICS
-        .get(ins.op as usize)
-        .copied()
-        .unwrap_or(mnemonic_illegal)(out, ins)
+    match SIMPLIFIED_MNEMONICS.get(ins.op as usize) {
+        Some(f) => f(out, ins),
+        None => mnemonic_illegal(out, ins),
+    }
 }
 type DefsUsesFunction = fn(&mut Arguments, Ins);
 fn uses_tdi(out: &mut Arguments, ins: Ins) {
@@ -20205,7 +20208,10 @@ static DEFS_FUNCTIONS: [DefsUsesFunction; 468] = [
 ];
 #[inline]
 pub fn parse_defs(out: &mut Arguments, ins: Ins) {
-    DEFS_FUNCTIONS.get(ins.op as usize).copied().unwrap_or(defs_uses_empty)(out, ins)
+    match DEFS_FUNCTIONS.get(ins.op as usize) {
+        Some(f) => f(out, ins),
+        None => defs_uses_empty(out, ins),
+    }
 }
 static USES_FUNCTIONS: [DefsUsesFunction; 468] = [
     uses_tdi,
@@ -20679,5 +20685,8 @@ static USES_FUNCTIONS: [DefsUsesFunction; 468] = [
 ];
 #[inline]
 pub fn parse_uses(out: &mut Arguments, ins: Ins) {
-    USES_FUNCTIONS.get(ins.op as usize).copied().unwrap_or(defs_uses_empty)(out, ins)
+    match USES_FUNCTIONS.get(ins.op as usize) {
+        Some(f) => f(out, ins),
+        None => defs_uses_empty(out, ins),
+    }
 }
