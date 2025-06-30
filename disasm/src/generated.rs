@@ -36,15 +36,7 @@ static OPCODE_ENTRIES: [(u16, u16); 64] = [
     (254, 255),
     (255, 256),
     (256, 262),
-    (262, 394),
-    (394, 395),
-    (395, 396),
-    (396, 397),
-    (397, 398),
-    (398, 399),
-    (399, 400),
-    (400, 401),
-    (401, 402),
+    (262, 402),
     (402, 403),
     (403, 404),
     (404, 405),
@@ -61,17 +53,25 @@ static OPCODE_ENTRIES: [(u16, u16); 64] = [
     (415, 416),
     (416, 417),
     (417, 418),
+    (418, 419),
+    (419, 420),
+    (420, 421),
+    (421, 422),
+    (422, 423),
+    (423, 424),
+    (424, 425),
+    (425, 426),
     (0, 0),
     (0, 0),
-    (418, 421),
-    (421, 430),
+    (426, 429),
+    (429, 438),
     (0, 0),
     (0, 0),
-    (430, 432),
-    (432, 460),
+    (438, 440),
+    (440, 468),
 ];
 /// The bitmask and pattern for each opcode.
-static OPCODE_PATTERNS: [(u32, u32); 460] = [
+static OPCODE_PATTERNS: [(u32, u32); 468] = [
     (0xfc000000, 0x8000000),
     (0xfc000000, 0xc000000),
     (0xffe007ff, 0x100007ec),
@@ -221,8 +221,8 @@ static OPCODE_PATTERNS: [(u32, u32); 460] = [
     (0xfc0007ff, 0x100004c4),
     (0xfc0007f3, 0x10000083),
     (0xfc0007f3, 0x10000403),
-    (0xfc0007f3, 0x10000443),
     (0xfc0007f3, 0x10000603),
+    (0xfc0007f3, 0x10000443),
     (0xfc0007f3, 0x10000643),
     (0xfc0007f3, 0x10000003),
     (0xfc0007f3, 0x10000043),
@@ -457,6 +457,10 @@ static OPCODE_PATTERNS: [(u32, u32); 460] = [
     (0xfc0007ff, 0x7c00000e),
     (0xfc0007ff, 0x7c00004e),
     (0xfc0007ff, 0x7c00008e),
+    (0xfc0007ff, 0x7c00040e),
+    (0xfc0007ff, 0x7c00060e),
+    (0xfc0007ff, 0x7c00044e),
+    (0xfc0007ff, 0x7c00064e),
     (0xfc0007ff, 0x7c00000c),
     (0xfc0007ff, 0x7c00004c),
     (0xfc0007ff, 0x7c0000ce),
@@ -464,6 +468,10 @@ static OPCODE_PATTERNS: [(u32, u32); 460] = [
     (0xfc0007ff, 0x7c00010e),
     (0xfc0007ff, 0x7c00014e),
     (0xfc0007ff, 0x7c00018e),
+    (0xfc0007ff, 0x7c00050e),
+    (0xfc0007ff, 0x7c00070e),
+    (0xfc0007ff, 0x7c00054e),
+    (0xfc0007ff, 0x7c00074e),
     (0xfc0007ff, 0x7c0001ce),
     (0xfc0007ff, 0x7c0003ce),
     (0xfc000000, 0x80000000),
@@ -534,7 +542,7 @@ static OPCODE_PATTERNS: [(u32, u32); 460] = [
     (0xfc7f0ffe, 0xfc00010c),
 ];
 /// The name of each opcode.
-static OPCODE_NAMES: [&str; 460] = [
+static OPCODE_NAMES: [&str; 468] = [
     "tdi",
     "twi",
     "dcbz_l",
@@ -684,8 +692,8 @@ static OPCODE_NAMES: [&str; 460] = [
     "vxor",
     "lvewx128",
     "lvlx128",
-    "lvrx128",
     "lvlxl128",
+    "lvrx128",
     "lvrxl128",
     "lvsl128",
     "lvsr128",
@@ -920,6 +928,10 @@ static OPCODE_NAMES: [&str; 460] = [
     "lvebx",
     "lvehx",
     "lvewx",
+    "lvlx",
+    "lvlxl",
+    "lvrx",
+    "lvrxl",
     "lvsl",
     "lvsr",
     "lvx",
@@ -927,6 +939,10 @@ static OPCODE_NAMES: [&str; 460] = [
     "stvebx",
     "stvehx",
     "stvewx",
+    "stvlx",
+    "stvlxl",
+    "stvrx",
+    "stvrxl",
     "stvx",
     "stvxl",
     "lwz",
@@ -1301,10 +1317,10 @@ pub enum Opcode {
     Lvewx128 = 147,
     /// lvlx128: Load Vector128 Left Indexed
     Lvlx128 = 148,
-    /// lvrx128: Load Vector128 Right Indexed
-    Lvrx128 = 149,
     /// lvlxl128: Load Vector128 Left Indexed LRU
-    Lvlxl128 = 150,
+    Lvlxl128 = 149,
+    /// lvrx128: Load Vector128 Right Indexed
+    Lvrx128 = 150,
     /// lvrxl128: Load Vector128 Right Indexed LRU
     Lvrxl128 = 151,
     /// lvsl128: Load Vector128 for Shift Left
@@ -1773,156 +1789,172 @@ pub enum Opcode {
     Lvehx = 383,
     /// lvewx: Load Vector Element Word Indexed
     Lvewx = 384,
+    /// lvlx: Load Vector Left Indexed
+    Lvlx = 385,
+    /// lvlxl: Load Vector Left Indexed Last
+    Lvlxl = 386,
+    /// lvrx: Load Vector Right Indexed
+    Lvrx = 387,
+    /// lvrxl: Load Vector Right Indexed Last
+    Lvrxl = 388,
     /// lvsl: Load Vector for Shift Left
-    Lvsl = 385,
+    Lvsl = 389,
     /// lvsr: Load Vector for Shift Right
-    Lvsr = 386,
+    Lvsr = 390,
     /// lvx: Load Vector Indexed
-    Lvx = 387,
+    Lvx = 391,
     /// lvxl: Load Vector Indexed LRU
-    Lvxl = 388,
+    Lvxl = 392,
     /// stvebx: Store Vector Element Byte Indexed
-    Stvebx = 389,
+    Stvebx = 393,
     /// stvehx: Store Vector Element Half Word Indexed
-    Stvehx = 390,
+    Stvehx = 394,
     /// stvewx: Store Vector Element Word Indexed
-    Stvewx = 391,
+    Stvewx = 395,
+    /// stvlx: Store Vector Left Indexed
+    Stvlx = 396,
+    /// stvlxl: Store Vector Left Indexed Last
+    Stvlxl = 397,
+    /// stvrx: Store Vector Right Indexed
+    Stvrx = 398,
+    /// stvrxl: Store Vector Right Indexed Last
+    Stvrxl = 399,
     /// stvx: Store Vector Indexed
-    Stvx = 392,
+    Stvx = 400,
     /// stvxl: Store Vector Indexed LRU
-    Stvxl = 393,
+    Stvxl = 401,
     /// lwz: Load Word and Zero
-    Lwz = 394,
+    Lwz = 402,
     /// lwzu: Load Word and Zero with Update
-    Lwzu = 395,
+    Lwzu = 403,
     /// lbz: Load Byte and Zero
-    Lbz = 396,
+    Lbz = 404,
     /// lbzu: Load Byte and Zero with Update
-    Lbzu = 397,
+    Lbzu = 405,
     /// stw: Store Word
-    Stw = 398,
+    Stw = 406,
     /// stwu: Store Word with Update
-    Stwu = 399,
+    Stwu = 407,
     /// stb: Store Byte
-    Stb = 400,
+    Stb = 408,
     /// stbu: Store Byte with Update
-    Stbu = 401,
+    Stbu = 409,
     /// lhz: Load Half Word and Zero
-    Lhz = 402,
+    Lhz = 410,
     /// lhzu: Load Half Word and Zero with Update
-    Lhzu = 403,
+    Lhzu = 411,
     /// lha: Load Half Word Algebraic
-    Lha = 404,
+    Lha = 412,
     /// lhau: Load Half Word Algebraic with Update
-    Lhau = 405,
+    Lhau = 413,
     /// sth: Store Half Word
-    Sth = 406,
+    Sth = 414,
     /// sthu: Store Half Word with Update
-    Sthu = 407,
+    Sthu = 415,
     /// lmw: Load Multiple Word
-    Lmw = 408,
+    Lmw = 416,
     /// stmw: Store Multiple Word
-    Stmw = 409,
+    Stmw = 417,
     /// lfs: Load Floating-Point Single
-    Lfs = 410,
+    Lfs = 418,
     /// lfsu: Load Floating-Point Single with Update
-    Lfsu = 411,
+    Lfsu = 419,
     /// lfd: Load Floating-Point Double
-    Lfd = 412,
+    Lfd = 420,
     /// lfdu: Load Floating-Point Double with Update
-    Lfdu = 413,
+    Lfdu = 421,
     /// stfs: Store Floating-Point Single
-    Stfs = 414,
+    Stfs = 422,
     /// stfsu: Store Floating-Point Single with Update
-    Stfsu = 415,
+    Stfsu = 423,
     /// stfd: Store Floating-Point Double
-    Stfd = 416,
+    Stfd = 424,
     /// stfdu: Store Floating-Point Double with Update
-    Stfdu = 417,
+    Stfdu = 425,
     /// ld: Load Double Word
-    Ld = 418,
+    Ld = 426,
     /// ldu: Load Double Word with Update
-    Ldu = 419,
+    Ldu = 427,
     /// lwa: Load Word Algebraic
-    Lwa = 420,
+    Lwa = 428,
     /// fadds: Floating Add (Single-Precision)
-    Fadds = 421,
+    Fadds = 429,
     /// fdivs: Floating Divide (Single-Precision)
-    Fdivs = 422,
+    Fdivs = 430,
     /// fmadds: Floating Multiply-Add (Single-Precision)
-    Fmadds = 423,
+    Fmadds = 431,
     /// fmsubs: Floating Multiply-Subtract (Single-Precision)
-    Fmsubs = 424,
+    Fmsubs = 432,
     /// fmuls: Floating Multiply (Single-Precision)
-    Fmuls = 425,
+    Fmuls = 433,
     /// fnmadds: Floating Negative Multiply-Add (Single-Precision)
-    Fnmadds = 426,
+    Fnmadds = 434,
     /// fnmsubs: Floating Negative Multiply-Subtract (Single-Precision)
-    Fnmsubs = 427,
+    Fnmsubs = 435,
     /// fres: Floating Reciprocal Estimate Single
-    Fres = 428,
+    Fres = 436,
     /// fsubs: Floating Subtract (Single-Precision)
-    Fsubs = 429,
+    Fsubs = 437,
     /// std: Store Double Word
-    Std = 430,
+    Std = 438,
     /// stdu: Store Double Word with Update
-    Stdu = 431,
+    Stdu = 439,
     /// fabs: Floating Absolute Value
-    Fabs = 432,
+    Fabs = 440,
     /// fadd: Floating Add (Double-Precision)
-    Fadd = 433,
+    Fadd = 441,
     /// fcfid: Floating Convert from Integer Double Word
-    Fcfid = 434,
+    Fcfid = 442,
     /// fcmpo: Floating Compare Ordered
-    Fcmpo = 435,
+    Fcmpo = 443,
     /// fcmpu: Floating Compare Unordered
-    Fcmpu = 436,
+    Fcmpu = 444,
     /// fctid: Floating Convert to Integer Double Word
-    Fctid = 437,
+    Fctid = 445,
     /// fctidz: Floating Convert to Integer Double Word with Round toward Zero
-    Fctidz = 438,
+    Fctidz = 446,
     /// fctiw: Floating Convert to Integer Word
-    Fctiw = 439,
+    Fctiw = 447,
     /// fctiwz: Floating Convert to Integer Word with Round toward Zero
-    Fctiwz = 440,
+    Fctiwz = 448,
     /// fdiv: Floating Divide (Double-Precision)
-    Fdiv = 441,
+    Fdiv = 449,
     /// fmadd: Floating Multiply-Add (Double-Precision)
-    Fmadd = 442,
+    Fmadd = 450,
     /// fmr: Floating Move Register (Double-Precision)
-    Fmr = 443,
+    Fmr = 451,
     /// fmsub: Floating Multiply-Subtract (Double-Precision)
-    Fmsub = 444,
+    Fmsub = 452,
     /// fmul: Floating Multiply (Double-Precision)
-    Fmul = 445,
+    Fmul = 453,
     /// fnabs: Floating Negative Absolute Value
-    Fnabs = 446,
+    Fnabs = 454,
     /// fneg: Floating Negate
-    Fneg = 447,
+    Fneg = 455,
     /// fnmadd: Floating Negative Multiply-Add (Double-Precision)
-    Fnmadd = 448,
+    Fnmadd = 456,
     /// fnmsub: Floating Negative Multiply-Subtract (Double-Precision)
-    Fnmsub = 449,
+    Fnmsub = 457,
     /// frsp: Floating Round to Single
-    Frsp = 450,
+    Frsp = 458,
     /// frsqrte: Floating Reciprocal Square Root Estimate
-    Frsqrte = 451,
+    Frsqrte = 459,
     /// fsel: Floating Select
-    Fsel = 452,
+    Fsel = 460,
     /// fsub: Floating Subtract (Double-Precision)
-    Fsub = 453,
+    Fsub = 461,
     /// mcrfs: Move to Condition Register from FPSCR
-    Mcrfs = 454,
+    Mcrfs = 462,
     /// mffs: Move from FPSCR
-    Mffs = 455,
+    Mffs = 463,
     /// mtfsb0: Move to FPSCR Bit 0
-    Mtfsb0 = 456,
+    Mtfsb0 = 464,
     /// mtfsb1: Move to FPSCR Bit 1
-    Mtfsb1 = 457,
+    Mtfsb1 = 465,
     /// mtfsf: Move to FPSCR Fields
-    Mtfsf = 458,
+    Mtfsf = 466,
     /// mtfsfi: Move to FPSCR Field Immediate
-    Mtfsfi = 459,
+    Mtfsfi = 467,
 }
 impl Opcode {
     #[inline]
@@ -1945,7 +1977,7 @@ impl Opcode {
 impl From<u16> for Opcode {
     #[inline]
     fn from(value: u16) -> Self {
-        if value > 459 {
+        if value > 467 {
             Self::Illegal
         } else {
             // Safety: The enum is repr(u16) and the value is within the enum's range
@@ -4246,9 +4278,9 @@ fn basic_lvlx128(out: &mut ParsedIns, ins: Ins) {
         ],
     };
 }
-fn basic_lvrx128(out: &mut ParsedIns, ins: Ins) {
+fn basic_lvlxl128(out: &mut ParsedIns, ins: Ins) {
     *out = ParsedIns {
-        mnemonic: "lvrx128",
+        mnemonic: "lvlxl128",
         args: [
             Argument::VR(VR(ins.field_vds128() as _)),
             Argument::GPR(GPR(ins.field_ra() as _)),
@@ -4258,9 +4290,9 @@ fn basic_lvrx128(out: &mut ParsedIns, ins: Ins) {
         ],
     };
 }
-fn basic_lvlxl128(out: &mut ParsedIns, ins: Ins) {
+fn basic_lvrx128(out: &mut ParsedIns, ins: Ins) {
     *out = ParsedIns {
-        mnemonic: "lvlxl128",
+        mnemonic: "lvrx128",
         args: [
             Argument::VR(VR(ins.field_vds128() as _)),
             Argument::GPR(GPR(ins.field_ra() as _)),
@@ -9734,6 +9766,54 @@ fn basic_lvewx(out: &mut ParsedIns, ins: Ins) {
         ],
     };
 }
+fn basic_lvlx(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "lvlx",
+        args: [
+            Argument::VR(VR(ins.field_vd() as _)),
+            Argument::GPR(GPR(ins.field_ra() as _)),
+            Argument::GPR(GPR(ins.field_rb() as _)),
+            Argument::None,
+            Argument::None,
+        ],
+    };
+}
+fn basic_lvlxl(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "lvlxl",
+        args: [
+            Argument::VR(VR(ins.field_vd() as _)),
+            Argument::GPR(GPR(ins.field_ra() as _)),
+            Argument::GPR(GPR(ins.field_rb() as _)),
+            Argument::None,
+            Argument::None,
+        ],
+    };
+}
+fn basic_lvrx(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "lvrx",
+        args: [
+            Argument::VR(VR(ins.field_vd() as _)),
+            Argument::GPR(GPR(ins.field_ra() as _)),
+            Argument::GPR(GPR(ins.field_rb() as _)),
+            Argument::None,
+            Argument::None,
+        ],
+    };
+}
+fn basic_lvrxl(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "lvrxl",
+        args: [
+            Argument::VR(VR(ins.field_vd() as _)),
+            Argument::GPR(GPR(ins.field_ra() as _)),
+            Argument::GPR(GPR(ins.field_rb() as _)),
+            Argument::None,
+            Argument::None,
+        ],
+    };
+}
 fn basic_lvsl(out: &mut ParsedIns, ins: Ins) {
     *out = ParsedIns {
         mnemonic: "lvsl",
@@ -9809,6 +9889,54 @@ fn basic_stvehx(out: &mut ParsedIns, ins: Ins) {
 fn basic_stvewx(out: &mut ParsedIns, ins: Ins) {
     *out = ParsedIns {
         mnemonic: "stvewx",
+        args: [
+            Argument::VR(VR(ins.field_vs() as _)),
+            Argument::GPR(GPR(ins.field_ra() as _)),
+            Argument::GPR(GPR(ins.field_rb() as _)),
+            Argument::None,
+            Argument::None,
+        ],
+    };
+}
+fn basic_stvlx(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "stvlx",
+        args: [
+            Argument::VR(VR(ins.field_vs() as _)),
+            Argument::GPR(GPR(ins.field_ra() as _)),
+            Argument::GPR(GPR(ins.field_rb() as _)),
+            Argument::None,
+            Argument::None,
+        ],
+    };
+}
+fn basic_stvlxl(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "stvlxl",
+        args: [
+            Argument::VR(VR(ins.field_vs() as _)),
+            Argument::GPR(GPR(ins.field_ra() as _)),
+            Argument::GPR(GPR(ins.field_rb() as _)),
+            Argument::None,
+            Argument::None,
+        ],
+    };
+}
+fn basic_stvrx(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "stvrx",
+        args: [
+            Argument::VR(VR(ins.field_vs() as _)),
+            Argument::GPR(GPR(ins.field_ra() as _)),
+            Argument::GPR(GPR(ins.field_rb() as _)),
+            Argument::None,
+            Argument::None,
+        ],
+    };
+}
+fn basic_stvrxl(out: &mut ParsedIns, ins: Ins) {
+    *out = ParsedIns {
+        mnemonic: "stvrxl",
         args: [
             Argument::VR(VR(ins.field_vs() as _)),
             Argument::GPR(GPR(ins.field_ra() as _)),
@@ -10739,7 +10867,7 @@ fn basic_mtfsfi(out: &mut ParsedIns, ins: Ins) {
 fn mnemonic_illegal(out: &mut ParsedIns, _ins: Ins) {
     *out = ParsedIns::new();
 }
-static BASIC_MNEMONICS: [MnemonicFunction; 460] = [
+static BASIC_MNEMONICS: [MnemonicFunction; 468] = [
     basic_tdi,
     basic_twi,
     basic_dcbz_l,
@@ -10889,8 +11017,8 @@ static BASIC_MNEMONICS: [MnemonicFunction; 460] = [
     basic_vxor,
     basic_lvewx128,
     basic_lvlx128,
-    basic_lvrx128,
     basic_lvlxl128,
+    basic_lvrx128,
     basic_lvrxl128,
     basic_lvsl128,
     basic_lvsr128,
@@ -11125,6 +11253,10 @@ static BASIC_MNEMONICS: [MnemonicFunction; 460] = [
     basic_lvebx,
     basic_lvehx,
     basic_lvewx,
+    basic_lvlx,
+    basic_lvlxl,
+    basic_lvrx,
+    basic_lvrxl,
     basic_lvsl,
     basic_lvsr,
     basic_lvx,
@@ -11132,6 +11264,10 @@ static BASIC_MNEMONICS: [MnemonicFunction; 460] = [
     basic_stvebx,
     basic_stvehx,
     basic_stvewx,
+    basic_stvlx,
+    basic_stvlxl,
+    basic_stvrx,
+    basic_stvrxl,
     basic_stvx,
     basic_stvxl,
     basic_lwz,
@@ -11205,7 +11341,7 @@ static BASIC_MNEMONICS: [MnemonicFunction; 460] = [
 pub fn parse_basic(out: &mut ParsedIns, ins: Ins) {
     BASIC_MNEMONICS.get(ins.op as usize).copied().unwrap_or(mnemonic_illegal)(out, ins)
 }
-static SIMPLIFIED_MNEMONICS: [MnemonicFunction; 460] = [
+static SIMPLIFIED_MNEMONICS: [MnemonicFunction; 468] = [
     simplified_tdi,
     simplified_twi,
     basic_dcbz_l,
@@ -11355,8 +11491,8 @@ static SIMPLIFIED_MNEMONICS: [MnemonicFunction; 460] = [
     basic_vxor,
     basic_lvewx128,
     basic_lvlx128,
-    basic_lvrx128,
     basic_lvlxl128,
+    basic_lvrx128,
     basic_lvrxl128,
     basic_lvsl128,
     basic_lvsr128,
@@ -11591,6 +11727,10 @@ static SIMPLIFIED_MNEMONICS: [MnemonicFunction; 460] = [
     basic_lvebx,
     basic_lvehx,
     basic_lvewx,
+    basic_lvlx,
+    basic_lvlxl,
+    basic_lvrx,
+    basic_lvrxl,
     basic_lvsl,
     basic_lvsr,
     basic_lvx,
@@ -11598,6 +11738,10 @@ static SIMPLIFIED_MNEMONICS: [MnemonicFunction; 460] = [
     basic_stvebx,
     basic_stvehx,
     basic_stvewx,
+    basic_stvlx,
+    basic_stvlxl,
+    basic_stvrx,
+    basic_stvrxl,
     basic_stvx,
     basic_stvxl,
     basic_lwz,
@@ -14291,7 +14435,11 @@ fn defs_lvewx128(out: &mut Arguments, ins: Ins) {
 }
 fn uses_lvewx128(out: &mut Arguments, ins: Ins) {
     *out = [
-        Argument::GPR(GPR(ins.field_ra() as _)),
+        if ins.field_ra() != 0 {
+            Argument::GPR(GPR(ins.field_ra() as _))
+        } else {
+            Argument::None
+        },
         Argument::GPR(GPR(ins.field_rb() as _)),
         Argument::None,
         Argument::None,
@@ -14309,25 +14457,11 @@ fn defs_lvlx128(out: &mut Arguments, ins: Ins) {
 }
 fn uses_lvlx128(out: &mut Arguments, ins: Ins) {
     *out = [
-        Argument::GPR(GPR(ins.field_ra() as _)),
-        Argument::GPR(GPR(ins.field_rb() as _)),
-        Argument::None,
-        Argument::None,
-        Argument::None,
-    ];
-}
-fn defs_lvrx128(out: &mut Arguments, ins: Ins) {
-    *out = [
-        Argument::VR(VR(ins.field_vds128() as _)),
-        Argument::None,
-        Argument::None,
-        Argument::None,
-        Argument::None,
-    ];
-}
-fn uses_lvrx128(out: &mut Arguments, ins: Ins) {
-    *out = [
-        Argument::GPR(GPR(ins.field_ra() as _)),
+        if ins.field_ra() != 0 {
+            Argument::GPR(GPR(ins.field_ra() as _))
+        } else {
+            Argument::None
+        },
         Argument::GPR(GPR(ins.field_rb() as _)),
         Argument::None,
         Argument::None,
@@ -14345,7 +14479,33 @@ fn defs_lvlxl128(out: &mut Arguments, ins: Ins) {
 }
 fn uses_lvlxl128(out: &mut Arguments, ins: Ins) {
     *out = [
-        Argument::GPR(GPR(ins.field_ra() as _)),
+        if ins.field_ra() != 0 {
+            Argument::GPR(GPR(ins.field_ra() as _))
+        } else {
+            Argument::None
+        },
+        Argument::GPR(GPR(ins.field_rb() as _)),
+        Argument::None,
+        Argument::None,
+        Argument::None,
+    ];
+}
+fn defs_lvrx128(out: &mut Arguments, ins: Ins) {
+    *out = [
+        Argument::VR(VR(ins.field_vds128() as _)),
+        Argument::None,
+        Argument::None,
+        Argument::None,
+        Argument::None,
+    ];
+}
+fn uses_lvrx128(out: &mut Arguments, ins: Ins) {
+    *out = [
+        if ins.field_ra() != 0 {
+            Argument::GPR(GPR(ins.field_ra() as _))
+        } else {
+            Argument::None
+        },
         Argument::GPR(GPR(ins.field_rb() as _)),
         Argument::None,
         Argument::None,
@@ -14363,7 +14523,11 @@ fn defs_lvrxl128(out: &mut Arguments, ins: Ins) {
 }
 fn uses_lvrxl128(out: &mut Arguments, ins: Ins) {
     *out = [
-        Argument::GPR(GPR(ins.field_ra() as _)),
+        if ins.field_ra() != 0 {
+            Argument::GPR(GPR(ins.field_ra() as _))
+        } else {
+            Argument::None
+        },
         Argument::GPR(GPR(ins.field_rb() as _)),
         Argument::None,
         Argument::None,
@@ -14381,7 +14545,11 @@ fn defs_lvsl128(out: &mut Arguments, ins: Ins) {
 }
 fn uses_lvsl128(out: &mut Arguments, ins: Ins) {
     *out = [
-        Argument::GPR(GPR(ins.field_ra() as _)),
+        if ins.field_ra() != 0 {
+            Argument::GPR(GPR(ins.field_ra() as _))
+        } else {
+            Argument::None
+        },
         Argument::GPR(GPR(ins.field_rb() as _)),
         Argument::None,
         Argument::None,
@@ -14399,7 +14567,11 @@ fn defs_lvsr128(out: &mut Arguments, ins: Ins) {
 }
 fn uses_lvsr128(out: &mut Arguments, ins: Ins) {
     *out = [
-        Argument::GPR(GPR(ins.field_ra() as _)),
+        if ins.field_ra() != 0 {
+            Argument::GPR(GPR(ins.field_ra() as _))
+        } else {
+            Argument::None
+        },
         Argument::GPR(GPR(ins.field_rb() as _)),
         Argument::None,
         Argument::None,
@@ -14417,7 +14589,11 @@ fn defs_lvx128(out: &mut Arguments, ins: Ins) {
 }
 fn uses_lvx128(out: &mut Arguments, ins: Ins) {
     *out = [
-        Argument::GPR(GPR(ins.field_ra() as _)),
+        if ins.field_ra() != 0 {
+            Argument::GPR(GPR(ins.field_ra() as _))
+        } else {
+            Argument::None
+        },
         Argument::GPR(GPR(ins.field_rb() as _)),
         Argument::None,
         Argument::None,
@@ -14435,7 +14611,11 @@ fn defs_lvxl128(out: &mut Arguments, ins: Ins) {
 }
 fn uses_lvxl128(out: &mut Arguments, ins: Ins) {
     *out = [
-        Argument::GPR(GPR(ins.field_ra() as _)),
+        if ins.field_ra() != 0 {
+            Argument::GPR(GPR(ins.field_ra() as _))
+        } else {
+            Argument::None
+        },
         Argument::GPR(GPR(ins.field_rb() as _)),
         Argument::None,
         Argument::None,
@@ -14444,63 +14624,91 @@ fn uses_lvxl128(out: &mut Arguments, ins: Ins) {
 }
 fn uses_stvewx128(out: &mut Arguments, ins: Ins) {
     *out = [
-        Argument::VR(VR(ins.field_vds128() as _)),
-        Argument::GPR(GPR(ins.field_ra() as _)),
+        if ins.field_ra() != 0 {
+            Argument::GPR(GPR(ins.field_ra() as _))
+        } else {
+            Argument::None
+        },
         Argument::GPR(GPR(ins.field_rb() as _)),
+        Argument::None,
         Argument::None,
         Argument::None,
     ];
 }
 fn uses_stvlx128(out: &mut Arguments, ins: Ins) {
     *out = [
-        Argument::VR(VR(ins.field_vds128() as _)),
-        Argument::GPR(GPR(ins.field_ra() as _)),
+        if ins.field_ra() != 0 {
+            Argument::GPR(GPR(ins.field_ra() as _))
+        } else {
+            Argument::None
+        },
         Argument::GPR(GPR(ins.field_rb() as _)),
+        Argument::None,
         Argument::None,
         Argument::None,
     ];
 }
 fn uses_stvlxl128(out: &mut Arguments, ins: Ins) {
     *out = [
-        Argument::VR(VR(ins.field_vds128() as _)),
-        Argument::GPR(GPR(ins.field_ra() as _)),
+        if ins.field_ra() != 0 {
+            Argument::GPR(GPR(ins.field_ra() as _))
+        } else {
+            Argument::None
+        },
         Argument::GPR(GPR(ins.field_rb() as _)),
+        Argument::None,
         Argument::None,
         Argument::None,
     ];
 }
 fn uses_stvrx128(out: &mut Arguments, ins: Ins) {
     *out = [
-        Argument::VR(VR(ins.field_vds128() as _)),
-        Argument::GPR(GPR(ins.field_ra() as _)),
+        if ins.field_ra() != 0 {
+            Argument::GPR(GPR(ins.field_ra() as _))
+        } else {
+            Argument::None
+        },
         Argument::GPR(GPR(ins.field_rb() as _)),
+        Argument::None,
         Argument::None,
         Argument::None,
     ];
 }
 fn uses_stvrxl128(out: &mut Arguments, ins: Ins) {
     *out = [
-        Argument::VR(VR(ins.field_vds128() as _)),
-        Argument::GPR(GPR(ins.field_ra() as _)),
+        if ins.field_ra() != 0 {
+            Argument::GPR(GPR(ins.field_ra() as _))
+        } else {
+            Argument::None
+        },
         Argument::GPR(GPR(ins.field_rb() as _)),
+        Argument::None,
         Argument::None,
         Argument::None,
     ];
 }
 fn uses_stvx128(out: &mut Arguments, ins: Ins) {
     *out = [
-        Argument::VR(VR(ins.field_vds128() as _)),
-        Argument::GPR(GPR(ins.field_ra() as _)),
+        if ins.field_ra() != 0 {
+            Argument::GPR(GPR(ins.field_ra() as _))
+        } else {
+            Argument::None
+        },
         Argument::GPR(GPR(ins.field_rb() as _)),
+        Argument::None,
         Argument::None,
         Argument::None,
     ];
 }
 fn uses_stvxl128(out: &mut Arguments, ins: Ins) {
     *out = [
-        Argument::VR(VR(ins.field_vds128() as _)),
-        Argument::GPR(GPR(ins.field_ra() as _)),
+        if ins.field_ra() != 0 {
+            Argument::GPR(GPR(ins.field_ra() as _))
+        } else {
+            Argument::None
+        },
         Argument::GPR(GPR(ins.field_rb() as _)),
+        Argument::None,
         Argument::None,
         Argument::None,
     ];
@@ -18085,6 +18293,94 @@ fn uses_lvewx(out: &mut Arguments, ins: Ins) {
         Argument::None,
     ];
 }
+fn defs_lvlx(out: &mut Arguments, ins: Ins) {
+    *out = [
+        Argument::VR(VR(ins.field_vd() as _)),
+        Argument::None,
+        Argument::None,
+        Argument::None,
+        Argument::None,
+    ];
+}
+fn uses_lvlx(out: &mut Arguments, ins: Ins) {
+    *out = [
+        if ins.field_ra() != 0 {
+            Argument::GPR(GPR(ins.field_ra() as _))
+        } else {
+            Argument::None
+        },
+        Argument::GPR(GPR(ins.field_rb() as _)),
+        Argument::None,
+        Argument::None,
+        Argument::None,
+    ];
+}
+fn defs_lvlxl(out: &mut Arguments, ins: Ins) {
+    *out = [
+        Argument::VR(VR(ins.field_vd() as _)),
+        Argument::None,
+        Argument::None,
+        Argument::None,
+        Argument::None,
+    ];
+}
+fn uses_lvlxl(out: &mut Arguments, ins: Ins) {
+    *out = [
+        if ins.field_ra() != 0 {
+            Argument::GPR(GPR(ins.field_ra() as _))
+        } else {
+            Argument::None
+        },
+        Argument::GPR(GPR(ins.field_rb() as _)),
+        Argument::None,
+        Argument::None,
+        Argument::None,
+    ];
+}
+fn defs_lvrx(out: &mut Arguments, ins: Ins) {
+    *out = [
+        Argument::VR(VR(ins.field_vd() as _)),
+        Argument::None,
+        Argument::None,
+        Argument::None,
+        Argument::None,
+    ];
+}
+fn uses_lvrx(out: &mut Arguments, ins: Ins) {
+    *out = [
+        if ins.field_ra() != 0 {
+            Argument::GPR(GPR(ins.field_ra() as _))
+        } else {
+            Argument::None
+        },
+        Argument::GPR(GPR(ins.field_rb() as _)),
+        Argument::None,
+        Argument::None,
+        Argument::None,
+    ];
+}
+fn defs_lvrxl(out: &mut Arguments, ins: Ins) {
+    *out = [
+        Argument::VR(VR(ins.field_vd() as _)),
+        Argument::None,
+        Argument::None,
+        Argument::None,
+        Argument::None,
+    ];
+}
+fn uses_lvrxl(out: &mut Arguments, ins: Ins) {
+    *out = [
+        if ins.field_ra() != 0 {
+            Argument::GPR(GPR(ins.field_ra() as _))
+        } else {
+            Argument::None
+        },
+        Argument::GPR(GPR(ins.field_rb() as _)),
+        Argument::None,
+        Argument::None,
+        Argument::None,
+    ];
+}
 fn defs_lvsl(out: &mut Arguments, ins: Ins) {
     *out = [
         Argument::VR(VR(ins.field_vd() as _)),
@@ -18200,6 +18496,58 @@ fn uses_stvehx(out: &mut Arguments, ins: Ins) {
     ];
 }
 fn uses_stvewx(out: &mut Arguments, ins: Ins) {
+    *out = [
+        if ins.field_ra() != 0 {
+            Argument::GPR(GPR(ins.field_ra() as _))
+        } else {
+            Argument::None
+        },
+        Argument::GPR(GPR(ins.field_rb() as _)),
+        Argument::None,
+        Argument::None,
+        Argument::None,
+    ];
+}
+fn uses_stvlx(out: &mut Arguments, ins: Ins) {
+    *out = [
+        if ins.field_ra() != 0 {
+            Argument::GPR(GPR(ins.field_ra() as _))
+        } else {
+            Argument::None
+        },
+        Argument::GPR(GPR(ins.field_rb() as _)),
+        Argument::None,
+        Argument::None,
+        Argument::None,
+    ];
+}
+fn uses_stvlxl(out: &mut Arguments, ins: Ins) {
+    *out = [
+        if ins.field_ra() != 0 {
+            Argument::GPR(GPR(ins.field_ra() as _))
+        } else {
+            Argument::None
+        },
+        Argument::GPR(GPR(ins.field_rb() as _)),
+        Argument::None,
+        Argument::None,
+        Argument::None,
+    ];
+}
+fn uses_stvrx(out: &mut Arguments, ins: Ins) {
+    *out = [
+        if ins.field_ra() != 0 {
+            Argument::GPR(GPR(ins.field_ra() as _))
+        } else {
+            Argument::None
+        },
+        Argument::GPR(GPR(ins.field_rb() as _)),
+        Argument::None,
+        Argument::None,
+        Argument::None,
+    ];
+}
+fn uses_stvrxl(out: &mut Arguments, ins: Ins) {
     *out = [
         if ins.field_ra() != 0 {
             Argument::GPR(GPR(ins.field_ra() as _))
@@ -19385,7 +19733,7 @@ fn defs_mtfsfi(out: &mut Arguments, ins: Ins) {
 fn defs_uses_empty(out: &mut Arguments, _ins: Ins) {
     *out = EMPTY_ARGS;
 }
-static DEFS_FUNCTIONS: [DefsUsesFunction; 460] = [
+static DEFS_FUNCTIONS: [DefsUsesFunction; 468] = [
     defs_uses_empty,
     defs_uses_empty,
     defs_uses_empty,
@@ -19535,8 +19883,8 @@ static DEFS_FUNCTIONS: [DefsUsesFunction; 460] = [
     defs_vxor,
     defs_lvewx128,
     defs_lvlx128,
-    defs_lvrx128,
     defs_lvlxl128,
+    defs_lvrx128,
     defs_lvrxl128,
     defs_lvsl128,
     defs_lvsr128,
@@ -19771,10 +20119,18 @@ static DEFS_FUNCTIONS: [DefsUsesFunction; 460] = [
     defs_lvebx,
     defs_lvehx,
     defs_lvewx,
+    defs_lvlx,
+    defs_lvlxl,
+    defs_lvrx,
+    defs_lvrxl,
     defs_lvsl,
     defs_lvsr,
     defs_lvx,
     defs_lvxl,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
+    defs_uses_empty,
     defs_uses_empty,
     defs_uses_empty,
     defs_uses_empty,
@@ -19851,7 +20207,7 @@ static DEFS_FUNCTIONS: [DefsUsesFunction; 460] = [
 pub fn parse_defs(out: &mut Arguments, ins: Ins) {
     DEFS_FUNCTIONS.get(ins.op as usize).copied().unwrap_or(defs_uses_empty)(out, ins)
 }
-static USES_FUNCTIONS: [DefsUsesFunction; 460] = [
+static USES_FUNCTIONS: [DefsUsesFunction; 468] = [
     uses_tdi,
     uses_twi,
     uses_dcbz_l,
@@ -20001,8 +20357,8 @@ static USES_FUNCTIONS: [DefsUsesFunction; 460] = [
     uses_vxor,
     uses_lvewx128,
     uses_lvlx128,
-    uses_lvrx128,
     uses_lvlxl128,
+    uses_lvrx128,
     uses_lvrxl128,
     uses_lvsl128,
     uses_lvsr128,
@@ -20237,6 +20593,10 @@ static USES_FUNCTIONS: [DefsUsesFunction; 460] = [
     uses_lvebx,
     uses_lvehx,
     uses_lvewx,
+    uses_lvlx,
+    uses_lvlxl,
+    uses_lvrx,
+    uses_lvrxl,
     uses_lvsl,
     uses_lvsr,
     uses_lvx,
@@ -20244,6 +20604,10 @@ static USES_FUNCTIONS: [DefsUsesFunction; 460] = [
     uses_stvebx,
     uses_stvehx,
     uses_stvewx,
+    uses_stvlx,
+    uses_stvlxl,
+    uses_stvrx,
+    uses_stvrxl,
     uses_stvx,
     uses_stvxl,
     uses_lwz,
